@@ -15,6 +15,6 @@ public final class LottoTable {
                         +"N6"+" integer, "
                         +"winner"+" integer, "   //당첨 금액
                         +"bonusNo"+" integer, "  //보너스 번호
-                        +"drwNo"+" integer);";  //회차번호 
+                        +"drwNo"+" integer);";  //회차번호
 
 }

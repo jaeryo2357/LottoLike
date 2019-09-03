@@ -55,9 +55,9 @@ public class LottoDB {
 
 
 
-    public boolean LottoInsert(String name,int value,int alert,int sound) {
+    public boolean LottoInsert(String date,int N1,int N2,int N3,int N4,int N5,int N6,int winner,int bonusNo,int drwNo) {
 
-            LottoDB.execSQL("INSERT INTO " + LottoTable._TABLENAME + " VALUES ('" + name + "'," + value + ","+alert+","+sound+");");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
+            LottoDB.execSQL("INSERT INTO " + LottoTable._TABLENAME + " VALUES ('" + date + "'," + N1 + ","+N2+","+N3+","+N4+","+N5+","+N6+","+winner+","+bonusNo+","+drwNo+");");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
             return true;
 
     }
