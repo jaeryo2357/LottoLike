@@ -19,12 +19,9 @@ public class GetJoson {
 
     /** 웹 서버로 요청을 한다. */
     public void requestWebServer(String parameter,Callback callback) {
-        RequestBody body = new FormBody.Builder()
 
-                .build();
         Request request = new Request.Builder()
                 .url("http://www.nlotto.co.kr/common.do?method=getLottoNumber&drwNo="+parameter)
-                .post(body)
                 .build();
         client.newCall(request).enqueue(callback);
     }

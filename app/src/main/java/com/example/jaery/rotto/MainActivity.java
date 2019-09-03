@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     TextView N;
     Button b;
 
-    private static final String TAG = "TestActivity";
     private GetJoson httpConn = GetJoson.getInstance();
 
 
@@ -87,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
     private final Callback callback = new Callback() {
         @Override
         public void onFailure(Call call, IOException e) {
-            Log.d(TAG, "콜백오류:"+e.getMessage());
+
         }
         @Override
         public void onResponse(Call call, Response response) throws IOException {
             String body = response.body().string();
-            Log.d(TAG, "서버에서 응답한 Body:"+body);
+            Log.d("tt", "서버에서 응답한 Body:"+body);
 
 
 
