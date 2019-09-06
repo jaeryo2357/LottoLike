@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextView N;
     Button b;
 
-    private GetJoson httpConn = GetJoson.getInstance();
+    private GetJson httpConn = GetJson.getInstance();
 
 
     @Override
