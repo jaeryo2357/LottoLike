@@ -3,6 +3,8 @@ package com.example.jaery.rotto;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.jaery.rotto.Database.BasicDB;
@@ -20,16 +22,37 @@ import okhttp3.Response;
 public class LoadingActivity extends AppCompatActivity {
 
     int No=200; //회차 정보
+
+    RelativeLayout downloadLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
+        downloadLayout=findViewById(R.id.loading_download_body);
 
         if(BasicDB.getInit(getApplicationContext())) //앱을 설치하고 처음 이라면 or 아직 다운을 다 안받았다면
         {
-            downloadLotto();
-            No=BasicDB.getRottoN(getApplicationContext());  //200~ 현재 회차까지
+            downloadLayout.setVisibility(View.VISIBLE);
+
+
+
+            findViewById(R.id.loading_download).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    findViewById(R.id.loading_tw3).setVisibility(View.GONE);
+                    downloadLotto();
+                    No=BasicDB.getRottoN(getApplicationContext());  //200~ 현재 회차까지
+                }
+            });
+
+            findViewById(R.id.loading_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    downloadLayout.setVisibility(View.GONE);
+                }
+            });
         }
     }
 
@@ -94,7 +117,7 @@ public class LoadingActivity extends AppCompatActivity {
                    db.close();
 
                    //////////
-                   
+
                    LoadingActivity.this.runOnUiThread(new Runnable() {
                        @Override
                        public void run() {

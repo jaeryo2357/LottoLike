@@ -1,9 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".LoadingActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로또 번호 확인 기능을 위한\n다운로드가 필요합니다."
+        android:textSize="19sp"
+        android:id="@+id/loading_tw1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loading_tw1"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="17sp"
+        android:id="@+id/loading_tw2"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="입력한 로또 번호가 지난 회차동안\n 몇 등을 기록했는 지 알려주는 기능입니다."/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다운로드 받으시겠습니까?"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@id/loading_tw2"
+        android:id="@+id/loading_tw3"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/loading_tw3"
+        android:layout_marginTop="40dp"
+        android:id="@+id/loading_download_body"
+        android:layout_height="wrap_content">
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/loading_center"
+            android:layout_centerHorizontal="true">
+
+        </View>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="건너뛰기"
+            android:textColor="#ffffff"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:id="@+id/loading_cancel"
+            android:textSize="18sp"
+            android:layout_marginLeft="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="30dp"
+            android:layout_alignRight="@id/loading_center"
+            android:textStyle="bold"
+            android:background="@drawable/corner_square"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="다운로드"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:id="@+id/loading_download"
+            android:textColor="#ffffff"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@id/loading_center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/corner_square_dark"/>
+    </RelativeLayout>
+</RelativeLayout>
