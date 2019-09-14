@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="로또 번호 확인 기능을 위한\n다운로드가 필요합니다."
+        android:text="로또 번호 확인 기능"
         android:textSize="19sp"
         android:id="@+id/loading_tw1"
         android:layout_centerHorizontal="true"
@@ -96,5 +96,30 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:background="@drawable/corner_square_dark"/>
+
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:id="@+id/loading_title"
+        android:text="알려줘 로또"/>
+
+    <com.daimajia.numberprogressbar.NumberProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/loading_number_progressbar"
+        app:progress_reached_color="@color/colorPrimaryDark"
+        app:progress_max="100"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        app:progress_current="0"
+        android:visibility="gone"
+        android:layout_marginRight="20dp"/>
 </RelativeLayout>

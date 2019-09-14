@@ -26,4 +26,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.8.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //프로그래스바
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
 }
