@@ -160,11 +160,11 @@ public class LoadingActivity extends AppCompatActivity {
 
                    db.LottoInsert(jsonObject.getString("drwNoDate")
                    ,jsonObject.getInt("drwtNo1")
-                           ,jsonObject.getInt("drwtNo1") //번호 1번
-                           ,jsonObject.getInt("drwtNo2") // 번호 2번
-                           ,jsonObject.getInt("drwtNo3")
+                           ,jsonObject.getInt("drwtNo2") //번호 1번
+                           ,jsonObject.getInt("drwtNo3") // 번호 2번
                            ,jsonObject.getInt("drwtNo4")
                            ,jsonObject.getInt("drwtNo5")
+                           ,jsonObject.getInt("drwtNo6")
                            ,jsonObject.getInt("firstWinamnt") //1등 당첨금액
                            ,jsonObject.getInt("bnusNo") // 보너스 번호
                            ,jsonObject.getInt("drwNo")); // 회차 번호

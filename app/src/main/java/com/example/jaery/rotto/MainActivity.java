@@ -10,9 +10,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.example.jaery.rotto.Database.BasicDB;
+import com.example.jaery.rotto.Database.LottoDB;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -22,10 +25,10 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView N;
-    Button b;
+    TextView Today_LottoNumber;
 
-    private GetJson httpConn = GetJson.getInstance();
+
+
 
 
     @Override
@@ -33,71 +36,54 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LottoDB db=new LottoDB(this);
+        db.open();
 
-        b= (Button)findViewById(R.id.B1);
+        HashMap<String,String> today=db.GetNo(""+BasicDB.getRottoN(getApplicationContext()));
 
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<Integer> a =new ArrayList<Integer>();
-
-                a.add((int)(Math.random()*45)+1);
-                for(int i=1;i<6;)
-                {
-                    int e=(int)(Math.random()*45)+1;
-                    if(!a.contains(e)) {
-                        a.add(e);
-                        i++;
-                    }
-
-                }
-
-                b.setVisibility(View.INVISIBLE);
-                b.setEnabled(false);
-                for(int i=0;i<6;i++) {
-                    int resID;
+        db.close();
+        for(int i=0;i<6;i++) {
+            int resID;
 
 
-                    String resourcid= "L"+(i+1);
-                    resID= getResources().getIdentifier(resourcid,"id",getPackageName());
-                    N=(TextView)findViewById(resID);
-                    N.setText(Integer.toString(a.get(i)));
-                    N.setVisibility(View.VISIBLE);
-
-                }
+            String resourcid= "L"+(i+1);
+            resID= getResources().getIdentifier(resourcid,"id",getPackageName());
+            Today_LottoNumber=(TextView)findViewById(resID);
+            Today_LottoNumber.setText(today.get("N"+(i+1)));
+        }
 
 
-            }
-        });
+        Today_LottoNumber=findViewById(R.id.bonus);
+        Today_LottoNumber.setText(today.get("bonusNo"));
+
     }
 
-    /** 웹 서버로 데이터 전송 */
-    private void sendData() {
-// 네트워크 통신하는 작업은 무조건 작업스레드를 생성해서 호출 해줄 것!!
-        new Thread() {
-            public void run() {
-// 파라미터 2개와 미리정의해논 콜백함수를 매개변수로 전달하여 호출
-                httpConn.requestWebServer("데이터2", callback);
 
+    public void GetFreeNumber(){
+        ArrayList<Integer> a =new ArrayList<Integer>();
+
+        a.add((int)(Math.random()*45)+1);
+        for(int i=1;i<6;)
+        {
+            int e=(int)(Math.random()*45)+1;
+            if(!a.contains(e)) {
+                a.add(e);
+                i++;
             }
-        }.start();
+
+        }
+
+//        for(int i=0;i<6;i++) {
+//            int resID;
+//
+//
+//            String resourcid= "L"+(i+1);
+//            resID= getResources().getIdentifier(resourcid,"id",getPackageName());
+//            N=(TextView)findViewById(resID);
+//            N.setText(Integer.toString(a.get(i)));
+//            N.setVisibility(View.VISIBLE);
+//
+//        }
     }
-
-    private final Callback callback = new Callback() {
-        @Override
-        public void onFailure(Call call, IOException e) {
-
-        }
-        @Override
-        public void onResponse(Call call, Response response) throws IOException {
-            String body = response.body().string();
-            Log.d("tt", "서버에서 응답한 Body:"+body);
-
-
-
-        }
-    };
-
-
 
 }

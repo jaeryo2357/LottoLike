@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.HashMap;
+
 
 /**
  * Created by jaery on 2018-05-04.
@@ -59,6 +61,27 @@ public class LottoDB {
 
             LottoDB.execSQL("INSERT INTO " + LottoTable._TABLENAME + " VALUES ('" + date + "'," + N1 + ","+N2+","+N3+","+N4+","+N5+","+N6+","+winner+","+bonusNo+","+drwNo+");");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
             return true;
+
+    }
+
+    public HashMap<String,String> GetNo(String drwNo)
+    {
+        HashMap<String,String> hashMap = new HashMap<>();
+
+        Cursor cursor= LottoDB.rawQuery("select * from "+LottoTable._TABLENAME+" where drwNo ='"+drwNo+"'",null);
+
+        if(cursor.moveToNext()){
+            hashMap.put("date",cursor.getString(0));//날짜
+            hashMap.put("N1",""+cursor.getInt(1));//번호1
+            hashMap.put("N2",""+cursor.getInt(2));//번호2
+            hashMap.put("N3",""+cursor.getInt(3));//번호3
+            hashMap.put("N4",""+cursor.getInt(4));//번호4
+            hashMap.put("N5",""+cursor.getInt(5));//번호5
+            hashMap.put("N6",""+cursor.getInt(6));//번호6
+            hashMap.put("winner",""+cursor.getInt(7));//1등 당첨금액
+            hashMap.put("bonusNo",""+cursor.getInt(8));//보너스 번호
+        }
+        return hashMap;
 
     }
 
