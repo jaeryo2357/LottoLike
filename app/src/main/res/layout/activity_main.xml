@@ -26,15 +26,6 @@
            android:textStyle="bold"
            android:layout_height="wrap_content" />
 
-        <!--<Button-->
-            <!--android:layout_width="100dp"-->
-            <!--android:layout_height="60dp"-->
-            <!--android:background="@color/colorPrimary"-->
-            <!--android:text="보기"-->
-            <!--android:textColor="#ffffff"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textSize="25sp"-->
-            <!--android:id="@+id/B1"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,129 +38,114 @@
 
 
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/lottoResult_day">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="14dp"
-
         android:id="@+id/lottoResult_layout"
-        android:layout_below="@id/lottoResult_day"
         android:gravity="center">
 
         <TextView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@drawable/yellow_circle"
             android:textColor="#ffffff"
             android:gravity="center"
             android:text="5"
             android:textStyle="bold"
-            android:textSize="25sp"
             android:id="@+id/L1"
             />
         <TextView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="6dp"
             android:background="@drawable/blue_circle"
             android:textColor="#ffffff"
             android:gravity="center"
             android:text="5"
             android:textStyle="bold"
-            android:textSize="25sp"
             android:id="@+id/L2"
-            />/>
+            />
         <TextView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="6dp"
             android:background="@drawable/blue_circle"
             android:textColor="#ffffff"
             android:gravity="center"
             android:text="5"
             android:textStyle="bold"
-            android:textSize="25sp"
             android:id="@+id/L3"
             />/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="14dp"
-        android:id="@+id/lottoResult_layout_2"
-        android:layout_below="@id/lottoResult_layout"
-        android:gravity="center">
-
         <TextView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@drawable/red_circle"
             android:textColor="#ffffff"
             android:gravity="center"
+            android:layout_marginLeft="6dp"
             android:text="5"
             android:textStyle="bold"
-            android:textSize="25sp"
             android:id="@+id/L4"
             />
         <TextView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="6dp"
             android:background="@drawable/shadow_circle"
             android:textColor="#ffffff"
             android:gravity="center"
             android:text="5"
             android:textStyle="bold"
-            android:textSize="25sp"
             android:id="@+id/L5"
             />/>
         <TextView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="6dp"
             android:background="@drawable/green_circle"
             android:textColor="#ffffff"
             android:gravity="center"
             android:text="5"
             android:textStyle="bold"
-            android:textSize="25sp"
             android:id="@+id/L6"
             />/>
 
     </LinearLayout>
 
 
+
     <ImageView
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@null"
         android:src="@drawable/add_image"
         android:gravity="center"
+        android:layout_alignBottom="@id/lottoResult_layout"
         android:layout_toRightOf="@id/lottoResult_layout"
-        android:layout_alignBottom="@id/lottoResult_layout_2"
-        android:layout_marginBottom="30dp"
         android:id="@+id/loading_add_image"
         />/>
 
     <TextView
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@drawable/blue_circle"
         android:textColor="#ffffff"
         android:gravity="center"
+        android:layout_marginRight="20dp"
         android:layout_toRightOf="@id/loading_add_image"
-        android:layout_alignBottom="@id/lottoResult_layout_2"
-        android:layout_marginBottom="30dp"
+        android:layout_alignBottom="@id/lottoResult_layout"
         android:text="5"
         android:textStyle="bold"
-        android:textSize="25sp"
         android:id="@+id/bonus"
         />/>
-
+    </RelativeLayout>
 </RelativeLayout>
