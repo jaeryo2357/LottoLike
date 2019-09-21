@@ -13,12 +13,14 @@
            android:layout_width="0dp"
            android:layout_height="0dp"
            android:id="@+id/center"
-           android:layout_centerHorizontal="true"></View>
+           android:layout_centerHorizontal="true">
+
+       </View>
 
        <TextView
            android:layout_width="wrap_content"
            android:textSize="21sp"
-           android:text="875회 당첨결과"
+           android:text="875회"
            android:layout_centerHorizontal="true"
            android:layout_marginTop="15dp"
            android:id="@+id/lottoResult_title"
@@ -35,12 +37,10 @@
         android:layout_below="@id/lottoResult_title"
         android:layout_marginTop="10dp"
         android:text="2019년 9월 17일"/>
-
-
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/main_result_layout"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/lottoResult_day">
     <LinearLayout
@@ -148,4 +148,54 @@
         android:id="@+id/bonus"
         />/>
     </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/main_v1"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/main_result_layout">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_margin="15dp"
+        android:id="@+id/main_other_result_tv"
+        android:layout_below="@id/main_v1"
+        android:text="다른 회차 결과보기">
+    </TextView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/main_spinner_layout"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/stroke"
+        android:layout_below="@id/main_other_result_tv"
+        >
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/main_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </com.jaredrummler.materialspinner.MaterialSpinner>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/main_v2"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/main_spinner_layout">
+
+    </View>
+
 </RelativeLayout>

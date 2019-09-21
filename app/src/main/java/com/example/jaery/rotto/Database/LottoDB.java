@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -82,6 +83,24 @@ public class LottoDB {
             hashMap.put("bonusNo",""+cursor.getInt(8));//보너스 번호
         }
         return hashMap;
+    }
+
+    public String[] GetList(){
+
+        ArrayList<String> arrayList =  new ArrayList<>();
+
+        for(int i=BasicDB.getRottoN(mCtx);i>=200;i--)
+        {
+            Cursor cursor= LottoDB.rawQuery("select * from "+LottoTable._TABLENAME+" where drwNo ='"+i+"'",null);
+
+            if(cursor.moveToNext()){
+                arrayList.add(i+"회 ("+cursor.getString(0)+")");//날짜
+
+            }else
+                break;
+        }
+
+        return arrayList.toArray(new String[]{});
 
     }
 
