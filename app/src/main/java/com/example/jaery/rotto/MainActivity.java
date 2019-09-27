@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             String resourcid= "L"+(i+1);
             resID= getResources().getIdentifier(resourcid,"id",getPackageName());
             Today_LottoNumber=(TextView)findViewById(resID);
+            Today_LottoNumber.setBackgroundResource(GetBackgroundColor(Integer.parseInt(today.get("N"+(i+1)))));
             Today_LottoNumber.setText(today.get("N"+(i+1)));
         }
 
@@ -80,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
         Today_LottoNumber=findViewById(R.id.bonus);
         Today_LottoNumber.setText(today.get("bonusNo"));
 
+    }
+
+    public int GetBackgroundColor(int number)
+    {
+        if(number>=0&&number<10)return R.drawable.yellow_circle;
+        else if(number>=10&&number<20) return R.drawable.blue_circle;
+        else if(number>=20&&number<30) return R.drawable.red_circle;
+        else if(number>=30&&number<40) return R.drawable.shadow_circle;
+        else return R.drawable.green_circle;
     }
 
 
@@ -94,20 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 a.add(e);
                 i++;
             }
-
         }
-
-//        for(int i=0;i<6;i++) {
-//            int resID;
-//
-//
-//            String resourcid= "L"+(i+1);
-//            resID= getResources().getIdentifier(resourcid,"id",getPackageName());
-//            N=(TextView)findViewById(resID);
-//            N.setText(Integer.toString(a.get(i)));
-//            N.setVisibility(View.VISIBLE);
-//
-//        }
     }
 
 }
