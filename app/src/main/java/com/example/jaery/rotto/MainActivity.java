@@ -22,15 +22,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static com.example.jaery.rotto.LottoItem.GetBackgroundColor;
 
 
 public class MainActivity extends AppCompatActivity {
 
     TextView Today_LottoNumber;
     HashMap<String,String> today;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,28 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public int GetBackgroundColor(int number)
-    {
-        if(number>=0&&number<10)return R.drawable.yellow_circle;
-        else if(number>=10&&number<20) return R.drawable.blue_circle;
-        else if(number>=20&&number<30) return R.drawable.red_circle;
-        else if(number>=30&&number<40) return R.drawable.shadow_circle;
-        else return R.drawable.green_circle;
-    }
 
-
-    public void GetFreeNumber(){
-        ArrayList<Integer> a =new ArrayList<Integer>();
-
-        a.add((int)(Math.random()*45)+1);
-        for(int i=1;i<6;)
-        {
-            int e=(int)(Math.random()*45)+1;
-            if(!a.contains(e)) {
-                a.add(e);
-                i++;
-            }
-        }
-    }
 
 }

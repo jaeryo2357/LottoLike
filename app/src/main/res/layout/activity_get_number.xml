@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".GetNumberActivity">
 
 
@@ -104,7 +105,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:id="@+id/center"
-        android:layout_centerHorizontal="true"></View>
+        android:layout_centerHorizontal="true">
+
+    </View>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,7 +121,7 @@
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
         android:background="@drawable/corner_square"
-        android:text="QR 코드">
+        android:text="다시 추첨">
     </Button>
 
     <Button
@@ -134,7 +137,136 @@
         android:layout_alignParentRight="true"
         android:textStyle="bold"
         android:background="@drawable/corner_square"
-        android:text="QR 코드">
+        android:text="직접 입력">
     </Button>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/get_number_if_self_input"
+        android:layout_below="@id/get_number_again"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="아래 숫자를 클릭해서 직접 입력해주세요"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:id="@+id/get_number_self_input"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/get_number_self_input"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="14dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/lottoInput_layout"
+            android:gravity="center">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/stroke"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:hint="5"
+                android:inputType="number"
+                android:textStyle="bold"
+                android:id="@+id/input_L1"
+                />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/stroke"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:hint="5"
+                android:inputType="number"
+                android:textStyle="bold"
+                android:id="@+id/input_L2"
+                />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/stroke"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_marginLeft="15dp"
+                android:hint="5"
+                android:textStyle="bold"
+                android:id="@+id/input_L3"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/stroke"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_marginLeft="15dp"
+                android:hint="5"
+                android:textStyle="bold"
+                android:id="@+id/input_L4"
+                />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/stroke"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:hint="5"
+                android:inputType="number"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold"
+                android:id="@+id/input_L5"
+                />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/stroke"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:inputType="number"
+                android:hint="5"
+                android:textStyle="bold"
+                android:id="@+id/input_L6"
+                />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_below="@id/lottoInput_layout"
+            android:layout_marginTop="15dp"
+            android:id="@+id/get_number_self_end"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:background="@drawable/corner_square"
+            android:text="위 번호로 결정">
+        </Button>
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>
