@@ -1,6 +1,6 @@
 package com.example.jaery.rotto;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -15,7 +15,7 @@ public class GetNumberActivity extends AppCompatActivity {
 
 
     RelativeLayout if_selfInput;
-
+    int count = 0 ; // 카운트다운
 
     TextView L1;
     TextView L2;
@@ -23,6 +23,8 @@ public class GetNumberActivity extends AppCompatActivity {
     TextView L4;
     TextView L5;
     TextView L6;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +48,19 @@ public class GetNumberActivity extends AppCompatActivity {
                 findViewById(R.id.get_number_self_end).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if_selfInput.setVisibility(View.GONE);
+
                     }
                 });
             }
         });
     }
 
+    public void self_Number_Setting()
+    {
+
+
+        if_selfInput.setVisibility(View.GONE);
+    }
 
 
     public void SetNumber(ArrayList<Integer> numbers){
@@ -91,7 +99,10 @@ public class GetNumberActivity extends AppCompatActivity {
             }
         }
         Collections.sort(a);
+        SetNumber(a);
     }
+
+
 
 
 }

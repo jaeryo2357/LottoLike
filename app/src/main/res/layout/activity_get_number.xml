@@ -145,6 +145,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/get_number_if_self_input"
         android:layout_below="@id/get_number_again"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         >
 
