@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import okhttp3.Call;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     TextView Today_LottoNumber;
     TextView Today_LottoMoney;
     TextView Today_LottoDay;
+    TextView Lotto;
     int recentlyNum = 0;
 
 
@@ -50,10 +52,33 @@ public class MainActivity extends AppCompatActivity {
         Today_LottoNumber = findViewById(R.id.lottoResult_title);
         Today_LottoMoney = findViewById(R.id.recently_Lotto_money);
         Today_LottoDay = findViewById(R.id.lottoResult_day);
-        recentlyNum = BasicDB.getRottoN(getApplicationContext());
+        String recommend_Num_String="";
+        if(BasicDB.getInit(getApplicationContext())){
+
+            recentlyNum = 877;
+
+            GregorianCalendar init = new GregorianCalendar(2019,8,21,20,0); //2019년 10월 19일 오후 8시 0분
+            GregorianCalendar now = new GregorianCalendar();
+
+            long diff=now.getTimeInMillis()-init.getTimeInMillis();
+            long sec = diff / 1000;
+            long min = diff / (60 * 1000);
+            long hour = diff / (60 * 60 * 1000);
+            long day = diff / (24 * 60 * 60 * 1000);
+
+            recentlyNum += day/7;
+
+            BasicDB.setInit(getApplicationContext(),false); //초기화 설정 완료
+            BasicDB.setRottoN(getApplicationContext(),recentlyNum);
+
+        }else
+        {
+            recentlyNum = BasicDB.getRottoN(getApplicationContext());
+
+            recommend_Num_String = BasicDB.getRecommend(getApplicationContext());
+        }
         LottoGet();
 
-        String recommend_Num_String = BasicDB.getRecommend(getApplicationContext());
 
         if(recommend_Num_String.equals("")) //초기 설정
         {
@@ -68,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
                 int resID;
                 String resourceid = "recommend_L" + (i + 1);
                 resID = getResources().getIdentifier(resourceid, "id", getPackageName());
-                Today_LottoNumber = (TextView) findViewById(resID);
-                Today_LottoNumber.setBackgroundResource(GetBackgroundColor(integers.get(i)));
-                Today_LottoNumber.setText(integers.get(i)+"");
+                Lotto = (TextView) findViewById(resID);
+                Lotto.setBackgroundResource(GetBackgroundColor(integers.get(i)));
+                Lotto.setText(integers.get(i)+"");
 
             }
 
@@ -84,14 +109,15 @@ public class MainActivity extends AppCompatActivity {
                 int n = Integer.parseInt(recommends[i]);
                 int resID;
                 String resourceid = "recommend_L" + (i + 1);
-                Log.d("test",resourceid);
                 resID = getResources().getIdentifier(resourceid, "id", getPackageName());
-                Today_LottoNumber = (TextView) findViewById(resID);
-                Today_LottoNumber.setBackgroundResource(GetBackgroundColor(n));
-                Today_LottoNumber.setText(n+"");
+                Lotto = (TextView) findViewById(resID);
+                Lotto.setBackgroundResource(GetBackgroundColor(n));
+                Lotto.setText(n+"");
 
             }
         }
+
+
 
     }
 
@@ -123,14 +149,17 @@ public class MainActivity extends AppCompatActivity {
             int resID;
             String resourcid = "L" + (i + 1);
             resID = getResources().getIdentifier(resourcid, "id", getPackageName());
-            Today_LottoNumber = (TextView) findViewById(resID);
-            Today_LottoNumber.setBackgroundResource(GetBackgroundColor(Integer.parseInt(hashMap.get("N" + (i + 1)))));
-            Today_LottoNumber.setText(hashMap.get("N" + (i + 1)));
+            Lotto = (TextView) findViewById(resID);
+            Lotto.setBackgroundResource(GetBackgroundColor(Integer.parseInt(hashMap.get("N" + (i + 1)))));
+            Lotto.setText(hashMap.get("N" + (i + 1)));
         }
-        Today_LottoNumber = findViewById(R.id.bonus);
-        Today_LottoNumber.setText(hashMap.get("bonusNo"));
+        Lotto = findViewById(R.id.bonus);
+        Lotto.setBackgroundResource(GetBackgroundColor(Integer.parseInt(hashMap.get("bonusNo"))));
+        Lotto.setText(hashMap.get("bonusNo"));
 
-        int winnerMoney = Integer.parseInt(hashMap.get("winner"));
+        long winnerMoney = Long.parseLong(hashMap.get("winner"));
+
+
         DecimalFormat format = new DecimalFormat("###,###");
         Today_LottoMoney.setText(format.format(winnerMoney)+"원");
 
@@ -171,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                             int N4 = jsonObject.getInt("drwtNo4");
                             int N5 = jsonObject.getInt("drwtNo5");
                             int N6 = jsonObject.getInt("drwtNo6");
-                            int winner = jsonObject.getInt("firstWinamnt"); //1등 당첨금액
+                            long winner = jsonObject.getLong("firstWinamnt"); //1등 당첨금액
                             int bonus = jsonObject.getInt("bnusNo");// 보너스 번호
                             int drwNo = jsonObject.getInt("drwNo"); // 회차 번호
 

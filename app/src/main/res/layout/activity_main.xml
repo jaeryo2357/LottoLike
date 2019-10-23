@@ -167,9 +167,6 @@
 
 
     <RelativeLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"
         android:layout_below="@id/recently_Lotto_info_layout"
         android:id="@+id/recently_Lotto_money_layout"
         android:layout_width="match_parent"
