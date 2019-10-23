@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <receiver android:name="com.example.jaery.rotto.Receivers.AlarmReceiver"
+            android:enabled="true">
+
+        </receiver>
+
         <activity android:name=".GetNumberActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

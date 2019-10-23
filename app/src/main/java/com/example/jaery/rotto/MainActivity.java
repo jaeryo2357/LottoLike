@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.jaery.rotto.Database.BasicDB;
 import com.example.jaery.rotto.Database.LottoDB;
+import com.example.jaery.rotto.Service.SenderAlert;
 
 
 import org.json.JSONException;
@@ -22,7 +23,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             recentlyNum = 877;
 
-            GregorianCalendar init = new GregorianCalendar(2019,8,21,20,0); //2019년 10월 19일 오후 8시 0분
+            GregorianCalendar init = new GregorianCalendar(2019,8,21,20,0); //2019년 9월 21일 오후 8시 0분
             GregorianCalendar now = new GregorianCalendar();
 
             long diff=now.getTimeInMillis()-init.getTimeInMillis();
@@ -67,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
             long day = diff / (24 * 60 * 60 * 1000);
 
             recentlyNum += day/7;
+
+
+            Log.d("test",day/7+"");
+            init.add(Calendar.DAY_OF_MONTH, (int) (7*(day/7+1)));
+
+
+
+            SenderAlert.senderAlarm(getApplicationContext(),init); //알람 설정
 
             BasicDB.setInit(getApplicationContext(),false); //초기화 설정 완료
             BasicDB.setRottoN(getApplicationContext(),recentlyNum);
