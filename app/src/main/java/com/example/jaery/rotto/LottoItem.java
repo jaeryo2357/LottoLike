@@ -3,6 +3,8 @@ package com.example.jaery.rotto;
 import android.content.Context;
 import com.example.jaery.rotto.Database.LottoDB;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -27,6 +29,23 @@ public class LottoItem {
 
         return today;
     }
+
+    public static ArrayList<Integer> GetFreeNumber(){
+        ArrayList<Integer> a =new ArrayList<Integer>();
+
+        a.add((int)(Math.random()*45)+1);
+        for(int i=1;i<6;)
+        {
+            int e=(int)(Math.random()*45)+1;
+            if(!a.contains(e)) {
+                a.add(e);
+                i++;
+            }
+        }
+        Collections.sort(a);
+        return a;
+    }
+
 
 
 

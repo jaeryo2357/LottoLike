@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static com.example.jaery.rotto.LottoItem.GetBackgroundColor;
+import static com.example.jaery.rotto.LottoItem.GetFreeNumber;
 
 public class GetNumberActivity extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class GetNumberActivity extends AppCompatActivity {
         L5 = findViewById(R.id.L5);
         L6 = findViewById(R.id.L6);
 
-        GetFreeNumber();
+        SetNumber(GetFreeNumber());
 
 
         findViewById(R.id.get_number_test).setOnClickListener(new View.OnClickListener() {
@@ -86,21 +87,6 @@ public class GetNumberActivity extends AppCompatActivity {
 
     }
 
-    public void GetFreeNumber(){
-        ArrayList<Integer> a =new ArrayList<Integer>();
-
-        a.add((int)(Math.random()*45)+1);
-        for(int i=1;i<6;)
-        {
-            int e=(int)(Math.random()*45)+1;
-            if(!a.contains(e)) {
-                a.add(e);
-                i++;
-            }
-        }
-        Collections.sort(a);
-        SetNumber(a);
-    }
 
 
 

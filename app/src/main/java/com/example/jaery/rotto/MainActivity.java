@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import okhttp3.Call;
@@ -29,6 +30,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 import static com.example.jaery.rotto.LottoItem.GetBackgroundColor;
+import static com.example.jaery.rotto.LottoItem.GetFreeNumber;
 import static com.example.jaery.rotto.LottoItem.GetNumber;
 
 
@@ -50,6 +52,46 @@ public class MainActivity extends AppCompatActivity {
         Today_LottoDay = findViewById(R.id.lottoResult_day);
         recentlyNum = BasicDB.getRottoN(getApplicationContext());
         LottoGet();
+
+        String recommend_Num_String = BasicDB.getRecommend(getApplicationContext());
+
+        if(recommend_Num_String.equals("")) //초기 설정
+        {
+            ArrayList<Integer> integers = GetFreeNumber();
+
+
+            for(int i = 0 ;i< integers.size();i++)
+            {
+                if(i!=0)recommend_Num_String +=",";
+
+                recommend_Num_String += integers.get(i);
+                int resID;
+                String resourceid = "recommend_L" + (i + 1);
+                resID = getResources().getIdentifier(resourceid, "id", getPackageName());
+                Today_LottoNumber = (TextView) findViewById(resID);
+                Today_LottoNumber.setBackgroundResource(GetBackgroundColor(integers.get(i)));
+                Today_LottoNumber.setText(integers.get(i)+"");
+
+            }
+
+            BasicDB.setRecommend(getApplicationContext(),recommend_Num_String);
+        }else // ,로 구분
+        {
+            String[] recommends = recommend_Num_String.split(",");
+
+            for(int i = 0; i<recommends.length;i++)
+            {
+                int n = Integer.parseInt(recommends[i]);
+                int resID;
+                String resourceid = "recommend_L" + (i + 1);
+                Log.d("test",resourceid);
+                resID = getResources().getIdentifier(resourceid, "id", getPackageName());
+                Today_LottoNumber = (TextView) findViewById(resID);
+                Today_LottoNumber.setBackgroundResource(GetBackgroundColor(n));
+                Today_LottoNumber.setText(n+"");
+
+            }
+        }
 
     }
 

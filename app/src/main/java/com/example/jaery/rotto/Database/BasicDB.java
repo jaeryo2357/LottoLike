@@ -7,8 +7,9 @@ import android.preference.PreferenceManager;
 
 public class BasicDB {
 
-    static final String PREF_ROTTO = "RottoNo";
+    static final String PREF_ROTTO = "LottoNo";
     static final String APP_INIT = "init";
+    static final String PREF_RECOMMEND_LOTTO = "recommend_Lotto";
 
 
     public static SharedPreferences getSharedPreferences(Context ctx) {
@@ -24,7 +25,20 @@ public class BasicDB {
 
     // 저장된 정보 가져오기
     public static int getRottoN(Context ctx) {
-        return getSharedPreferences(ctx).getInt(PREF_ROTTO, 200);
+        return getSharedPreferences(ctx).getInt(PREF_ROTTO, 875);
+    }
+
+
+    // 계정 정보 저장
+    public static void setRecommend(Context ctx, String recommend) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_RECOMMEND_LOTTO, recommend);
+        editor.apply();
+    }
+
+    // 저장된 정보 가져오기
+    public static String getRecommend(Context ctx) {
+        return getSharedPreferences(ctx).getString(PREF_RECOMMEND_LOTTO,"");
     }
 
 
