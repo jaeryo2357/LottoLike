@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.jaery.rotto.Database.BasicDB;
 import com.example.jaery.rotto.Service.SenderAlert;
+import com.example.jaery.rotto.Service.ShowNotify;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,7 +45,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         //////////////////////////////////////////////////////////////
 
 
-//        Intent service= new Intent(context, TimerAlaramService.class);
-//        context.startService(service);
+        Intent service= new Intent(context, ShowNotify.class);
+
+        service.putExtra("drwNo",pastNum);
+        context.startService(service);
     }
 }
