@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 
 import com.example.jaery.rotto.Receivers.AlarmReceiver;
@@ -16,13 +17,8 @@ import java.util.GregorianCalendar;
 public class SenderAlert {
     public static void senderAlarm(Context context, GregorianCalendar calendar)
     {
+        Log.d("알람","셋업");
         Intent intent = new Intent(context, AlarmReceiver.class);
-
-
-        calendar.add(Calendar.DAY_OF_MONTH,7);
-
-
-
 
         PendingIntent mPending = PendingIntent.getBroadcast(
                 context.getApplicationContext(),

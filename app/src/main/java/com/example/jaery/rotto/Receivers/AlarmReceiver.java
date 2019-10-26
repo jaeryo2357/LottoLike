@@ -3,6 +3,7 @@ package com.example.jaery.rotto.Receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.jaery.rotto.Database.BasicDB;
@@ -21,6 +22,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Log.d("알림","받음");
           GregorianCalendar now = new GregorianCalendar();
           now.add(Calendar.DAY_OF_MONTH,7);
         SenderAlert.senderAlarm(context,now); //7일 뒤에 다시 설정

@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             recentlyNum = 877;
 
-            GregorianCalendar init = new GregorianCalendar(2019,8,21,20,0); //2019년 9월 21일 오후 8시 0분
+            GregorianCalendar init = new GregorianCalendar(2019,8,21,21,0); //2019년 9월 21일 오후 9시 0분
             GregorianCalendar now = new GregorianCalendar();
 
             long diff=now.getTimeInMillis()-init.getTimeInMillis();
@@ -72,12 +72,11 @@ public class MainActivity extends AppCompatActivity {
             recentlyNum += day/7;
 
 
-            Log.d("test",day/7+"");
+
             init.add(Calendar.DAY_OF_MONTH, (int) (7*(day/7+1)));
 
+             SenderAlert.senderAlarm(getApplicationContext(),init); //알람 설정
 
-
-            SenderAlert.senderAlarm(getApplicationContext(),init); //알람 설정
 
             BasicDB.setInit(getApplicationContext(),false); //초기화 설정 완료
             BasicDB.setRottoN(getApplicationContext(),recentlyNum);

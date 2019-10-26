@@ -3,6 +3,7 @@ package com.example.jaery.rotto.Receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.jaery.rotto.Database.BasicDB;
 import com.example.jaery.rotto.Database.LottoDB;
@@ -30,6 +31,7 @@ public class BootReceiver extends BroadcastReceiver {
 
             db.close();
 
+            Log.d("부팅","테스트");
 
             if(temp.size()>0)
             {
@@ -40,6 +42,9 @@ public class BootReceiver extends BroadcastReceiver {
                 gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
                 gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])); // 10
                 gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
+                gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
+                gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
+
 
 
                 SenderAlert.senderAlarm(context,gregorianCalendar);//알림 보내기
