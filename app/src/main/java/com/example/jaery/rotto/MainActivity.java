@@ -55,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
         Today_LottoNumber = findViewById(R.id.lottoResult_title);
         Today_LottoMoney = findViewById(R.id.recently_Lotto_money);
         Today_LottoDay = findViewById(R.id.lottoResult_day);
+
+
+        findViewById(R.id.main_get_random_number).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,GetNumberActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         String recommend_Num_String="";
         if(BasicDB.getInit(getApplicationContext())){
 

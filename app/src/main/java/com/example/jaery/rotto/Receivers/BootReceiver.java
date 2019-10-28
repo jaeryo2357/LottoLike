@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.jaery.rotto.Database.BasicDB;
 import com.example.jaery.rotto.Database.LottoDB;
+import com.example.jaery.rotto.GetJson;
 import com.example.jaery.rotto.Service.SenderAlert;
 
 import java.util.Calendar;
@@ -31,7 +32,6 @@ public class BootReceiver extends BroadcastReceiver {
 
             db.close();
 
-            Log.d("부팅","테스트");
 
             if(temp.size()>0)
             {
@@ -45,9 +45,16 @@ public class BootReceiver extends BroadcastReceiver {
                 gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
                 gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
 
+                GregorianCalendar now = new GregorianCalendar();
 
+                long diff = now.getTimeInMillis()-gregorianCalendar.getTimeInMillis();
 
-                SenderAlert.senderAlarm(context,gregorianCalendar);//알림 보내기
+                if(diff>0) //이미 현재시간이 알람시간보다 넘음
+                {
+                    now.add(Calendar.SECOND,5);
+                    SenderAlert.senderAlarm(context,now);
+                }else
+                    SenderAlert.senderAlarm(context,gregorianCalendar);//알림 보내기
             }
 
 

@@ -24,6 +24,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
           GregorianCalendar now = new GregorianCalendar();
+          now.set(Calendar.MINUTE,0);
           now.add(Calendar.DAY_OF_MONTH,7);
         SenderAlert.senderAlarm(context,now); //7일 뒤에 다시 설정
 
