@@ -51,7 +51,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="68" />
+                                                <entry key="scalingPercent" value="66" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -63,7 +63,7 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="96a0ff" />
-                                      <entry key="foregroundImage" value="C:\Users\jaery\Desktop\blog\Android\로또조아\프로필이미지.png" />
+                                      <entry key="foregroundImage" value="C:\Users\jaery\Desktop\blog\Android\로또조아\프로필이미지_v2.png" />
                                       <entry key="outputName" value="lotto_logo" />
                                     </map>
                                   </option>
