@@ -66,6 +66,13 @@ public class GetNumberActivity extends AppCompatActivity {
         SetNumber(BasicDB.getRecommend(getApplicationContext()));
 
 
+        findViewById(R.id.get_number_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         findViewById(R.id.get_number_again).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         String recommend_Num_String="";
-        if(BasicDB.getInit(getApplicationContext())){
+        if(!BasicDB.getInit(getApplicationContext())){
 
             recentlyNum = 877;
 
@@ -82,14 +82,12 @@ public class MainActivity extends AppCompatActivity {
 
             recentlyNum += day/7;
 
-
-
             init.add(Calendar.DAY_OF_MONTH, (int) (7*(day/7+1)));
 
              SenderAlert.senderAlarm(getApplicationContext(),init); //알람 설정
 
 
-            BasicDB.setInit(getApplicationContext(),false); //초기화 설정 완료
+            BasicDB.setInit(getApplicationContext(),true); //초기화 설정 완료
             BasicDB.setRottoN(getApplicationContext(),recentlyNum);
 
         }else
@@ -142,6 +140,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String s = BasicDB.getRecommend(getApplicationContext());
+
+        String[] recommends = s.split(",");
+
+        for(int i = 0; i<recommends.length;i++)
+        {
+            int n = Integer.parseInt(recommends[i]);
+            int resID;
+            String resourceid = "recommend_L" + (i + 1);
+            resID = getResources().getIdentifier(resourceid, "id", getPackageName());
+            Lotto = (TextView) findViewById(resID);
+            Lotto.setBackgroundResource(GetBackgroundColor(n));
+            Lotto.setText(n+"");
+
+        }
+    }
 
     public void LottoGet(){
         HashMap<String,String> today = GetNumber(getApplicationContext(),recentlyNum);
