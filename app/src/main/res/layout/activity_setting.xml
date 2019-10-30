@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <Button
+        android:layout_width="30dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="30dp"
+        android:background="@drawable/back"
+        android:id="@+id/setting_back">
+
+    </Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="설정"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_alignBottom="@id/setting_back"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/get_number_t1">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/setting_alert_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_back"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:layout_marginLeft="15dp"
+        android:text="알림설정"
+        android:textColor="#000000">
+    </TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/setting_alert_title"
+        android:layout_marginTop="10dp"
+        android:background="#eeeeee"
+        android:id="@+id/setting_v1">
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="소리"
+        android:id="@+id/setting_alert_sound"
+        android:layout_below="@id/setting_v1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        ></TextView>
+
+
+
+    <Switch android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_v1"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/setting_alert_sound_switch"
+        android:layout_marginRight="15dp"
+        android:track="@drawable/switich_track_selector"
+        android:switchMinWidth = "50dp"
+        style="@style/SwitchThumb"
+        >
+    </Switch>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/setting_alert_sound"
+        android:layout_marginTop="10dp"
+        android:background="#eeeeee"
+        android:id="@+id/setting_v2">
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="진동"
+        android:id="@+id/setting_alert_vibration"
+        android:layout_below="@id/setting_v2"
+        android:layout_marginLeft="15dp"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        ></TextView>
+
+
+
+    <Switch android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_v2"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/setting_alert_vibration_switch"
+        android:layout_marginRight="15dp"
+        android:track="@drawable/switich_track_selector"
+        android:switchMinWidth = "50dp"
+        style="@style/SwitchThumb"
+        >
+    </Switch>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/setting_alert_vibration"
+        android:layout_marginTop="10dp"
+        android:background="#eeeeee"
+        android:id="@+id/setting_v3">
+    </View>
+
+    </RelativeLayout>
+
+</ScrollView>

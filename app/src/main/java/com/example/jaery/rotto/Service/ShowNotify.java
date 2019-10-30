@@ -12,6 +12,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.example.jaery.rotto.Database.BasicDB;
 import com.example.jaery.rotto.MainActivity;
 import com.example.jaery.rotto.R;
 
@@ -42,15 +43,17 @@ public class ShowNotify extends Service {
         if(drwN0 != 0)
             context = drwN0+"회차 당첨번호와 추천 번호를 확인해보세요";
 
-        Notification notification=new NotificationCompat.Builder(this,CHAANEL_ID)
+        NotificationCompat.Builder builder=new NotificationCompat.Builder(this,CHAANEL_ID)
                 .setContentTitle("로또")
-                .setSound(alarmSound)
                 .setContentText(context)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentIntent(pendingIntent)
-                .build();
+                .setContentIntent(pendingIntent);
 
-        ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).notify(33,notification);
+        if (BasicDB.getAlert_sound(getApplicationContext()))builder.setSound(alarmSound);
+        if(BasicDB.getAlert_vibradtion(getApplicationContext()))builder.setVibrate(new long[]{0, 500});
+
+
+        ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).notify(33,builder.build());
 
         return START_NOT_STICKY;
     }

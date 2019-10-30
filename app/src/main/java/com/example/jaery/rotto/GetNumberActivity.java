@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ public class GetNumberActivity extends AppCompatActivity {
     EditText Input_L5;
     EditText Input_L6;
 
+    InputMethodManager methodManager;
 
     boolean checkSelf = false;
 
@@ -54,6 +56,8 @@ public class GetNumberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_number);
         if_selfInput = findViewById(R.id.get_number_if_self_input);
+
+        methodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 
         L1 = findViewById(R.id.L1);
         L2 = findViewById(R.id.L2);
@@ -218,6 +222,7 @@ public class GetNumberActivity extends AppCompatActivity {
     public void self_Number_Setting_END()
     {
         selfString = "";
+        methodManager.hideSoftInputFromWindow(Input_L1.getWindowToken(),0);
         if_selfInput.setVisibility(View.GONE);
     }
 
