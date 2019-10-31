@@ -2,7 +2,7 @@ package com.example.jaery.rotto.Database;
 
 public final class LottoTable {
 
-        public static final String _TABLENAME = "Timer";
+        public static final String _TABLENAME = "Lotto";
 
         public static final String _CREATE =
                 "create table "+_TABLENAME+"("

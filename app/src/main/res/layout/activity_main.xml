@@ -224,12 +224,13 @@
         android:textColor="#ffffff"
         android:layout_below="@id/recently_Lotto_money_layout"
         android:layout_marginTop="15dp"
-        android:id="@+id/main_qr"
+        android:id="@+id/main_myList"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
+        android:textSize="16sp"
         android:background="@drawable/corner_square"
-        android:text="QR 코드">
+        android:text="내 번호목록">
     </Button>
 
 
@@ -237,7 +238,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
-        android:layout_below="@id/main_qr"
+        android:layout_below="@id/main_myList"
         android:id="@+id/recently_Lotto_recommend_layout"
         android:layout_width="match_parent"
         android:background="@drawable/corner_square_white"
@@ -349,10 +350,26 @@
         android:id="@+id/main_get_random_number"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:background="@drawable/corner_square_not_important"
         android:text="다른 번호 추첨">
     </Button>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_below="@id/main_get_random_number"
+            android:layout_marginTop="15dp"
+            android:id="@+id/main_qr"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/corner_square_not_important"
+            android:text="QR코드">
+        </Button>
 
 
 

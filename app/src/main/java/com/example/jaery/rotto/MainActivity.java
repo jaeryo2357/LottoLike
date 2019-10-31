@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -56,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
         Today_LottoMoney = findViewById(R.id.recently_Lotto_money);
         Today_LottoDay = findViewById(R.id.lottoResult_day);
 
+
+        findViewById(R.id.main_myList).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,MyListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         findViewById(R.id.main_setting_image_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +135,29 @@ public class MainActivity extends AppCompatActivity {
             }
 
             BasicDB.setRecommend(getApplicationContext(),recommend_Num_String);
+            LottoDB lottoDB = new LottoDB(getApplicationContext());
+            lottoDB.open();
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            HashMap<String,String> temp = GetNumber(getApplicationContext(),recentlyNum);
+
+            if(temp.size()>0)
+            {
+                String date = temp.get("date");
+
+                String[] dates  = date.split("-");
+
+                gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
+                gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])); // 10
+                gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
+                gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
+                gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
+
+                lottoDB.MyListInsert(recommend_Num_String,gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
+
+            }
+
+
+            lottoDB.close();
         }else // ,로 구분
         {
             String[] recommends = recommend_Num_String.split(",");
@@ -308,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
               MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this,"현재 서버 상태가 이상하여 올바른 로또 회차를 불러올 수 없습니다.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this,"현재 서버 상태가 이상하여 올바른 로또 회차를 불러올 수 없습니다. 잠시만 기다려주세요",Toast.LENGTH_LONG).show();
                     }
                 });
 

@@ -3,7 +3,7 @@
     package="com.example.jaery.rotto">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -15,7 +15,11 @@
         android:roundIcon="@mipmap/lotto_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingActivity"></activity>
+        <activity
+            android:name=".MyListActivity"
+            android:label="@string/title_activity_my_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SettingActivity" />
 
         <receiver
             android:name=".Receivers.BootReceiver"
@@ -29,7 +33,7 @@
         <service
             android:name=".Service.ShowNotify"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <receiver
             android:name=".Receivers.AlarmReceiver"
