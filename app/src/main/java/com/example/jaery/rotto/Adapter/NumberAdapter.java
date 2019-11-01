@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jaery.rotto.Item.BasicItem;
 import com.example.jaery.rotto.Item.List_Item;
 import com.example.jaery.rotto.Item.What_DrwN0;
+import com.example.jaery.rotto.LottoItem;
 import com.example.jaery.rotto.R;
 import com.example.jaery.rotto.ViewHolder.Number_List_ViewHolder;
 import com.example.jaery.rotto.ViewHolder.What_drwN0_ViewHolder;
@@ -69,12 +70,24 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             String[] numbers = item.getNumbers().split(",");
 
-            viewHolder.L1.setText(numbers[0]);
-            viewHolder.L2.setText(numbers[1]);
-            viewHolder.L3.setText(numbers[2]);
-            viewHolder.L4.setText(numbers[3]);
-            viewHolder.L5.setText(numbers[4]);
-            viewHolder.L6.setText(numbers[5]);
+            int n = Integer.parseInt(numbers[0]);
+            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L1.setText(n+"");
+            n = Integer.parseInt(numbers[1]);
+            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L2.setText(n+"");
+            n = Integer.parseInt(numbers[2]);
+            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L3.setText(n+"");
+            n = Integer.parseInt(numbers[3]);
+            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L4.setText(n+"");
+            n = Integer.parseInt(numbers[4]);
+            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L5.setText(n+"");
+            n = Integer.parseInt(numbers[5]);
+            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L6.setText(n+"");
 
 
             if(item.getLevel()==-1)

@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
 
             db.open();
-            db.MyListInsert(BasicDB.getRecommend(getApplicationContext())+1,gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
+            db.MyListInsert(BasicDB.getRecommend(getApplicationContext()),gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
 
         }
     }
