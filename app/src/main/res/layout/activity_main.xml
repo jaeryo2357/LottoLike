@@ -364,6 +364,7 @@
             android:layout_marginTop="15dp"
             android:id="@+id/main_qr"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:textSize="16sp"
             android:textStyle="bold"

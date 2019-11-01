@@ -45,13 +45,16 @@ public class MainActivity extends AppCompatActivity {
     TextView Today_LottoDay;
     TextView Lotto;
     int recentlyNum = 0;
-
+    String recommend_Num_String;
+    LottoDB db;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        db=new LottoDB(this);
+        db.open();
         Today_LottoNumber = findViewById(R.id.lottoResult_title);
         Today_LottoMoney = findViewById(R.id.recently_Lotto_money);
         Today_LottoDay = findViewById(R.id.lottoResult_day);
@@ -81,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        String recommend_Num_String="";
+        recommend_Num_String="";
         if(!BasicDB.getInit(getApplicationContext())){
 
             recentlyNum = 877;
@@ -135,29 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             BasicDB.setRecommend(getApplicationContext(),recommend_Num_String);
-            LottoDB lottoDB = new LottoDB(getApplicationContext());
-            lottoDB.open();
-            GregorianCalendar gregorianCalendar = new GregorianCalendar();
-            HashMap<String,String> temp = GetNumber(getApplicationContext(),recentlyNum);
 
-            if(temp.size()>0)
-            {
-                String date = temp.get("date");
-
-                String[] dates  = date.split("-");
-
-                gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
-                gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])); // 10
-                gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
-                gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
-                gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
-
-                lottoDB.MyListInsert(recommend_Num_String,gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
-
-            }
-
-
-            lottoDB.close();
         }else // ,로 구분
         {
             String[] recommends = recommend_Num_String.split(",");
@@ -179,26 +159,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void InsertRecommend(){
+
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        HashMap<String,String> temp = GetNumber(getApplicationContext(),BasicDB.getRottoN(getApplicationContext()));
+
+        Log.d("test","db삽입 전");
+        if(temp.size()>0)
+        {
+            String date = temp.get("date");
+
+            String[] dates  = date.split("-");
+
+            gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
+            gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])); // 10
+            gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
+            gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
+            gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
+
+            Log.d("test","db삽입");
+            db.open();
+            db.MyListInsert(BasicDB.getRecommend(getApplicationContext()),gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        String s = BasicDB.getRecommend(getApplicationContext());
-
-        String[] recommends = s.split(",");
-
-        for(int i = 0; i<recommends.length;i++)
-        {
-            int n = Integer.parseInt(recommends[i]);
-            int resID;
-            String resourceid = "recommend_L" + (i + 1);
-            resID = getResources().getIdentifier(resourceid, "id", getPackageName());
-            Lotto = (TextView) findViewById(resID);
-            Lotto.setBackgroundResource(GetBackgroundColor(n));
-            Lotto.setText(n+"");
-
-        }
     }
 
     public void LottoGet(){
@@ -285,9 +279,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                     //디비 저장
-                    LottoDB db=new LottoDB(MainActivity.this);
-                    db.open();
 
+                    db.open();
                     db.LottoInsert(date
                             ,N1
                             ,N2 //번호 1번
@@ -298,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
                             ,winner //1등 당첨금액
                             ,bonus // 보너스 번호
                             ,drwNo); // 회차 번호
-                    db.close();
+
 
                     final HashMap<String,String> newLotto = new HashMap<>();
                     newLotto.put("date",date);//날짜
@@ -312,12 +305,14 @@ public class MainActivity extends AppCompatActivity {
                     newLotto.put("bonusNo",""+bonus);//보너스 번호
 
 
+                    InsertRecommend();
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mainSetLottoNumber(newLotto);
                         }
                     });
+
 
 
 
@@ -333,13 +328,14 @@ public class MainActivity extends AppCompatActivity {
                     });
 
                 }
+
             }catch (JSONException e)
             {
 
               MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this,"현재 서버 상태가 이상하여 올바른 로또 회차를 불러올 수 없습니다. 잠시만 기다려주세요",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this,"현재 서버 상태가 이상하여 올바른 로또 회차를 불러올 수 없습니다. 잠시 후에 시도해주세요",Toast.LENGTH_LONG).show();
                     }
                 });
 

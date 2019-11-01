@@ -64,14 +64,13 @@ public class LottoDB {
 
 
     public void LottoInsert(String date,int N1,int N2,int N3,int N4,int N5,int N6,long winner,int bonusNo,int drwNo) {
-
-            LottoDB.execSQL("INSERT INTO " + LottoTable._TABLENAME + " VALUES ('" + date + "'," + N1 + ","+N2+","+N3+","+N4+","+N5+","+N6+","+winner+","+bonusNo+","+drwNo+");");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
+        LottoDB.execSQL("INSERT INTO " + LottoTable._TABLENAME + " VALUES ('" + date + "'," + N1 + ","+N2+","+N3+","+N4+","+N5+","+N6+","+winner+","+bonusNo+","+drwNo+");");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
 
     }
 
     public void MyListInsert(String numbers, String time,int drwNo) {
 
-        MyListDB.execSQL("INSERT INTO " + MyListTable._TABLENAME + " VALUES ('"+numbers+"','"+time+"',-1,0,'',"+drwNo+");");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
+        MyListDB.execSQL("INSERT INTO " + MyListTable._TABLENAME + " (number,time,level,money,correct,drwNo) VALUES ('"+numbers+"','"+time+"',-1,0,'',"+drwNo+");");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
     }
 
 
@@ -83,7 +82,7 @@ public class LottoDB {
 
         Cursor cursor= MyListDB.rawQuery("select * from "+MyListTable._TABLENAME+" ORDER BY drwNo desc ",null);
 
-        if(cursor.moveToNext())
+        while (cursor.moveToNext())
         {
             if(drwN0!=cursor.getInt(6))
             {
@@ -93,12 +92,14 @@ public class LottoDB {
 
             ArrayList<Integer> integers = new ArrayList<>();
 
-            String[] corrects = cursor.getString(5).split(",");
+            String correct = cursor.getString(5);
+            if(!correct.equals("")) {
+                String[] corrects = correct.split(",");
 
-            for(int i = 0 ;i<corrects.length;i++)
-            {
-                int n = Integer.parseInt(corrects[i]);
-                integers.add(n);
+                for (int i = 0; i < corrects.length; i++) {
+                    int n = Integer.parseInt(corrects[i]);
+                    integers.add(n);
+                }
             }
             items.add(new List_Item(1,cursor.getInt(0),cursor.getLong(4),cursor.getInt(3),cursor.getString(1),integers));
 
