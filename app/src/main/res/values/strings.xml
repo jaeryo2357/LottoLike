@@ -3,9 +3,8 @@
     <string name="title_activity_my_list">MyListActivity</string>
 
     <string name="admob_app_id">ca-app-pub-5645268985361077~4881807733</string>
-    <string name="important_banner_ad_unit_id">ca-app-pub-5645268985361077/4307092660
-</string>
+    
     <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="important_banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/2247696110</string>
+
 </resources>
 

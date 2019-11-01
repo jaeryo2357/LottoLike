@@ -39,31 +39,6 @@ public class LottoItem {
         return today;
     }
 
-    public static AdLoader GetAdLoader(Context context){
-
-        AdLoader adLoader = new AdLoader.Builder(context, context.getResources().getString(R.string.banner_ad_unit_id_for_test))
-                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
-                    @Override
-                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {  //광고가 성공적으로 로딩
-                        // Show the ad.
-                    }
-                })
-                .withAdListener(new AdListener() {
-                    // AdListener callbacks like OnAdFailedToLoad, OnAdOpened, OnAdClicked and
-                    // so on, can be overridden here.
-                    @Override
-                    public void onAdFailedToLoad(int errorCode) { //광고 수명주기
-
-                    }
-                })
-                .withNativeAdOptions(new NativeAdOptions.Builder()
-                        // Methods in the NativeAdOptions.Builder class can be
-                        // used here to specify individual options settings.
-                        .build())
-                .build();
-        adLoader.loadAd(new AdRequest.Builder().build()); //광고 1개 요청
-        return adLoader;
-    }
 
     public static ArrayList<Integer> GetFreeNumber(){
         ArrayList<Integer> a =new ArrayList<Integer>();
