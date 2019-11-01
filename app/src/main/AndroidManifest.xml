@@ -15,11 +15,16 @@
         android:roundIcon="@mipmap/lotto_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".OpenSourceActivity"></activity>
         <activity
             android:name=".MyListActivity"
             android:label="@string/title_activity_my_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SettingActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" />
 
         <receiver
             android:name=".Receivers.BootReceiver"

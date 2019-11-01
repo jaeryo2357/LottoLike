@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity">
+
+
+    <Button
+        android:layout_width="30dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="30dp"
+        android:background="@drawable/back"
+        android:id="@+id/open_source_back">
+
+    </Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오픈 소스"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_alignBottom="@id/open_source_back"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/get_number_t1">
+
+    </TextView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@id/open_source_back"
+        android:layout_marginTop="20dp"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/open_source_okhttp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:text="okhttp"
+                android:textColor="#000000">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="https://github.com/square/okhttp"
+                android:id="@+id/open_source_okhttp_link"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@id/open_source_okhttp">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copyright 2019 Square, Inc."
+                android:layout_marginLeft="20dp"
+                android:layout_below="@id/open_source_okhttp_link"
+                android:id="@+id/open_source_okhttp_tv"
+                ></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apache License, Version 2.0"
+                android:layout_below="@id/open_source_okhttp_tv"
+                android:layout_marginLeft="20dp">
+            </TextView>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

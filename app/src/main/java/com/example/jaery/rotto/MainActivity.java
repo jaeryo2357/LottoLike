@@ -16,6 +16,11 @@ import android.widget.Toast;
 import com.example.jaery.rotto.Database.BasicDB;
 import com.example.jaery.rotto.Database.LottoDB;
 import com.example.jaery.rotto.Service.SenderAlert;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 
 import org.json.JSONException;
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     String recommend_Num_String;
     LottoDB db;
 
+    private AdView mAdView;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +66,24 @@ public class MainActivity extends AppCompatActivity {
         Today_LottoDay = findViewById(R.id.lottoResult_day);
 
 
+
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        findViewById(R.id.main_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                startActivity(intent);
+            }
+        });
         findViewById(R.id.main_myList).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -328,13 +352,15 @@ public class MainActivity extends AppCompatActivity {
 
             }catch (JSONException e)
             {
-
-              MainActivity.this.runOnUiThread(new Runnable() {
+                BasicDB.setInit(getApplicationContext(),false); //초기화 설정 완료
+               MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(MainActivity.this,"현재 서버 상태가 이상하여 올바른 로또 회차를 불러올 수 없습니다. 잠시 후에 시도해주세요",Toast.LENGTH_LONG).show();
+                        finish();
                     }
                 });
+
 
             }
         }

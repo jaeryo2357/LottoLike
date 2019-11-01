@@ -4,6 +4,12 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 import com.example.jaery.rotto.Database.LottoDB;
+import com.google.ads.mediation.admob.AdMobAdapter;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +37,32 @@ public class LottoItem {
         db.close();
 
         return today;
+    }
+
+    public static AdLoader GetAdLoader(Context context){
+
+        AdLoader adLoader = new AdLoader.Builder(context, context.getResources().getString(R.string.banner_ad_unit_id_for_test))
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {  //광고가 성공적으로 로딩
+                        // Show the ad.
+                    }
+                })
+                .withAdListener(new AdListener() {
+                    // AdListener callbacks like OnAdFailedToLoad, OnAdOpened, OnAdClicked and
+                    // so on, can be overridden here.
+                    @Override
+                    public void onAdFailedToLoad(int errorCode) { //광고 수명주기
+
+                    }
+                })
+                .withNativeAdOptions(new NativeAdOptions.Builder()
+                        // Methods in the NativeAdOptions.Builder class can be
+                        // used here to specify individual options settings.
+                        .build())
+                .build();
+        adLoader.loadAd(new AdRequest.Builder().build()); //광고 1개 요청
+        return adLoader;
     }
 
     public static ArrayList<Integer> GetFreeNumber(){

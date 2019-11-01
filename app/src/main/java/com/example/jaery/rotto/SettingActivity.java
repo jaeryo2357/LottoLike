@@ -2,6 +2,7 @@ package com.example.jaery.rotto;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -27,6 +28,14 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        findViewById(R.id.setting_open_source).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this,OpenSourceActivity.class);
+                startActivity(intent);
             }
         });
         sound_check = BasicDB.getAlert_sound(getApplicationContext());
