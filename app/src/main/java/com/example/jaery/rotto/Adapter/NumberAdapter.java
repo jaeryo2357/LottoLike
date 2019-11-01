@@ -77,15 +77,26 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolder.L6.setText(numbers[5]);
 
 
-            DecimalFormat format = new DecimalFormat("###,###");
-            viewHolder.money.setText(format.format(item.getMoney())+"원");
-
             if(item.getLevel()==-1)
             {
                 viewHolder.Level.setText("대기");
-            }else
+                viewHolder.money.setText("미정");
+            }else if(item.getLevel()==6)
+            {
+                viewHolder.Level.setText("낙점");
+            }
+            else
             {
                 viewHolder.Level.setText(item.getLevel()+"등");
+
+                DecimalFormat format = new DecimalFormat("###,###");
+                String money= format.format(item.getMoney())+"원";
+
+                if(item.getLevel()==3||item.getLevel()==2)
+                {
+                    money = "대략 "+money;
+                }
+                viewHolder.money.setText(money);
                 ArrayList<Integer> integers = item.getCorrects();
                 for(int i = 0 ;i<6;i++)
                 {

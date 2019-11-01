@@ -5,23 +5,39 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jaery.rotto.Database.BasicDB;
+import com.example.jaery.rotto.Database.LottoDB;
+import com.example.jaery.rotto.GetJson;
+import com.example.jaery.rotto.MainActivity;
 import com.example.jaery.rotto.Service.SenderAlert;
 import com.example.jaery.rotto.Service.ShowNotify;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.example.jaery.rotto.LottoItem.GetFreeNumber;
 
 
 public class AlarmReceiver extends BroadcastReceiver {
-    @Override
-    public void onReceive(Context context, Intent intent) {
 
+    Context context;
+    @Override
+    public void onReceive(final Context context, Intent intent) {
+
+        this.context = context;
 
           GregorianCalendar now = new GregorianCalendar();
           now.set(Calendar.MINUTE,0);
@@ -31,6 +47,15 @@ public class AlarmReceiver extends BroadcastReceiver {
         int pastNum = BasicDB.getRottoN(context);
 
         BasicDB.setRottoN(context,++pastNum);
+
+
+        new Thread(){
+            @Override
+            public void run() {
+                GetJson json = GetJson.getInstance();
+                json.requestWebServer(BasicDB.getRottoN(context)+"",callback);
+            }
+        }.run();
 
         //////////////////////////// 새로운 추천 번호 ///////////////////////
         ArrayList<Integer> integers = GetFreeNumber();
@@ -53,4 +78,66 @@ public class AlarmReceiver extends BroadcastReceiver {
         service.putExtra("drwNo",pastNum);
         context.startService(service);
     }
+
+    private Callback callback =new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+
+            String result = response.body().string(); //json 결과
+
+            Log.d("url",result);
+            try {
+                JSONObject jsonObject=new JSONObject(result);
+
+                if (jsonObject.getString("returnValue").equals("success")) // 가져온 결과 값이 정확한 회차 정보가 맞다면 실패 'fail'
+                {
+                    String date = jsonObject.getString("drwNoDate");
+                    int N1 = jsonObject.getInt("drwtNo1");
+                    int N2 = jsonObject.getInt("drwtNo2"); //번호 1번
+                    int N3 = jsonObject.getInt("drwtNo3"); // 번호 2번
+                    int N4 = jsonObject.getInt("drwtNo4");
+                    int N5 = jsonObject.getInt("drwtNo5");
+                    int N6 = jsonObject.getInt("drwtNo6");
+                    long winner = jsonObject.getLong("firstWinamnt"); //1등 당첨금액
+                    int bonus = jsonObject.getInt("bnusNo");// 보너스 번호
+                    int drwNo = jsonObject.getInt("drwNo"); // 회차 번호
+
+
+                    //디비 저장
+                    LottoDB db = new LottoDB(context);
+                    db.open();
+                    db.LottoInsert(date
+                            ,N1
+                            ,N2 //번호 1번
+                            ,N3// 번호 2번
+                            ,N4
+                            ,N5
+                            ,N6
+                            ,winner //1등 당첨금액
+                            ,bonus // 보너스 번호
+                            ,drwNo); // 회차 번호
+
+                    ArrayList<Integer> numbers = new ArrayList<>();
+                    numbers.add(N1);
+                    numbers.add(N2);
+                    numbers.add(N3);
+                    numbers.add(N4);
+                    numbers.add(N5);
+                    numbers.add(N6);
+
+                    db.MyListCheck(numbers,winner,bonus,drwNo);
+
+
+                }
+
+            }catch (JSONException e)
+            {
+            }
+        }
+    };
 }

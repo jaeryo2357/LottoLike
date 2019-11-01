@@ -149,6 +149,69 @@ public class LottoDB {
 
     }
 
+    public void MyListCheck(ArrayList<Integer> integers,long money,int bonus,int drwNo)
+    {
+
+
+        Cursor cursor= MyListDB.rawQuery("select * from "+MyListTable._TABLENAME+" where drwNo= '"+drwNo+"'",null);
+
+        while (cursor.moveToNext())
+        {
+            int primary_key = cursor.getInt(0);
+            int level = 6; //6등
+            int correctScore = 0;
+            String correctString = "";
+            boolean bonusCheck =false;
+           String number= cursor.getString(1);
+           String[] numbers = number.split(",");
+           for(int i=0;i<numbers.length;i++)
+           {
+               int n =Integer.parseInt(numbers[i]);
+               if(integers.contains(n)) {
+                   if(correctScore!=0)correctString +=",";
+                   correctScore++;
+                   correctString += i;
+               }else if(n==bonus)
+               {
+                   if(correctScore!=0)correctString +=",";
+                   correctString += i;
+                   bonusCheck = true;
+               }
+           }
+
+            if(correctScore==3){
+                level=5;
+                money = 5000;
+            }
+            else if(correctScore==4){
+                level=4;
+                money = 50000;
+            }
+            else if(correctScore==5)
+            {
+                if(bonusCheck)
+                {
+                    level=2;
+                    money = 49815170;
+                } else
+                {
+                    level =3;
+                    money = 1524722;
+                }
+            }
+            else if(correctScore==6)
+            {
+                level=1;
+            }
+
+            MyListDB.execSQL("UPDATE "+MyListTable._TABLENAME+" SET level="+level+",money="+money+",correct="+correctString+" where id="+primary_key+";");
+        }
+
+
+
+        cursor.close();
+    }
+
 
     public LottoDB open() throws SQLException {
         mDBHelper = new DatabaseHelper(mCtx, LottoTable._TABLENAME+".db", null, DATABASE_VERSION);
