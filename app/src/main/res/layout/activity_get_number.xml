@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,9 @@
     android:animateLayoutChanges="true"
     tools:context=".GetNumberActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <Button
         android:layout_width="30dp"
@@ -18,18 +21,55 @@
 
     </Button>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/get_number_t1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+            android:id="@+id/get_number_times"
+            android:layout_gravity="center"
+            android:text="882회">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="번호 추첨"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            >
+
+        </TextView>
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="번호 추첨"
-        android:textColor="#000000"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
         android:textSize="18sp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/get_number_t1">
+        android:background="@null"
+        android:id="@+id/get_number_save"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:text="저장">
 
     </TextView>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -37,7 +77,7 @@
         android:orientation="horizontal"
         android:layout_below="@id/get_number_t1"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/lottoResult_layout"
         android:gravity="center">
@@ -45,10 +85,10 @@
         <TextView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/yellow_circle"
+            android:background="@drawable/stroke_circle"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:text="5"
+            android:text=""
             android:textStyle="bold"
             android:id="@+id/L1"
             />
@@ -56,10 +96,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="6dp"
-            android:background="@drawable/blue_circle"
+            android:background="@drawable/stroke_circle"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:text="5"
+            android:text=""
             android:textStyle="bold"
             android:id="@+id/L2"
             />
@@ -67,10 +107,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="6dp"
-            android:background="@drawable/blue_circle"
+            android:background="@drawable/stroke_circle"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:text="5"
+            android:text=""
             android:textStyle="bold"
             android:id="@+id/L3"
             />/>
@@ -78,11 +118,11 @@
         <TextView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/red_circle"
+            android:background="@drawable/stroke_circle"
             android:textColor="#ffffff"
             android:gravity="center"
             android:layout_marginLeft="6dp"
-            android:text="5"
+            android:text=""
             android:textStyle="bold"
             android:id="@+id/L4"
             />
@@ -90,10 +130,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="6dp"
-            android:background="@drawable/shadow_circle"
+            android:background="@drawable/stroke_circle"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:text="5"
+            android:text=""
             android:textStyle="bold"
             android:id="@+id/L5"
             />/>
@@ -101,10 +141,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="6dp"
-            android:background="@drawable/green_circle"
+            android:background="@drawable/stroke_circle"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:text="45"
+            android:text=""
             android:textStyle="bold"
             android:id="@+id/L6"
             />/>
@@ -123,7 +163,7 @@
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:layout_below="@id/lottoResult_layout"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/get_number_again"
         android:layout_alignRight="@id/center"
         android:layout_marginRight="20dp"
@@ -131,7 +171,7 @@
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
         android:background="@drawable/corner_square"
-        android:text="다시 추첨">
+        android:text="랜덤 추첨">
     </Button>
 
     <Button
@@ -139,12 +179,13 @@
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:layout_below="@id/lottoResult_layout"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/get_number_self"
         android:layout_alignLeft="@id/center"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
         android:textStyle="bold"
         android:background="@drawable/corner_square"
         android:text="직접 입력">
@@ -280,6 +321,22 @@
 
     </RelativeLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/lotto_btn_recycler"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/get_number_if_self_input"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 
-</RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</ScrollView>

@@ -164,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         HashMap<String,String> temp = GetNumber(getApplicationContext(),BasicDB.getRottoN(getApplicationContext()));
 
-        Log.d("test","db삽입 전");
         if(temp.size()>0)
         {
             String date = temp.get("date");
@@ -177,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
             gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
             gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
 
-            Log.d("test","db삽입");
             db.open();
             db.MyListInsert(BasicDB.getRecommend(getApplicationContext()),gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
 

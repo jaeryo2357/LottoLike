@@ -1,6 +1,10 @@
 package com.example.jaery.rotto;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,18 +14,28 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jaery.rotto.Adapter.BlankAdapter;
 import com.example.jaery.rotto.Database.BasicDB;
+import com.example.jaery.rotto.Database.LottoDB;
+import com.example.jaery.rotto.Item.blank_Item;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import static com.example.jaery.rotto.LottoItem.GetBackgroundColor;
 import static com.example.jaery.rotto.LottoItem.GetFreeNumber;
+import static com.example.jaery.rotto.LottoItem.GetNumber;
 
 public class GetNumberActivity extends AppCompatActivity {
 
@@ -51,12 +65,25 @@ public class GetNumberActivity extends AppCompatActivity {
 
     int focusIndex = 0;
 
+    RecyclerView recyclerView;
+    BlankAdapter adapter;
+    ArrayList<blank_Item> items=new ArrayList<>();
+    ArrayList<Integer> blankItem=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_number);
         if_selfInput = findViewById(R.id.get_number_if_self_input);
 
+
+        TextView title = findViewById(R.id.get_number_times);
+
+        recyclerView =findViewById(R.id.lotto_btn_recycler);
+        adapter=new BlankAdapter(items,this);
+
+        RecyclerSetUP();
+
+        title.setText((BasicDB.getRottoN(getApplicationContext())+1)+"회");
         methodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 
         L1 = findViewById(R.id.L1);
@@ -67,7 +94,19 @@ public class GetNumberActivity extends AppCompatActivity {
         L6 = findViewById(R.id.L6);
 
 
-        SetNumber(BasicDB.getRecommend(getApplicationContext()));
+
+        findViewById(R.id.get_number_save).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!selfString.equals("")&&selfString.split(",").length==6)
+               InsertRecommend();
+                else
+                {
+                    Toast.makeText(GetNumberActivity.this,"번호를 입력해주세요",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
 
         findViewById(R.id.get_number_back).setOnClickListener(new View.OnClickListener() {
@@ -80,6 +119,8 @@ public class GetNumberActivity extends AppCompatActivity {
         findViewById(R.id.get_number_again).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 ArrayList<Integer> integers = GetFreeNumber();
                 selfString= "";
 
@@ -88,10 +129,10 @@ public class GetNumberActivity extends AppCompatActivity {
                     if(i!=0)selfString +=",";
 
                     selfString += integers.get(i);
+
                 }
-                BasicDB.setRecommend(getApplicationContext(),selfString);
+
                 SetNumber(selfString);
-                selfString ="";
             }
         });
 
@@ -102,7 +143,6 @@ public class GetNumberActivity extends AppCompatActivity {
                 final Button button = (Button) v;
                 if (button.getText().toString().equals("직접 입력")) {
 
-                    selfString="";
                     button.setText("취소");
                     Input_L1 = findViewById(R.id.input_L1);
                     Input_L2 = findViewById(R.id.input_L2);
@@ -125,7 +165,7 @@ public class GetNumberActivity extends AppCompatActivity {
                     Input_L5.addTextChangedListener(recommend_Edit);
                     Input_L6.addTextChangedListener(recommend_Edit);
 
-                    SetSelfNumber(BasicDB.getRecommend(getApplicationContext()));
+
 
                     if_selfInput.setVisibility(View.VISIBLE);
                     findViewById(R.id.get_number_self_end).setOnClickListener(new View.OnClickListener() {
@@ -134,7 +174,6 @@ public class GetNumberActivity extends AppCompatActivity {
                             if(checkSelf) {
                                 button.setText("직접 입력");
                                 SetNumber(selfString);
-                                BasicDB.setRecommend(getApplicationContext(),selfString);
                                 self_Number_Setting_END();
                                 SelfEditTextClear();
                                 checkSelf = false;
@@ -156,6 +195,57 @@ public class GetNumberActivity extends AppCompatActivity {
         });
     }
 
+    public void RecyclerSetUP()
+    {
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this,5));
+        adapter.setClickListener(new BlankAdapter.OnBlankClickListener() {
+            @Override
+            public void OnClick(View view, int position) {
+                TextView textView = (TextView) view;
+                Integer n = Integer.parseInt(textView.getText().toString());
+                boolean check = items.get(position).isClick();
+
+                if(!check)
+                {
+                    if(blankItem.size()==6)
+                    {
+                        Toast.makeText(GetNumberActivity.this,"최대 6개까지 입력할 수 있습니다",Toast.LENGTH_LONG).show();
+                    }else
+                    {
+                        blankItem.add(n);
+                        items.get(position).setClick(true);
+                    }
+                }else
+                {
+                    blankItem.remove(n);
+                    items.get(position).setClick(false);
+                }
+                adapter.notifyDataSetChanged();
+                Blanck_btn_click();
+            }
+        });
+        recyclerView.setAdapter(adapter);
+
+
+        for(int i = 1;i<=45;i++)
+        {
+            items.add(new blank_Item(i,false));
+        }
+
+        if(!selfString.equals(""))
+        {
+            String[] numbers = selfString.split(",");
+            for(int i=0;i<numbers.length;i++)
+            {
+                blankItem.add(Integer.parseInt(numbers[i]));
+                items.get(Integer.parseInt(numbers[i])-1).setClick(true);
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+
     public void SelfEditTextClear(){
         Input_L1.setText("");
         Input_L2.setText("");
@@ -163,6 +253,31 @@ public class GetNumberActivity extends AppCompatActivity {
         Input_L4.setText("");
         Input_L5.setText("");
         Input_L6.setText("");
+    }
+
+    public void InsertRecommend(){
+
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        HashMap<String,String> temp = GetNumber(getApplicationContext(),BasicDB.getRottoN(getApplicationContext()));
+
+        if(temp.size()>0)
+        {
+            String date = temp.get("date");
+
+            String[] dates  = date.split("-");
+
+            gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
+            gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])); // 10
+            gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
+            gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
+            gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
+
+            LottoDB db = new LottoDB(this);
+            db.open();
+            db.MyListInsert(selfString,gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
+
+            Toast.makeText(GetNumberActivity.this,"저장완료했습니다",Toast.LENGTH_LONG).show();
+        }
     }
 
     private View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
@@ -221,7 +336,6 @@ public class GetNumberActivity extends AppCompatActivity {
 
     public void self_Number_Setting_END()
     {
-        selfString = "";
         methodManager.hideSoftInputFromWindow(Input_L1.getWindowToken(),0);
         if_selfInput.setVisibility(View.GONE);
     }
@@ -268,6 +382,25 @@ public class GetNumberActivity extends AppCompatActivity {
                 return Input_L5;
             default:
                 return Input_L6;
+        }
+    }
+
+    public TextView LottoIndex(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return L1;
+            case 1:
+                return L2;
+            case 2:
+                return L3;
+            case 3:
+                return L4;
+            case 4:
+                return L5;
+            default:
+                return L6;
         }
     }
 
@@ -324,56 +457,62 @@ public class GetNumberActivity extends AppCompatActivity {
         button.setBackgroundResource(R.drawable.corner_square_not_input);
     }
 
+    public void Blanck_btn_click(){
+        selfString  = "";
+        Collections.sort(blankItem);
+        TextView L;
+        for(int i = 0;i<6;i++)
+        {
+
+
+            L = LottoIndex(i);
+            if(i<blankItem.size()) {
+                if(i!=0) selfString = selfString + ",";
+                int n = blankItem.get(i);
+                L.setBackgroundResource(GetBackgroundColor(n));
+                L.setText(n + "");
+                selfString +=n;
+            }else
+            {
+                L.setBackgroundResource(GetBackgroundColor(46));
+                L.setText("");
+            }
+        }
+
+
+
+    }
+
     public void SetNumber(String recommend){
-
+        blankItem.clear();
         String[] numbers = recommend.split(",");
+        TextView L;
+        for(int i = 0;i<numbers.length;i++) {
+            int n = Integer.parseInt(numbers[i]);
+            L= LottoIndex(i);
+            L.setBackgroundResource(GetBackgroundColor(n));
+            L.setText(n + "");
 
-        Log.d("test_1",recommend);
+        }
 
-        int n = Integer.parseInt(numbers[0]);
-        L1.setBackgroundResource(GetBackgroundColor(n));
-        L1.setText(n+"");
-        n = Integer.parseInt(numbers[1]);
-        L2.setBackgroundResource(GetBackgroundColor(n));
-        L2.setText(n+"");
-        n = Integer.parseInt(numbers[2]);
-        L3.setBackgroundResource(GetBackgroundColor(n));
-        L3.setText(n+"");
-        n =Integer.parseInt(numbers[3]);
-        L4.setBackgroundResource(GetBackgroundColor(n));
-        L4.setText(n+"");
-        n = Integer.parseInt(numbers[4]);
-        L5.setBackgroundResource(GetBackgroundColor(n));
-        L5.setText(n+"");
-        n = Integer.parseInt(numbers[5]);
-        L6.setBackgroundResource(GetBackgroundColor(n));
-        L6.setText(n+"");
+        for(int i=0;i<45;i++)
+        {
+            items.get(i).setClick(false);
+        }
+
+        for(int i = 0; i<numbers.length;i++)
+        {
+            int n = Integer.parseInt(numbers[i]);
+
+            blankItem.add(n);
+            items.get(n-1).setClick(true);
+        }
+
+        adapter.notifyDataSetChanged();
 
     }
 
-    public void SetSelfNumber(String recommend){
 
-        String[] numbers = recommend.split(",");
-
-        int n = Integer.parseInt(numbers[0]);
-        Input_L1.setText(n+"");
-        n = Integer.parseInt(numbers[1]);
-
-        Input_L2.setText(n+"");
-        n = Integer.parseInt(numbers[2]);
-
-        Input_L3.setText(n+"");
-        n =Integer.parseInt(numbers[3]);
-
-        Input_L4.setText(n+"");
-        n = Integer.parseInt(numbers[4]);
-
-        Input_L5.setText(n+"");
-        n = Integer.parseInt(numbers[5]);
-
-        Input_L6.setText(n+"");
-
-    }
 
 
 

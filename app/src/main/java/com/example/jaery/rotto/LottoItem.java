@@ -1,6 +1,8 @@
 package com.example.jaery.rotto;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+
 import com.example.jaery.rotto.Database.LottoDB;
 
 import java.util.ArrayList;
@@ -17,7 +19,8 @@ public class LottoItem {
         else if(number>10&&number<=20) return R.drawable.blue_circle;
         else if(number>20&&number<=30) return R.drawable.red_circle;
         else if(number>30&&number<=40) return R.drawable.shadow_circle;
-        else return R.drawable.green_circle;
+        else if(number<=45)return R.drawable.green_circle;
+        else return R.drawable.stroke_circle;
     }
 
     public static  HashMap<String, String> GetNumber(Context context, int N){  //회차에 해당하는 로또 번호 가져오는 함수
