@@ -74,19 +74,19 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
             viewHolder.L1.setText(n+"");
             n = Integer.parseInt(numbers[1]);
-            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L2.setBackgroundResource(LottoItem.GetBackgroundColor(n));
             viewHolder.L2.setText(n+"");
             n = Integer.parseInt(numbers[2]);
-            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L3.setBackgroundResource(LottoItem.GetBackgroundColor(n));
             viewHolder.L3.setText(n+"");
             n = Integer.parseInt(numbers[3]);
-            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L4.setBackgroundResource(LottoItem.GetBackgroundColor(n));
             viewHolder.L4.setText(n+"");
             n = Integer.parseInt(numbers[4]);
-            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L5.setBackgroundResource(LottoItem.GetBackgroundColor(n));
             viewHolder.L5.setText(n+"");
             n = Integer.parseInt(numbers[5]);
-            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L6.setBackgroundResource(LottoItem.GetBackgroundColor(n));
             viewHolder.L6.setText(n+"");
 
 
