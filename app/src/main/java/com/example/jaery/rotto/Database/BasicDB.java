@@ -26,7 +26,7 @@ public class BasicDB {
 
     // 저장된 정보 가져오기
     public static int getRottoN(Context ctx) {
-        return getSharedPreferences(ctx).getInt(PREF_ROTTO, 881);
+        return getSharedPreferences(ctx).getInt(PREF_ROTTO, 700);
     }
 
 

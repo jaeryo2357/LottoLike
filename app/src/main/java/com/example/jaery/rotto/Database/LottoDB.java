@@ -202,9 +202,12 @@ public class LottoDB {
             else if(correctScore==6)
             {
                 level=1;
+            }else
+            {
+                money=0;
             }
 
-            MyListDB.execSQL("UPDATE "+MyListTable._TABLENAME+" SET level="+level+",money="+money+",correct="+correctString+" where id="+primary_key+";");
+            MyListDB.execSQL("UPDATE "+MyListTable._TABLENAME+" SET level="+level+",money="+money+",correct='"+correctString+"' where id="+primary_key+";");
         }
 
 

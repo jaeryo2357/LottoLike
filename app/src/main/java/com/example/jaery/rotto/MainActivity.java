@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
             recentlyNum += day/7;
 
             init.add(Calendar.DAY_OF_MONTH, (int) (7*(day/7+1)));
-
              SenderAlert.senderAlarm(getApplicationContext(),init); //알람 설정
 
 

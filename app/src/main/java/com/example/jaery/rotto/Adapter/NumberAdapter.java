@@ -94,12 +94,12 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             {
                 viewHolder.Level.setText("대기");
                 viewHolder.money.setText("미정");
-            }else if(item.getLevel()==6)
-            {
-                viewHolder.Level.setText("낙점");
             }
             else
             {
+                if(item.getLevel()==6) {
+                    viewHolder.Level.setText("낙점");
+                }else
                 viewHolder.Level.setText(item.getLevel()+"등");
 
                 DecimalFormat format = new DecimalFormat("###,###");
@@ -114,7 +114,7 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 for(int i = 0 ;i<6;i++)
                 {
                     TextView Lotto = viewHolder.IndexLotto(i);
-                    if(!integers.contains(i))Lotto.setAlpha(0.5f);
+                    if(!integers.contains(i))Lotto.setAlpha(0.2f);
                 }
             }
         }
