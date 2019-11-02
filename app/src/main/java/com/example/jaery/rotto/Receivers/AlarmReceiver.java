@@ -29,6 +29,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 import static com.example.jaery.rotto.LottoItem.GetFreeNumber;
+import static com.example.jaery.rotto.LottoItem.GetNumber;
 
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -49,13 +50,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         BasicDB.setRottoN(context,++pastNum);
 
 
-        new Thread(){
-            @Override
-            public void run() {
-                GetJson json = GetJson.getInstance();
-                json.requestWebServer(BasicDB.getRottoN(context)+"",callback);
-            }
-        }.run();
+
 
         //////////////////////////// 새로운 추천 번호 ///////////////////////
         ArrayList<Integer> integers = GetFreeNumber();
@@ -72,12 +67,38 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         //////////////////////////////////////////////////////////////
 
+        new Thread(){
+            @Override
+            public void run() {
+                GetJson json = GetJson.getInstance();
+                json.requestWebServer(BasicDB.getRottoN(context)+"",callback);
+            }
+        }.run();
 
         Intent service= new Intent(context, ShowNotify.class);
 
         service.putExtra("drwNo",pastNum);
         context.startService(service);
     }
+
+    public void InsertRecommend(LottoDB db,String date){
+
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+
+
+            String[] dates  = date.split("-");
+
+            gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
+            gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])); // 10
+            gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
+            gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
+
+            db.open();
+            db.MyListInsert(BasicDB.getRecommend(context),gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(context)+1);
+
+
+    }
+
 
     private Callback callback =new Callback() {
         @Override
@@ -132,6 +153,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                     db.MyListCheck(numbers,winner,bonus,drwNo);
 
+                    InsertRecommend(db,date);
 
                 }
 
