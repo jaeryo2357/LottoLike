@@ -32,6 +32,7 @@ public class ShowNotify extends Service {
 
         Intent notificationIntent=new Intent(this, MainActivity.class);
 
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent=PendingIntent.getActivity(this
                 ,0,notificationIntent,0); //알람을 눌렀을 때 해당 엑티비티로
 
