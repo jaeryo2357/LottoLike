@@ -1,5 +1,6 @@
 package com.lottolike.jaery.Lotto.Service;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -48,10 +50,6 @@ public class ShowNotify extends Service {
                 .setContentText(context)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentIntent(pendingIntent);
-
-        if (BasicDB.getAlert_sound(getApplicationContext()))builder.setSound(alarmSound);
-        if(BasicDB.getAlert_vibradtion(getApplicationContext()))builder.setVibrate(new long[]{0, 500});
-
 
         ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).notify(33,builder.build());
 

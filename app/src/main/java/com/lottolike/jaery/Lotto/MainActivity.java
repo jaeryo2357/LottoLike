@@ -116,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
             long hour = diff / (60 * 60 * 1000);
             long day = diff / (24 * 60 * 60 * 1000);
 
-            recentlyNum += day/7-1;
+            recentlyNum += day/7;
 
-            init.add(Calendar.DAY_OF_MONTH, (int) (7*(day/7)));
+            init.add(Calendar.DAY_OF_MONTH, (int) (7*(day/7+1)));
              SenderAlert.senderAlarm(getApplicationContext(),init); //알람 설정
 
 

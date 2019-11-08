@@ -38,7 +38,7 @@ public class BasicDB {
 
     // 저장된 정보 가져오기
     public static boolean getAlert_sound(Context ctx) {
-        return getSharedPreferences(ctx).getBoolean(Alert_sound, false);
+        return getSharedPreferences(ctx).getBoolean(Alert_sound, true);
     }
 
     // 계정 정보 저장
@@ -50,7 +50,7 @@ public class BasicDB {
 
     // 저장된 정보 가져오기
     public static boolean getAlert_vibradtion(Context ctx) {
-        return getSharedPreferences(ctx).getBoolean(Alert_vibration, false);
+        return getSharedPreferences(ctx).getBoolean(Alert_vibration, true);
     }
 
     // 계정 정보 저장
