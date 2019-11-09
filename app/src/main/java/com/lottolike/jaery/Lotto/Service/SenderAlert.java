@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 
 
 import com.lottolike.jaery.Lotto.Receivers.AlarmReceiver;
@@ -16,7 +15,7 @@ import java.util.GregorianCalendar;
 public class SenderAlert {
     public static void senderAlarm(Context context, GregorianCalendar calendar)
     {
-        Log.d("알람","셋업");
+
         Intent intent = new Intent(context, AlarmReceiver.class);
 
         PendingIntent mPending = PendingIntent.getBroadcast(
@@ -39,6 +38,7 @@ public class SenderAlert {
 
 
     }
+
 
     public static void cancelAlarm(Context context,Activity activity){
         Intent intent  = new Intent(activity, AlarmReceiver.class);

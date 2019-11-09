@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     TextView Today_LottoMoney;
     TextView Today_LottoDay;
     TextView Lotto;
+    boolean once =true;
     int recentlyNum = 0;
     String recommend_Num_String;
     LottoDB db;
@@ -246,10 +247,25 @@ public class MainActivity extends AppCompatActivity {
 
         long winnerMoney = Long.parseLong(hashMap.get("winner"));
 
+        if(winnerMoney==0&&once)
+        {
+            once =false;
+            new Thread(){
+                @Override
+                public void run() {
+                    GetJson json = GetJson.getInstance();
+                    json.requestWebServer(recentlyNum+"",retryCallback);
+                }
+            }.run();
 
-        DecimalFormat format = new DecimalFormat("###,###");
-        Today_LottoMoney.setText(format.format(winnerMoney)+"원");
+        }else if(!once)
+        {
+            Today_LottoDay.setText("측정 중");
+        }else {
 
+            DecimalFormat format = new DecimalFormat("###,###");
+            Today_LottoMoney.setText(format.format(winnerMoney) + "원");
+        }
         Today_LottoDay.setText(hashMap.get("date"));
 
     }
@@ -359,6 +375,73 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+    private Callback retryCallback =new Callback() {
+        @Override
+        public void onFailure(Call call, IOException e) {
+
+
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+
+            String result = response.body().string(); //json 결과
+
+            Log.d("url",result);
+            try {
+                JSONObject jsonObject=new JSONObject(result);
+
+                if (jsonObject.getString("returnValue").equals("success")) // 가져온 결과 값이 정확한 회차 정보가 맞다면 실패 'fail'
+                {
+                    String date = jsonObject.getString("drwNoDate");
+                    int N1 = jsonObject.getInt("drwtNo1");
+                    int N2 = jsonObject.getInt("drwtNo2"); //번호 1번
+                    int N3 = jsonObject.getInt("drwtNo3"); // 번호 2번
+                    int N4 = jsonObject.getInt("drwtNo4");
+                    int N5 = jsonObject.getInt("drwtNo5");
+                    int N6 = jsonObject.getInt("drwtNo6");
+                    long winner = jsonObject.getLong("firstWinamnt"); //1등 당첨금액
+                    int bonus = jsonObject.getInt("bnusNo");// 보너스 번호
+                    int drwNo = jsonObject.getInt("drwNo"); // 회차 번호
+
+
+                    //디비 저장
+
+                    db.open();
+                    db.WinnerUpdate(drwNo,winner);
+
+
+                    final HashMap<String,String> newLotto = new HashMap<>();
+                    newLotto.put("date",date);//날짜
+                    newLotto.put("N1",""+N1);//번호1
+                    newLotto.put("N2",""+N2);//번호2
+                    newLotto.put("N3",""+N3);//번호3
+                    newLotto.put("N4",""+N4);//번호4
+                    newLotto.put("N5",""+N5);//번호5
+                    newLotto.put("N6",""+N6);//번호6
+                    newLotto.put("winner",""+winner);//1등 당첨금액
+                    newLotto.put("bonusNo",""+bonus);//보너스 번호
+
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mainSetLottoNumber(newLotto);
+                        }
+                    });
+
+
+
+
+                }
+
+            }catch (JSONException e)
+            {
+
+
+            }
+        }
+    };
 
 
 

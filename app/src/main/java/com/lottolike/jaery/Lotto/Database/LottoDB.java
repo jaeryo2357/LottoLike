@@ -214,6 +214,11 @@ public class LottoDB {
         cursor.close();
     }
 
+    public void WinnerUpdate(int drwN0,long winner)
+    {
+        LottoDB.execSQL("UPDATE "+LottoTable._TABLENAME+" SET winner="+winner+" where drwNo="+drwN0+";");
+    }
+
 
     public LottoDB open() throws SQLException {
         mDBHelper = new DatabaseHelper(mCtx, LottoTable._TABLENAME+".db", null, DATABASE_VERSION);
