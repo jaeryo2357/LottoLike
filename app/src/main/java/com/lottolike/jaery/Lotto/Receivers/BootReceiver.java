@@ -38,7 +38,7 @@ public class BootReceiver extends BroadcastReceiver {
                 String[] dates  = date.split("-");
 
                 gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
-                gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])); // 10
+                gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])-1); // 10
                 gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
                 gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
                 gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
@@ -49,7 +49,6 @@ public class BootReceiver extends BroadcastReceiver {
 
                 if(diff>0) //이미 현재시간이 알람시간보다 넘음
                 {
-                    now.add(Calendar.SECOND,5);
                     SenderAlert.senderAlarm(context,now);
                 }else
                     SenderAlert.senderAlarm(context,gregorianCalendar);//알림 보내기
