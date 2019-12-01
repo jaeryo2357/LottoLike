@@ -2,6 +2,7 @@ package com.lottolike.jaery.Lotto.Database;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 
 public class BasicDB {
@@ -20,7 +21,7 @@ public class BasicDB {
     public static void setRottoN(Context ctx, int N0) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putInt(PREF_ROTTO, N0);
-        editor.apply();
+        editor.commit();
     }
 
     // 저장된 정보 가져오기
@@ -33,7 +34,7 @@ public class BasicDB {
     public static void setAlert_sound(Context ctx, boolean ischeck) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putBoolean(Alert_sound, ischeck);
-        editor.apply();
+        editor.commit();
     }
 
     // 저장된 정보 가져오기
@@ -45,7 +46,7 @@ public class BasicDB {
     public static void setAlert_vibration(Context ctx, boolean ischeck) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putBoolean(Alert_vibration, ischeck);
-        editor.apply();
+        editor.commit();
     }
 
     // 저장된 정보 가져오기
@@ -57,7 +58,7 @@ public class BasicDB {
     public static void setRecommend(Context ctx, String recommend) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_RECOMMEND_LOTTO, recommend);
-        editor.apply();
+            editor.commit();
     }
 
     // 저장된 정보 가져오기
@@ -70,7 +71,7 @@ public class BasicDB {
     public static void setInit(Context ctx, boolean init) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putBoolean(APP_INIT, init);
-        editor.apply();
+        editor.commit();
     }
 
     // 저장된 정보 가져오기
@@ -83,6 +84,6 @@ public class BasicDB {
     public static void clearRottoN(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.clear();
-        editor.apply();
+        editor.commit();
     }
 }

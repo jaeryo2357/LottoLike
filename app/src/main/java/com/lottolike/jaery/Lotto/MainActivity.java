@@ -189,12 +189,12 @@ public class MainActivity extends AppCompatActivity {
             String[] dates  = date.split("-");
 
             gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
-            gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])); // 10
+            gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])-1); // 10
             gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
             gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
 
             db.open();
-            db.MyListInsert(BasicDB.getRecommend(getApplicationContext()),gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
+            db.MyListInsert(BasicDB.getRecommend(getApplicationContext()),gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+1+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
 
         }
     }
