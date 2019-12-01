@@ -79,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        findViewById(R.id.main_qrCode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,ScanningQrCodeActivity.class);
+                startActivity(intent);
+            }
+        });
+
         findViewById(R.id.main_myList).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
