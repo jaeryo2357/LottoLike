@@ -1,6 +1,7 @@
 package com.lottolike.jaery.Lotto.Adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -109,13 +110,19 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 if(item.getLevel()==3||item.getLevel()==2)
                 {
                     money = "대략 "+money;
-                }
+                }else if(item.getLevel() == 1&&item.getMoney()==0)
+                    money = "계산 중";
+
                 viewHolder.money.setText(money);
                 ArrayList<Integer> integers = item.getCorrects();
                 for(int i = 0 ;i<6;i++)
                 {
                     TextView Lotto = viewHolder.IndexLotto(i);
-                    if(!integers.contains(i))Lotto.setAlpha(0.2f);
+                    if(!integers.contains(i))
+                    {
+                        Lotto.setTextColor(Color.BLACK);
+                        Lotto.setBackgroundResource(0);
+                    }
                 }
             }
         }
