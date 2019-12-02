@@ -20,6 +20,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.lottolike.jaery.Lotto.barcode.BarcodeCaptureActivity;
 
 
 import org.json.JSONException;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_qrCode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,ScanningQrCodeActivity.class);
+                Intent intent = new Intent(MainActivity.this, BarcodeCaptureActivity.class);
                 startActivity(intent);
             }
         });

@@ -164,6 +164,7 @@
             android:id="@+id/setting_open_source"
             android:layout_below="@id/setting_v4"
             android:paddingLeft="15dp"
+            android:background="@drawable/setting_selector"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textSize="15sp"
@@ -178,11 +179,32 @@
         </View>
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="개인정보처리방침"
+            android:id="@+id/setting_personal"
+            android:layout_below="@id/setting_v5"
+            android:paddingLeft="15dp"
+            android:background="@drawable/setting_selector"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="15sp"
+            ></TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/setting_personal"
+            android:background="#eeeeee"
+            android:id="@+id/setting_v6">
+        </View>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="개발자 연락처"
             android:id="@+id/setting_personal_email_tv"
-            android:layout_below="@id/setting_v5"
+            android:layout_below="@id/setting_v6"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
@@ -196,7 +218,7 @@
             android:layout_marginRight="15dp"
             android:textColor="#a0a0a0"
             android:id="@+id/setting_personal_email"
-            android:layout_below="@id/setting_v5"
+            android:layout_below="@id/setting_v6"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
@@ -209,7 +231,7 @@
             android:layout_below="@id/setting_personal_email"
             android:layout_marginTop="10dp"
             android:background="#eeeeee"
-            android:id="@+id/setting_v6">
+            android:id="@+id/setting_v7">
         </View>
 
 
