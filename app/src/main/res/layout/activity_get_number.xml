@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:animationCache="true"
     tools:context=".GetNumberActivity">
 
     <RelativeLayout
@@ -324,7 +325,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/lotto_btn_recycler"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:layout_below="@id/get_number_if_self_input"
             android:layout_marginRight="10dp"

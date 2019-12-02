@@ -31,6 +31,13 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.setting_personal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingActivity.this,PersonalActivity.class);
+                startActivity(intent);
+            }
+        });
         findViewById(R.id.setting_open_source).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
