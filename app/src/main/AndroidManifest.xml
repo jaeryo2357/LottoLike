@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -15,7 +17,8 @@
         android:roundIcon="@mipmap/lotto_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OpenSourceActivity"></activity>
+        <activity android:name=".PersonalActivity"></activity>
+        <activity android:name=".OpenSourceActivity" />
         <activity
             android:name=".MyListActivity"
             android:label="@string/title_activity_my_list"
@@ -25,6 +28,8 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
+
+        <activity android:name=".barcode.BarcodeCaptureActivity"></activity>
 
         <receiver
             android:name=".Receivers.BootReceiver"

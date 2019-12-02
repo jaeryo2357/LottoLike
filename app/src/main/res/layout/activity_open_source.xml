@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="https://github.com/square/okhttp"
                 android:id="@+id/open_source_okhttp_link"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="30dp"
                 android:layout_below="@id/open_source_okhttp">
             </TextView>
 
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Copyright 2019 Square, Inc."
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="30dp"
                 android:layout_below="@id/open_source_okhttp_link"
                 android:id="@+id/open_source_okhttp_tv"
                 ></TextView>
@@ -74,11 +74,50 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/open_source_okhttp_license"
                 android:text="Apache License, Version 2.0"
                 android:layout_below="@id/open_source_okhttp_tv"
-                android:layout_marginLeft="20dp">
+                android:layout_marginLeft="30dp">
             </TextView>
 
+            <TextView
+                android:id="@+id/open_source_vision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/open_source_okhttp_license"
+                android:textSize="16sp"
+                android:layout_marginLeft="15dp"
+                android:text="Mobile Vision"
+                android:textColor="#000000">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="https://developers.google.com/vision"
+                android:id="@+id/open_source_vision_link"
+                android:layout_marginLeft="30dp"
+                android:layout_below="@id/open_source_vision">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Copyright 2019 Google, Inc"
+                android:layout_marginLeft="30dp"
+                android:layout_below="@id/open_source_vision_link"
+                android:id="@+id/open_source_vision_tv"
+                ></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apache License, Version 2.0"
+                android:layout_below="@id/open_source_vision_tv"
+                android:layout_marginLeft="30dp">
+            </TextView>
         </RelativeLayout>
 
     </ScrollView>

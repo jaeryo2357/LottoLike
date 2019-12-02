@@ -20,6 +20,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.lottolike.jaery.Lotto.barcode.BarcodeCaptureActivity;
 
 
 import org.json.JSONException;
@@ -79,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        findViewById(R.id.main_qrCode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, BarcodeCaptureActivity.class);
+                startActivity(intent);
+            }
+        });
+
         findViewById(R.id.main_myList).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
             gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
 
             db.open();
-            db.MyListInsert(BasicDB.getRecommend(getApplicationContext()),gregorianCalendar.get(Calendar.YEAR)+"-"+gregorianCalendar.get(Calendar.MONTH)+1+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
+            db.MyListInsert(BasicDB.getRecommend(getApplicationContext()),gregorianCalendar.get(Calendar.YEAR)+"-"+(gregorianCalendar.get(Calendar.MONTH)+1)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),BasicDB.getRottoN(getApplicationContext())+1);
 
         }
     }

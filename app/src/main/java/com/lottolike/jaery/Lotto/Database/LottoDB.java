@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class LottoDB {
 
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     public static SQLiteDatabase LottoDB;
     public static SQLiteDatabase MyListDB;
     private DatabaseHelper mDBHelper;
