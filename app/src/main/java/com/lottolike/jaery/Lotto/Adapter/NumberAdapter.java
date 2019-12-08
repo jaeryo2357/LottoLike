@@ -64,7 +64,11 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             What_DrwN0  item = (What_DrwN0)items.get(position);
 
             viewHolder.times.setText(item.getDrwN0()+"회");
-            viewHolder.time.setText(item.getTime());
+            String[] time = item.getTime().split("-");
+            if(time[1].equals("111"))
+            viewHolder.time.setText(time[0]+"-12-"+time[2]);
+            else
+                viewHolder.time.setText(item.getTime());
         }else
         {
             Number_List_ViewHolder viewHolder = (Number_List_ViewHolder)holder;

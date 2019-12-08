@@ -209,8 +209,6 @@ public class LottoDB {
             MyListDB.execSQL("UPDATE "+MyListTable._TABLENAME+" SET level="+level+",money="+money+",correct='"+correctString+"' where id="+primary_key+";");
         }
 
-
-
         cursor.close();
     }
 
