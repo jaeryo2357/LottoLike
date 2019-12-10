@@ -221,4 +221,6 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+app/src/main/res/values/strings.xml
+
 # End of https://www.gitignore.io/api/java,android,androidstudio
