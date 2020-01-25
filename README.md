@@ -1,4 +1,4 @@
-# Sample-Rotto
+# Sample-Lotto
 
 - 주요기능
   - 로또 번호 추첨
