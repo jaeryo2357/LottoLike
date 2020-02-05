@@ -26,13 +26,17 @@ public class OpenSourceActivity extends AppCompatActivity {
 
         TextView okHttp = findViewById(R.id.open_source_okhttp_link);
 
+        TextView vision = findViewById(R.id.open_source_vision);
+
         Linkify.TransformFilter mTransform = new Linkify.TransformFilter() {
             @Override public String transformUrl(Matcher match, String url) { return ""; }
         };
 
         Pattern pattern1 = Pattern.compile(okHttp.getText().toString());
 
+        Pattern pattern2 = Pattern.compile(vision.getText().toString());
         Linkify.addLinks(okHttp, pattern1, "https://github.com/square/okhttp",null,mTransform);
+        Linkify.addLinks(vision,pattern2,"https://developers.google.com/vision",null,mTransform);
 
 
 

@@ -52,20 +52,20 @@
         </TextView>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:background="@null"
+        android:background="@drawable/corner_square"
         android:id="@+id/get_number_save"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#ffffff"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:text="저장">
 
-    </TextView>
+    </Button>
 
 
     <LinearLayout

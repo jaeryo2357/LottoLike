@@ -346,6 +346,17 @@ public class MainActivity extends AppCompatActivity {
 
 
                     InsertRecommend();
+
+                    ArrayList<Integer> numbers = new ArrayList<>();
+                    numbers.add(N1);
+                    numbers.add(N2);
+                    numbers.add(N3);
+                    numbers.add(N4);
+                    numbers.add(N5);
+                    numbers.add(N6);
+
+                    db.MyListCheck(numbers,winner,bonus,drwNo);
+
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -372,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
             }catch (JSONException e)
             {
                 BasicDB.setInit(getApplicationContext(),false); //초기화 설정 완료
-               MainActivity.this.runOnUiThread(new Runnable() {
+                MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(MainActivity.this,"현재 서버 상태가 이상하여 올바른 로또 회차를 불러올 수 없습니다. 잠시 후에 시도해주세요",Toast.LENGTH_LONG).show();

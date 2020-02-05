@@ -34,7 +34,6 @@ public class GetNumberActivity extends AppCompatActivity {
 
 
     RelativeLayout if_selfInput;
-    int count = 0 ; // 카운트다운
 
     TextView L1;
     TextView L2;

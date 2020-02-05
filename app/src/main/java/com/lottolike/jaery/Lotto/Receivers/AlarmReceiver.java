@@ -70,10 +70,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             }
         }.run();
 
-        Intent service= new Intent(context, ShowNotify.class);
-
-        service.putExtra("drwNo",pastNum);
-        context.startService(service);
     }
 
     public void InsertRecommend(LottoDB db,String date){
@@ -99,6 +95,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         @Override
         public void onFailure(Call call, IOException e) {
 
+            int pastNum = BasicDB.getRottoN(context);
+            Intent service= new Intent(context, ShowNotify.class);
+
+            service.putExtra("drwNo",pastNum);
+            context.startService(service);
         }
 
         @Override
@@ -152,8 +153,15 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                 }
 
-            }catch (JSONException e)
+            }catch (Exception e)
             {
+               e.printStackTrace();
+            }finally {
+                int pastNum = BasicDB.getRottoN(context);
+                Intent service= new Intent(context, ShowNotify.class);
+
+                service.putExtra("drwNo",pastNum);
+                context.startService(service);
             }
         }
     };
