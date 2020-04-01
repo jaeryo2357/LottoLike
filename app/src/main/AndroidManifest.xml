@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lottolike.jaery.Lotto">
+    package="com.lottolike.jaery.lotto">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".Application.App"
+        android:name="com.lottolike.jaery.lotto.Application.App"
         android:allowBackup="false"
         android:icon="@mipmap/lotto_logo"
         android:label="@string/app_name"
@@ -17,22 +17,22 @@
         android:roundIcon="@mipmap/lotto_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PersonalActivity"></activity>
-        <activity android:name=".OpenSourceActivity" />
+        <activity android:name="com.lottolike.jaery.lotto.PersonalActivity"></activity>
+        <activity android:name="com.lottolike.jaery.lotto.OpenSourceActivity" />
         <activity
-            android:name=".MyListActivity"
+            android:name="com.lottolike.jaery.lotto.MyListActivity"
             android:label="@string/title_activity_my_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SettingActivity" />
+        <activity android:name="com.lottolike.jaery.lotto.SettingActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
 
-        <activity android:name=".barcode.BarcodeCaptureActivity"></activity>
+        <activity android:name="com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity"></activity>
 
         <receiver
-            android:name=".Receivers.BootReceiver"
+            android:name="com.lottolike.jaery.lotto.Receivers.BootReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -41,16 +41,16 @@
         </receiver>
 
         <service
-            android:name=".Service.ShowNotify"
+            android:name="com.lottolike.jaery.lotto.Service.ShowNotify"
             android:enabled="true"
             android:exported="false" />
 
         <receiver
-            android:name=".Receivers.AlarmReceiver"
+            android:name="com.lottolike.jaery.lotto.Receivers.AlarmReceiver"
             android:enabled="true" />
 
-        <activity android:name=".GetNumberActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.lottolike.jaery.lotto.GetNumberActivity" />
+        <activity android:name="com.lottolike.jaery.lotto.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

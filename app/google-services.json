@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "646492026414",
+    "firebase_url": "https://lottolike-2dafc.firebaseio.com",
+    "project_id": "lottolike-2dafc",
+    "storage_bucket": "lottolike-2dafc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646492026414:android:be55dcc59567f9e6ced1bf",
+        "android_client_info": {
+          "package_name": "com.lottolike.jaery.Lotto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646492026414-lvjdggg7213ch0g0kool4om4ja2i50im.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDCkJsxESomAEm_HBRYeKMJ2hnuBNNMlU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646492026414-lvjdggg7213ch0g0kool4om4ja2i50im.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
