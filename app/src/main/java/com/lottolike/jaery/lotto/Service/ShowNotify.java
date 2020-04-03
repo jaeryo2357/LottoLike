@@ -11,7 +11,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.lottolike.jaery.lotto.MainActivity;
+import com.lottolike.jaery.lotto.view.main.MainActivity;
 
 import com.lottolike.jaery.lotto.Application.App;
 import com.lottolike.jaery.lotto.R;

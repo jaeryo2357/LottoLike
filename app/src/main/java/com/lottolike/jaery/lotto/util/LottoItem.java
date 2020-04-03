@@ -1,8 +1,9 @@
-package com.lottolike.jaery.lotto;
+package com.lottolike.jaery.lotto.util;
 
 import android.content.Context;
 
 import com.lottolike.jaery.lotto.Database.LottoDB;
+import com.lottolike.jaery.lotto.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,8 +28,6 @@ public class LottoItem {
         LottoDB db=new LottoDB(context);
         db.open();
         HashMap<String,String> today=db.GetNo(""+N);
-        db.close();
-
         return today;
     }
 
@@ -48,10 +47,5 @@ public class LottoItem {
         Collections.sort(a);
         return a;
     }
-
-
-
-
-
 
 }

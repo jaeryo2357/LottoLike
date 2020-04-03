@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.lottolike.jaery.lotto.Adapter.BlankAdapter;
 import com.lottolike.jaery.lotto.Database.LottoDB;
-import com.lottolike.jaery.lotto.Item.blank_Item;
+import com.lottolike.jaery.lotto.model.blank_Item;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
 
 import java.util.ArrayList;
@@ -26,9 +26,9 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
-import static com.lottolike.jaery.lotto.LottoItem.GetBackgroundColor;
-import static com.lottolike.jaery.lotto.LottoItem.GetFreeNumber;
-import static com.lottolike.jaery.lotto.LottoItem.GetNumber;
+import static com.lottolike.jaery.lotto.util.LottoItem.GetBackgroundColor;
+import static com.lottolike.jaery.lotto.util.LottoItem.GetFreeNumber;
+import static com.lottolike.jaery.lotto.util.LottoItem.GetNumber;
 
 public class GetNumberActivity extends AppCompatActivity {
 

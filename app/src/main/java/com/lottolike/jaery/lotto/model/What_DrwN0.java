@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Item;
+package com.lottolike.jaery.lotto.model;
 
 public class What_DrwN0 extends BasicItem{
     int drwN0;

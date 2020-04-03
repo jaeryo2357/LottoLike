@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.lottolike.jaery.lotto.Database.LottoDB;
-import com.lottolike.jaery.lotto.GetJson;
+import com.lottolike.jaery.lotto.util.GetJson;
 import com.lottolike.jaery.lotto.Service.SenderAlert;
 import com.lottolike.jaery.lotto.Service.ShowNotify;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
@@ -23,7 +23,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import static com.lottolike.jaery.lotto.LottoItem.GetFreeNumber;
+import static com.lottolike.jaery.lotto.util.LottoItem.GetFreeNumber;
 
 
 public class AlarmReceiver extends BroadcastReceiver {

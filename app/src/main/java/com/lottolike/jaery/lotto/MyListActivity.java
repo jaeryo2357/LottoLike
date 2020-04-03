@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.lottolike.jaery.lotto.Adapter.NumberAdapter;
 import com.lottolike.jaery.lotto.Database.LottoDB;
-import com.lottolike.jaery.lotto.Item.BasicItem;
+import com.lottolike.jaery.lotto.model.BasicItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +22,6 @@ public class MyListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
-
         LottoDB lottoDB = new LottoDB(getApplicationContext());
         lottoDB.open();
         ArrayList<BasicItem> items = lottoDB.GetMyList();
@@ -49,8 +48,6 @@ public class MyListActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
-
-
         findViewById(R.id.my_list_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,5 +55,4 @@ public class MyListActivity extends AppCompatActivity {
             }
         });
     }
-
 }

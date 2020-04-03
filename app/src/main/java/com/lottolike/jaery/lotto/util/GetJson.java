@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto;
+package com.lottolike.jaery.lotto.util;
 
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

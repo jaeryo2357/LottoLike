@@ -6,9 +6,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.lottolike.jaery.lotto.Item.BasicItem;
-import com.lottolike.jaery.lotto.Item.List_Item;
-import com.lottolike.jaery.lotto.Item.What_DrwN0;
+import com.lottolike.jaery.lotto.model.BasicItem;
+import com.lottolike.jaery.lotto.model.List_Item;
+import com.lottolike.jaery.lotto.model.What_DrwN0;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
 
 import java.util.ArrayList;

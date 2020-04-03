@@ -9,14 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lottolike.jaery.lotto.Item.BasicItem;
-import com.lottolike.jaery.lotto.Item.List_Item;
-import com.lottolike.jaery.lotto.Item.What_DrwN0;
-import com.lottolike.jaery.lotto.LottoItem;
+import com.lottolike.jaery.lotto.model.BasicItem;
+import com.lottolike.jaery.lotto.model.List_Item;
+import com.lottolike.jaery.lotto.model.What_DrwN0;
+import com.lottolike.jaery.lotto.util.LottoItem;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.ViewHolder.Number_List_ViewHolder;
-import com.lottolike.jaery.lotto.ViewHolder.What_drwN0_ViewHolder;
+import com.lottolike.jaery.lotto.Adapter.ViewHolder.Number_List_ViewHolder;
+import com.lottolike.jaery.lotto.Adapter.ViewHolder.What_drwN0_ViewHolder;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

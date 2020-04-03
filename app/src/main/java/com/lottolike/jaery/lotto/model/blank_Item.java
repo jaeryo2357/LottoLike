@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Item;
+package com.lottolike.jaery.lotto.model;
 
 public class blank_Item {
     int number;

@@ -1,26 +1,36 @@
-package com.lottolike.jaery.lotto;
+package com.lottolike.jaery.lotto.view.main;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.lottolike.jaery.lotto.Database.LottoDB;
+import com.lottolike.jaery.lotto.util.GetJson;
+import com.lottolike.jaery.lotto.GetNumberActivity;
+import com.lottolike.jaery.lotto.util.LottoItem;
+import com.lottolike.jaery.lotto.MyListActivity;
+import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.Service.SenderAlert;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.lottolike.jaery.lotto.SettingActivity;
 import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
+import com.lottolike.jaery.lotto.view.detail.LottoDetailActivity;
 
 
 import org.json.JSONException;
@@ -40,8 +50,8 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    RelativeLayout detailView;
     TextView Today_LottoNumber;
-    TextView Today_LottoMoney;
     TextView Today_LottoDay;
     TextView Lotto;
     boolean once =true;
@@ -60,8 +70,20 @@ public class MainActivity extends AppCompatActivity {
         db=new LottoDB(this);
         db.open();
         Today_LottoNumber = findViewById(R.id.lottoResult_title);
-        Today_LottoMoney = findViewById(R.id.recently_Lotto_money);
         Today_LottoDay = findViewById(R.id.lottoResult_day);
+        detailView = findViewById(R.id.recently_Lotto_info_layout);
+
+        detailView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LottoDetailActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        MainActivity.this,
+                        new Pair<View,String>(Today_LottoNumber,"lottoTitle"),
+                        new Pair<View,String>(findViewById(R.id.main_result_layout),"lottoNumber"));
+                startActivity(intent,options.toBundle());
+            }
+        });
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -71,14 +93,6 @@ public class MainActivity extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-        findViewById(R.id.main_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-                startActivity(intent);
-            }
-        });
 
         findViewById(R.id.main_qrCode).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_myList).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,MyListActivity.class);
+                Intent intent = new Intent(MainActivity.this, MyListActivity.class);
                 startActivity(intent);
             }
         });
@@ -99,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_setting_image_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
             }
         });
@@ -107,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_get_random_number).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,GetNumberActivity.class);
+                Intent intent = new Intent(MainActivity.this, GetNumberActivity.class);
                 startActivity(intent);
             }
         });
@@ -259,14 +273,10 @@ public class MainActivity extends AppCompatActivity {
         }else {
 
             DecimalFormat format = new DecimalFormat("###,###");
-            Today_LottoMoney.setText(format.format(winnerMoney) + "원");
+//            Today_LottoMoney.setText(format.format(winnerMoney) + "원");
         }
         Today_LottoDay.setText(hashMap.get("date"));
-
     }
-
-
-
 
     private Callback callback =new Callback() {
         @Override
@@ -407,10 +417,7 @@ public class MainActivity extends AppCompatActivity {
                     long winner = jsonObject.getLong("firstWinamnt"); //1등 당첨금액
                     int bonus = jsonObject.getInt("bnusNo");// 보너스 번호
                     int drwNo = jsonObject.getInt("drwNo"); // 회차 번호
-
-
                     //디비 저장
-
                     db.open();
                     db.WinnerUpdate(drwNo,winner);
 
@@ -439,7 +446,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
-
-
 }
