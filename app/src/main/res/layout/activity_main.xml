@@ -43,14 +43,14 @@
                 android:background="@color/colorPrimary">
 
                 <ImageButton
-                    android:id="@+id/main_setting_image_btn"
+                    android:id="@+id/main_info_image_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     android:background="@null"
-                    android:src="@drawable/setting">
+                    android:src="@drawable/info_icon">
 
                 </ImageButton>
 
@@ -73,7 +73,7 @@
                     android:text="875회"
                     android:transitionName="lottoTitle"
                     android:textColor="#ffffff"
-                    android:textSize="21sp"
+                    android:textSize="19sp"
                     android:textStyle="bold" />
 
 
@@ -317,7 +317,7 @@
                 android:background="@drawable/corner_square_not_important"
                 android:text="추첨번호 추가하기"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold"></Button>
 
             <Button
@@ -331,7 +331,21 @@
                 android:background="@drawable/corner_square_not_important"
                 android:text="QR코드"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
+                android:textSize="15sp"
+                android:textStyle="bold"></Button>
+
+            <Button
+                android:id="@+id/main_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_qrCode"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/corner_square_not_important"
+                android:text="설정"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
                 android:textStyle="bold"></Button>
 
         </RelativeLayout>

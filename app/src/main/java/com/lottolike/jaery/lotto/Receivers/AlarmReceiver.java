@@ -70,8 +70,6 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void InsertRecommend(LottoDB db,String date){
 
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
-
-
             String[] dates  = date.split("-");
 
             gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
@@ -81,8 +79,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             db.open();
             db.MyListInsert(sharedPreferences.getRecommend(),gregorianCalendar.get(Calendar.YEAR)+"-"+(gregorianCalendar.get(Calendar.MONTH)+1)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),sharedPreferences.getLottoNumber()+1);
-
-
     }
 
 
@@ -92,7 +88,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             int pastNum = sharedPreferences.getLottoNumber();
             Intent service= new Intent(context, ShowNotify.class);
-
             service.putExtra("drwNo",pastNum);
             context.startService(service);
         }
@@ -145,7 +140,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                     db.MyListCheck(numbers,winner,bonus,drwNo);
 
                     InsertRecommend(db,date);
-
                 }
 
             }catch (Exception e)
@@ -154,7 +148,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             }finally {
                 int pastNum = sharedPreferences.getLottoNumber();
                 Intent service= new Intent(context, ShowNotify.class);
-
                 service.putExtra("drwNo",pastNum);
                 context.startService(service);
             }

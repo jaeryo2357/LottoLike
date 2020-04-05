@@ -26,15 +26,15 @@ public class LottoDB {
 
 
     private static final int DATABASE_VERSION = 3;
-    public static SQLiteDatabase LottoDB;
-    public static SQLiteDatabase MyListDB;
+    private static SQLiteDatabase LottoDB;
+    private static SQLiteDatabase MyListDB;
     private DatabaseHelper mDBHelper;
     private Context mCtx;
 
     private class DatabaseHelper extends SQLiteOpenHelper {
 
         // 생성자
-        public DatabaseHelper(Context context, String name,
+        private DatabaseHelper(Context context, String name,
                               SQLiteDatabase.CursorFactory factory, int version) {
             super(context, name, factory, version);
         }
@@ -130,24 +130,6 @@ public class LottoDB {
         return hashMap;
     }
 
-    public String[] GetList(){
-
-        ArrayList<String> arrayList =  new ArrayList<>();
-        SharedPreferences sharedPreferences = new SharedPreferences(mCtx);
-        for(int i=sharedPreferences.getLottoNumber();i>=200;i--)
-        {
-            Cursor cursor= LottoDB.rawQuery("select * from "+LottoTable._TABLENAME+" where drwNo ='"+i+"'",null);
-
-            if(cursor.moveToNext()){
-                arrayList.add(i+"회 ("+cursor.getString(0)+")");//날짜
-
-            }else
-                break;
-        }
-
-        return arrayList.toArray(new String[]{});
-
-    }
 
     public void MyListCheck(ArrayList<Integer> integers,long money,int bonus,int drwNo)
     {

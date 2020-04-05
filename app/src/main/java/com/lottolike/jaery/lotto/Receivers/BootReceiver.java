@@ -54,8 +54,6 @@ public class BootReceiver extends BroadcastReceiver {
                 }else
                     SenderAlert.senderAlarm(context,gregorianCalendar);//알림 보내기
             }
-
-
         }
     }
 }

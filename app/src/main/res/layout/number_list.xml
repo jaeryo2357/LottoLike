@@ -5,19 +5,19 @@
     android:layout_marginLeft="5dp"
     android:layout_marginTop="5dp"
     android:layout_marginRight="5dp"
+    android:translationZ="3dp"
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/number_list_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:id="@+id/number_list_level"
+        android:text="1등"
         android:textColor="@color/colorPrimaryDark"
-        android:text="1등">
-    </TextView>
+        android:textSize="18sp"
+        android:textStyle="bold"></TextView>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -100,28 +100,27 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/number_list_money_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/number_list_money_tv"
-        android:text="당첨금 :"
         android:layout_below="@id/lottoResult_layout"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        android:textColor="#000000">
-    </TextView>
+        android:layout_marginBottom="10dp"
+        android:text="당첨금 :"
+        android:textColor="#000000"
+        android:textSize="15sp"></TextView>
 
     <TextView
+        android:id="@+id/number_list_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:id="@+id/number_list_money"
         android:layout_alignTop="@id/number_list_money_tv"
         android:layout_alignRight="@id/lottoResult_layout"
-        android:text="1,123,131,131원">
+        android:text="1,123,131,131원"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"
+        android:textStyle="bold">
 
     </TextView>
 </RelativeLayout>

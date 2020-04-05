@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.lottolike.jaery.lotto.Database.LottoDB;
+import com.lottolike.jaery.lotto.util.FirebaseExt;
 import com.lottolike.jaery.lotto.util.GetJson;
 import com.lottolike.jaery.lotto.GetNumberActivity;
 import com.lottolike.jaery.lotto.util.LottoItem;
@@ -43,6 +44,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -50,7 +53,6 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    RelativeLayout detailView;
     TextView Today_LottoNumber;
     TextView Today_LottoDay;
     TextView Lotto;
@@ -71,19 +73,6 @@ public class MainActivity extends AppCompatActivity {
         db.open();
         Today_LottoNumber = findViewById(R.id.lottoResult_title);
         Today_LottoDay = findViewById(R.id.lottoResult_day);
-        detailView = findViewById(R.id.recently_Lotto_info_layout);
-
-        detailView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LottoDetailActivity.class);
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        MainActivity.this,
-                        new Pair<View,String>(Today_LottoNumber,"lottoTitle"),
-                        new Pair<View,String>(findViewById(R.id.main_result_layout),"lottoNumber"));
-                startActivity(intent,options.toBundle());
-            }
-        });
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -110,11 +99,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.main_setting_image_btn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.main_info_image_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, LottoDetailActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        MainActivity.this,
+                        new Pair<View,String>(Today_LottoNumber,"lottoTitle"),
+                        new Pair<View,String>(findViewById(R.id.main_result_layout),"lottoNumber"));
+                startActivity(intent,options.toBundle());
             }
         });
 
@@ -122,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GetNumberActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.main_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
             }
         });
@@ -151,8 +152,20 @@ public class MainActivity extends AppCompatActivity {
         {
             recentlyNum = sharedPreferences.getLottoNumber();
             recommend_Num_String = sharedPreferences.getRecommend();
+            FirebaseExt.INSTANCE.getLottoNumber(new Function1<Integer, Unit>() {
+                                                    @Override
+                                                    public Unit invoke(Integer num) {
+                                                        if(!num.equals(-1)){
+                                                            if(recentlyNum<num) {
+                                                                recentlyNum = num;
+                                                            }
+                                                        }
+                                                        LottoGet();
+                                                        return Unit.INSTANCE;
+                                                    }
+              }
+            );
         }
-        LottoGet();
 
         if(recommend_Num_String.equals("")) //초기 설정
         {
@@ -168,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
                 Lotto = (TextView) findViewById(resID);
                 Lotto.setBackgroundResource(LottoItem.GetBackgroundColor(integers.get(i)));
                 Lotto.setText(integers.get(i)+"");
-
             }
 
             sharedPreferences.setRecommend(recommend_Num_String);
@@ -185,10 +197,8 @@ public class MainActivity extends AppCompatActivity {
                 Lotto = (TextView) findViewById(resID);
                 Lotto.setBackgroundResource(LottoItem.GetBackgroundColor(n));
                 Lotto.setText(n+"");
-
             }
         }
-
     }
 
     public void InsertRecommend(){
