@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:animateLayoutChanges="true"
     android:animationCache="true"
     tools:context=".GetNumberActivity">
@@ -34,7 +35,7 @@
             android:layout_marginRight="10dp"
             android:text="882회"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold">
 
         </TextView>
@@ -45,7 +46,7 @@
             android:layout_gravity="center"
             android:text="번호 추첨"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold">
 
         </TextView>
@@ -54,7 +55,7 @@
     <Button
         android:id="@+id/get_number_save"
         android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
@@ -73,7 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/get_number_t1"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="horizontal">

@@ -21,7 +21,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:id="@+id/what_drwn0_times"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:text="802회">
         </TextView>
@@ -33,7 +33,7 @@
             android:text="2019-10-26"
             android:layout_toRightOf="@id/what_drwn0_times"
             android:id="@+id/what_drwn0_time"
-            android:textSize="17sp"
+            android:textSize="16sp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:textColor="#ffffff">

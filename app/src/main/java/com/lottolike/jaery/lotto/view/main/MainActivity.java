@@ -324,7 +324,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                     //디비 저장
-
                     db.open();
                     db.LottoInsert(date
                             ,N1

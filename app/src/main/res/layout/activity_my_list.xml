@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".MyListActivity">
 
     <Button
@@ -23,7 +24,7 @@
         android:textColor="#000000"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:layout_centerHorizontal="true"
         android:id="@+id/my_list_t1">
     </TextView>

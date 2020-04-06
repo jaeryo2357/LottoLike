@@ -11,6 +11,7 @@ import com.lottolike.jaery.lotto.databinding.ActivityLottoDetailBindingImpl
 import com.lottolike.jaery.lotto.util.LottoItem
 import com.lottolike.jaery.lotto.util.SharedPreferences
 import kotlinx.android.synthetic.main.activity_lotto_detail.*
+import kotlin.math.roundToInt
 
 class LottoDetailActivity : AppCompatActivity() {
 
@@ -28,5 +29,22 @@ class LottoDetailActivity : AppCompatActivity() {
             finishAfterTransition()
         }
         viewModel.setLottoInfo(sharedPreferences.lottoNumber,LottoItem.GetNumber(this,sharedPreferences.lottoNumber))
+
+        detail_chart.apply{
+            animation.duration = animationDuration
+            labelsFormatter = { "${it.roundToInt()}"}
+        }
+        detail_chart.animate(barSet)
+    }
+
+    companion object {
+        var barSet = linkedMapOf(
+                "1등" to 1F,
+                "2등" to 9F,
+                "3등" to 2F,
+                "4등" to 5F,
+                "5등" to 3F
+        )
+        private const val animationDuration = 1000L
     }
 }
