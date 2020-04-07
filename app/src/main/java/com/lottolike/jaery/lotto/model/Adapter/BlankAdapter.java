@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Adapter;
+package com.lottolike.jaery.lotto.model.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,7 @@ import com.lottolike.jaery.lotto.model.blank_Item;
 import com.lottolike.jaery.lotto.util.LottoItem;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.Adapter.ViewHolder.Number_Blank_ViewHolder;
+import com.lottolike.jaery.lotto.model.Adapter.ViewHolder.Number_Blank_ViewHolder;
 
 import java.util.ArrayList;
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.lottolike.jaery.lotto.R
 import com.lottolike.jaery.lotto.databinding.ActivityLottoDetailBinding
 import com.lottolike.jaery.lotto.databinding.ActivityLottoDetailBindingImpl
+import com.lottolike.jaery.lotto.util.FirebaseExt
 import com.lottolike.jaery.lotto.util.LottoItem
 import com.lottolike.jaery.lotto.util.SharedPreferences
 import kotlinx.android.synthetic.main.activity_lotto_detail.*
@@ -34,17 +35,12 @@ class LottoDetailActivity : AppCompatActivity() {
             animation.duration = animationDuration
             labelsFormatter = { "${it.roundToInt()}"}
         }
-        detail_chart.animate(barSet)
+        FirebaseExt.getLottoRank(sharedPreferences.lottoNumber){ success,hash ->
+            if(success)detail_chart.animate(hash!!)
+        }
     }
 
     companion object {
-        var barSet = linkedMapOf(
-                "1등" to 1F,
-                "2등" to 9F,
-                "3등" to 2F,
-                "4등" to 5F,
-                "5등" to 3F
-        )
         private const val animationDuration = 1000L
     }
 }

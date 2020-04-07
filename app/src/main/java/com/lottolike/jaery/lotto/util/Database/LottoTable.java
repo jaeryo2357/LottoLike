@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Database;
+package com.lottolike.jaery.lotto.util.Database;
 
 public final class LottoTable {
 

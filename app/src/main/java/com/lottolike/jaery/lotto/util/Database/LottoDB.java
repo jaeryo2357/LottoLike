@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Database;
+package com.lottolike.jaery.lotto.util.Database;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.lottolike.jaery.lotto.model.BasicItem;
 import com.lottolike.jaery.lotto.model.List_Item;
 import com.lottolike.jaery.lotto.model.What_DrwN0;
-import com.lottolike.jaery.lotto.util.SharedPreferences;
+import com.lottolike.jaery.lotto.util.FirebaseExt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -181,13 +181,14 @@ public class LottoDB {
                 money=0;
             }
             MyListDB.execSQL("UPDATE "+MyListTable._TABLENAME+" SET level="+level+",money="+money+",correct='"+correctString+"' where id="+primary_key+";");
+            if(level<6) //5등부터
+            FirebaseExt.INSTANCE.uploadLottoResult(drwNo,level); //등수 체크
         }
 
         cursor.close();
     }
 
-    public void WinnerUpdate(int drwN0,long winner)
-    {
+    public void WinnerUpdate(int drwN0,long winner) {
         LottoDB.execSQL("UPDATE "+LottoTable._TABLENAME+" SET winner="+winner+" where drwNo="+drwN0+";");
     }
 

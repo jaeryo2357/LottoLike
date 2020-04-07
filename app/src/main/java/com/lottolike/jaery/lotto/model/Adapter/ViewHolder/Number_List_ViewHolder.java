@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Adapter.ViewHolder;
+package com.lottolike.jaery.lotto.model.Adapter.ViewHolder;
 
 import android.view.View;
 import android.widget.TextView;

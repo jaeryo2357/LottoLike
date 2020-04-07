@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".Application.App"
+        android:name=".application.App"
         android:allowBackup="false"
         android:icon="@mipmap/lotto_logo"
         android:label="@string/app_name"
@@ -18,13 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.detail.LottoDetailActivity"></activity>
-        <activity android:name=".PersonalActivity" />
-        <activity android:name=".OpenSourceActivity" />
+        <activity android:name=".view.PersonalActivity" />
+        <activity android:name=".view.OpenSourceActivity" />
         <activity
-            android:name=".MyListActivity"
+            android:name=".view.MyListActivity"
             android:label="@string/title_activity_my_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".view.SettingActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -33,7 +33,7 @@
         <activity android:name=".barcode.BarcodeCaptureActivity" />
 
         <receiver
-            android:name=".Receivers.BootReceiver"
+            android:name=".receiver.BootReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -42,15 +42,15 @@
         </receiver>
 
         <service
-            android:name=".Service.ShowNotify"
+            android:name=".service.ShowNotify"
             android:enabled="true"
             android:exported="false" />
 
         <receiver
-            android:name=".Receivers.AlarmReceiver"
+            android:name=".receiver.AlarmReceiver"
             android:enabled="true" />
 
-        <activity android:name=".GetNumberActivity" />
+        <activity android:name=".view.GetNumberActivity" />
         <activity android:name=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

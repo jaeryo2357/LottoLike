@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Adapter;
+package com.lottolike.jaery.lotto.model.Adapter;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -15,8 +15,8 @@ import com.lottolike.jaery.lotto.model.What_DrwN0;
 import com.lottolike.jaery.lotto.util.LottoItem;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.Adapter.ViewHolder.Number_List_ViewHolder;
-import com.lottolike.jaery.lotto.Adapter.ViewHolder.What_drwN0_ViewHolder;
+import com.lottolike.jaery.lotto.model.Adapter.ViewHolder.Number_List_ViewHolder;
+import com.lottolike.jaery.lotto.model.Adapter.ViewHolder.What_drwN0_ViewHolder;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

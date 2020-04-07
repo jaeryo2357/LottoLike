@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto;
+package com.lottolike.jaery.lotto.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
+
+import com.lottolike.jaery.lotto.R;
 
 public class PersonalActivity extends AppCompatActivity {
 

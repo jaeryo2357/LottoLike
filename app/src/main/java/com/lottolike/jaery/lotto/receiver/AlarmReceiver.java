@@ -1,14 +1,14 @@
-package com.lottolike.jaery.lotto.Receivers;
+package com.lottolike.jaery.lotto.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.lottolike.jaery.lotto.Database.LottoDB;
+import com.lottolike.jaery.lotto.util.Database.LottoDB;
 import com.lottolike.jaery.lotto.util.GetJson;
-import com.lottolike.jaery.lotto.Service.SenderAlert;
-import com.lottolike.jaery.lotto.Service.ShowNotify;
+import com.lottolike.jaery.lotto.service.SenderAlert;
+import com.lottolike.jaery.lotto.service.ShowNotify;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
 
 import org.json.JSONObject;

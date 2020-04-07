@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto;
+package com.lottolike.jaery.lotto.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,8 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lottolike.jaery.lotto.Adapter.BlankAdapter;
-import com.lottolike.jaery.lotto.Database.LottoDB;
+import com.lottolike.jaery.lotto.model.Adapter.BlankAdapter;
+import com.lottolike.jaery.lotto.util.Database.LottoDB;
+import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.blank_Item;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
 

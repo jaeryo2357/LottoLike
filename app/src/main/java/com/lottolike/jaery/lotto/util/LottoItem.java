@@ -2,7 +2,7 @@ package com.lottolike.jaery.lotto.util;
 
 import android.content.Context;
 
-import com.lottolike.jaery.lotto.Database.LottoDB;
+import com.lottolike.jaery.lotto.util.Database.LottoDB;
 import com.lottolike.jaery.lotto.R;
 
 import java.util.ArrayList;
@@ -13,8 +13,7 @@ import java.util.HashMap;
 
 public class LottoItem {
 
-    public static int GetBackgroundColor(int number)
-    {
+    public static int GetBackgroundColor(int number) {
         if(number>=0&&number<=10)return R.drawable.yellow_circle;
         else if(number>10&&number<=20) return R.drawable.blue_circle;
         else if(number>20&&number<=30) return R.drawable.red_circle;
@@ -24,13 +23,10 @@ public class LottoItem {
     }
 
     public static  HashMap<String, String> GetNumber(Context context, int N){  //회차에 해당하는 로또 번호 가져오는 함수
-
         LottoDB db=new LottoDB(context);
         db.open();
-        HashMap<String,String> today=db.GetNo(""+N);
-        return today;
+        return db.GetNo(""+N);
     }
-
 
     public static ArrayList<Integer> GetFreeNumber(){
         ArrayList<Integer> a =new ArrayList<Integer>();

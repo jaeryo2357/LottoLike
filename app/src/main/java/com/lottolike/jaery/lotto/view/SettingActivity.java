@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto;
+package com.lottolike.jaery.lotto.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
 
 public class SettingActivity extends AppCompatActivity {
@@ -34,14 +35,14 @@ public class SettingActivity extends AppCompatActivity {
         findViewById(R.id.setting_personal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingActivity.this,PersonalActivity.class);
+                Intent intent = new Intent(SettingActivity.this, PersonalActivity.class);
                 startActivity(intent);
             }
         });
         findViewById(R.id.setting_open_source).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this,OpenSourceActivity.class);
+                Intent intent = new Intent(SettingActivity.this, OpenSourceActivity.class);
                 startActivity(intent);
             }
         });

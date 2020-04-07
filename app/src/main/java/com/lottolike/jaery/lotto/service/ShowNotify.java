@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Service;
+package com.lottolike.jaery.lotto.service;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,7 +13,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.lottolike.jaery.lotto.view.main.MainActivity;
 
-import com.lottolike.jaery.lotto.Application.App;
+import com.lottolike.jaery.lotto.application.App;
 import com.lottolike.jaery.lotto.R;
 
 public class ShowNotify extends Service {

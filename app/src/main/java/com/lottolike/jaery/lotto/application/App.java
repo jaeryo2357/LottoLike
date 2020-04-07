@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Application;
+package com.lottolike.jaery.lotto.application;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

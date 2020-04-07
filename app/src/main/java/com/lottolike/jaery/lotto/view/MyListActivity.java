@@ -1,10 +1,11 @@
-package com.lottolike.jaery.lotto;
+package com.lottolike.jaery.lotto.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.lottolike.jaery.lotto.Adapter.NumberAdapter;
-import com.lottolike.jaery.lotto.Database.LottoDB;
+import com.lottolike.jaery.lotto.model.Adapter.NumberAdapter;
+import com.lottolike.jaery.lotto.util.Database.LottoDB;
+import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.BasicItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class MyListActivity extends AppCompatActivity {
             findViewById(R.id.my_list_not_btn).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MyListActivity.this,GetNumberActivity.class);
+                    Intent intent = new Intent(MyListActivity.this, GetNumberActivity.class);
                     startActivity(intent);
                     finish();
                 }

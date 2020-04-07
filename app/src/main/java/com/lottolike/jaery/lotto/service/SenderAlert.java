@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.Service;
+package com.lottolike.jaery.lotto.service;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 
 
-import com.lottolike.jaery.lotto.Receivers.AlarmReceiver;
+import com.lottolike.jaery.lotto.receiver.AlarmReceiver;
 
 import java.util.GregorianCalendar;
 

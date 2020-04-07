@@ -10,25 +10,24 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.lottolike.jaery.lotto.Database.LottoDB;
+import com.lottolike.jaery.lotto.util.Database.LottoDB;
 import com.lottolike.jaery.lotto.util.FirebaseExt;
 import com.lottolike.jaery.lotto.util.GetJson;
-import com.lottolike.jaery.lotto.GetNumberActivity;
+import com.lottolike.jaery.lotto.view.GetNumberActivity;
 import com.lottolike.jaery.lotto.util.LottoItem;
-import com.lottolike.jaery.lotto.MyListActivity;
+import com.lottolike.jaery.lotto.view.MyListActivity;
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.Service.SenderAlert;
+import com.lottolike.jaery.lotto.service.SenderAlert;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.lottolike.jaery.lotto.SettingActivity;
+import com.lottolike.jaery.lotto.view.SettingActivity;
 import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
 import com.lottolike.jaery.lotto.view.detail.LottoDetailActivity;
