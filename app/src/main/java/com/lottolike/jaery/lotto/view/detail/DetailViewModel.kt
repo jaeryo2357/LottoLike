@@ -14,7 +14,6 @@ class DetailViewModel : ViewModel() {
     private val _numberFiv = MutableLiveData<Int>(0)
     private val _numberSix = MutableLiveData<Int>(0)
     private val _numberBus = MutableLiveData<Int>(0)
-    private val _winner = MutableLiveData("")
 
     var lottoNum : LiveData<Int> = _lottoNum
     var numberOne : LiveData<Int> = _numberOne
@@ -24,9 +23,9 @@ class DetailViewModel : ViewModel() {
     var numberFiv : LiveData<Int> = _numberFiv
     var numberSix : LiveData<Int> = _numberSix
     var numberBus : LiveData<Int> = _numberBus
-    var winner : LiveData<String> = _winner
 
-    fun setLottoInfo(lottoN : Int,hash : HashMap<String,String>)
+
+    fun setLottoNumber(lottoN : Int,hash : HashMap<String,String>)
     {
         _lottoNum.postValue(lottoN)
         _numberOne.postValue(hash["N1"]!!.toInt())
@@ -36,9 +35,11 @@ class DetailViewModel : ViewModel() {
         _numberFiv.postValue(hash["N5"]!!.toInt())
         _numberSix.postValue(hash["N6"]!!.toInt())
         _numberBus.postValue(hash["bonusNo"]!!.toInt())
-
-        val winnerMoney: Long = hash["winner"]!!.toLong()
-        val format = DecimalFormat("###,###")
-        _winner.postValue("${format.format(winnerMoney)}원")
+//
+//        val winnerMoney: Long = hash["winner"]!!.toLong()
+//        val format = DecimalFormat("###,###")
+//        _winner.postValue("${format.format(winnerMoney)}원")
     }
+
+
 }

@@ -5,6 +5,21 @@
 
     <data>
         <variable
+            name="info1"
+            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+        <variable
+            name="info2"
+            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+        <variable
+            name="info3"
+            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+        <variable
+            name="info4"
+            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+        <variable
+            name="info5"
+            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+        <variable
             name="vm"
             type="com.lottolike.jaery.lotto.view.detail.DetailViewModel" />
     </data>
@@ -44,7 +59,7 @@
                 android:layout_marginTop="15dp"
                 android:text='@{@string/lotto_title(vm.lottoNum)}'
                 android:textColor="#ffffff"
-                android:textSize="21sp"
+                android:textSize="19sp"
                 android:transitionName="lottoTitle"
                 android:textStyle="bold" />
 
@@ -160,76 +175,226 @@
 
         </RelativeLayout>
 
-
-        <RelativeLayout
-            android:id="@+id/recently_Lotto_money_layout"
-            android:layout_width="match_parent"
-            android:translationZ="3dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/corner_square_white"
-            app:layout_constraintTop_toBottomOf="@+id/recently_Lotto_info_layout">
-
-            <TextView
-                android:id="@+id/recently_Lotto_money_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="1등 당첨 금액"
-                android:textColor="#000000"
-                android:textStyle="bold"></TextView>
-
-            <TextView
-                android:id="@+id/recently_Lotto_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/recently_Lotto_money_title"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@{vm.winner}"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="17sp"
-                android:textStyle="bold">
-            </TextView>
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이번주 LottoLike 성과"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/detail_t1"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recently_Lotto_money_layout"/>
-
-        <androidx.cardview.widget.CardView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            android:padding="10dp"
-            android:layout_margin="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_t1">
+            app:layout_constraintTop_toBottomOf="@+id/recently_Lotto_info_layout">
 
-            <com.db.williamchart.view.BarChartView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:id="@+id/detail_chart"
-                app:chart_barsRadius="4dp"
-                app:chart_spacing="15dp"
-                app:chart_barsColor="@color/colorPrimary"
-                app:chart_labelsSize="14sp"
-                android:layout_margin="15dp"
-                android:layout_height="200dp"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content">
 
 
+                <TextView
+                    android:id="@+id/detail_t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="이번주 LottoLike 성과"
+                    android:layout_marginTop="15dp"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:padding="10dp"
+                    android:id="@+id/detail_app_rank_layout"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_t1">
+
+                    <com.db.williamchart.view.BarChartView
+                        android:id="@+id/detail_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_margin="15dp"
+                        app:chart_barsColor="@color/colorPrimary"
+                        app:chart_barsRadius="4dp"
+                        app:chart_labelsSize="14sp"
+                        app:chart_spacing="15dp" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/detail_t2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="이번 회차 정보"
+                    android:textColor="#000"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_app_rank_layout" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:padding="10dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_t2">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="*">
+
+                        <TableRow>
+
+                            <TextView
+                                android:background="#e0e0e0"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="순위" />
+
+                            <TextView
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="3dp"
+                                android:background="#e0e0e0"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="등위별 당첨 금액" />
+
+                            <TextView
+                                android:background="#e0e0e0"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="당첨게임 수" />
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="1등"
+                                android:textColor="#000" />
+
+                            <TextView
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text='@{info1.money}'
+                                android:textColor="@color/colorPrimaryDark" />
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info1.person}"
+                                android:textColor="#000" />
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="2등"
+                                android:textColor="#000" />
+
+                            <TextView
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info2.money}"
+                                android:textColor="@color/colorPrimaryDark" />
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info2.person}"
+                                android:textColor="#000" />
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="3등"
+                                android:textColor="#000" />
+
+                            <TextView
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info3.money}"
+                                android:textColor="@color/colorPrimaryDark" />
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info3.person}"
+                                android:textColor="#000" />
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="4등"
+                                android:textColor="#000" />
+
+                            <TextView
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info4.money}"
+                                android:textColor="@color/colorPrimaryDark" />
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info4.person}"
+                                android:textColor="#000" />
+                        </TableRow>
+
+                        <TableRow>
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="5등"
+                                android:textColor="#000" />
+
+                            <TextView
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="3dp"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info5.money}"
+                                android:textColor="@color/colorPrimaryDark" />
+
+                            <TextView
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="@{info5.person}"
+                                android:textColor="#000" />
+                        </TableRow>
+                    </TableLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

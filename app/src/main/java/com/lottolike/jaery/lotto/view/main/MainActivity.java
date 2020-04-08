@@ -151,15 +151,16 @@ public class MainActivity extends AppCompatActivity {
         {
             recentlyNum = sharedPreferences.getLottoNumber();
             recommend_Num_String = sharedPreferences.getRecommend();
+            LottoGet();
             FirebaseExt.INSTANCE.getLottoNumber(new Function1<Integer, Unit>() {
                                                     @Override
                                                     public Unit invoke(Integer num) {
                                                         if(!num.equals(-1)){
                                                             if(recentlyNum<num) {
                                                                 recentlyNum = num;
+                                                                LottoGet();
                                                             }
                                                         }
-                                                        LottoGet();
                                                         return Unit.INSTANCE;
                                                     }
               }
@@ -248,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void mainSetLottoNumber(HashMap<String,String> hashMap)
     {
-
         Today_LottoNumber.setText(recentlyNum+"회");
 
         for (int i = 0; i < 6; i++) {

@@ -10,3 +10,4 @@ fun lottoBackground(view : TextView, number : Int)
 {
     view.setBackgroundResource(LottoItem.GetBackgroundColor(number))
 }
+
