@@ -119,6 +119,8 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     {
                         Lotto.setTextColor(Color.BLACK);
                         Lotto.setBackgroundResource(0);
+                    }else {
+                        Lotto.setTextColor(Color.WHITE);
                     }
                 }
             }

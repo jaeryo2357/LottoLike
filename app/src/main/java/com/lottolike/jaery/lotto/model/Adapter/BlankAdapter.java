@@ -39,9 +39,7 @@ public class BlankAdapter extends RecyclerView.Adapter<Number_Blank_ViewHolder> 
     @NonNull
     @Override
     public Number_Blank_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lotto_number_blank,parent,false);
-
         return new Number_Blank_ViewHolder(view);
     }
 

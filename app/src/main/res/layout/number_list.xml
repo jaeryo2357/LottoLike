@@ -15,7 +15,7 @@
         android:layout_marginTop="15dp"
         android:text="1등"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:textStyle="bold"></TextView>
 
     <LinearLayout

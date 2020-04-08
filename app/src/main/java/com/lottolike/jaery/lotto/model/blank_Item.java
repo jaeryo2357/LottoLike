@@ -1,8 +1,8 @@
 package com.lottolike.jaery.lotto.model;
 
 public class blank_Item {
-    int number;
-    boolean click;
+    private int number;
+    private boolean click;
 
     public blank_Item(int number, boolean click) {
         this.number = number;
