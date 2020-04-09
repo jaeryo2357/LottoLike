@@ -25,6 +25,24 @@ object FirebaseExt {
                 }
     }
 
+    fun updateLottoNumber(){
+        val db = FirebaseFirestore.getInstance()
+        val sfDocRef = db.collection("LottoNum").document("Lotto")
+
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(sfDocRef)
+
+            // Note: this could be done without a transaction
+            //       by updating the population using FieldValue.increment()
+            val newPopulation = snapshot.getLong("Num") ?: 0
+            transaction.update(sfDocRef, "Num", newPopulation + 1)
+
+            // Success
+            null
+        }.addOnSuccessListener { Log.d(TAG, "Transaction success!") }
+                .addOnFailureListener { e -> Log.w(TAG, "Transaction failure.", e) }
+    }
+
     fun uploadLottoResult(lottoNo:Int,level : Int){
         val db = FirebaseFirestore.getInstance()
         val sfDocRef = db.collection("LottoRank").document("Lotto$lottoNo")

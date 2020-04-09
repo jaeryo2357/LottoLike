@@ -1,13 +1,13 @@
 package com.lottolike.jaery.lotto.view.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.lottolike.jaery.lotto.R
 import com.lottolike.jaery.lotto.databinding.ActivityLottoDetailBinding
-import com.lottolike.jaery.lotto.databinding.ActivityLottoDetailBindingImpl
 import com.lottolike.jaery.lotto.util.FirebaseExt
 import com.lottolike.jaery.lotto.util.LottoItem
 import com.lottolike.jaery.lotto.util.SharedPreferences
@@ -31,6 +31,9 @@ class LottoDetailActivity : AppCompatActivity() {
             lifecycleOwner = this@LottoDetailActivity
             vm = viewModel
         }
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
         lotto_detail_back.setOnClickListener {
             finishAfterTransition()
         }
@@ -46,25 +49,29 @@ class LottoDetailActivity : AppCompatActivity() {
         getLottoInfo()
     }
 
-    fun getLottoInfo(){
+    private fun getLottoInfo(){
         CoroutineScope(Dispatchers.IO).launch {
-            val url = "https://dhlottery.co.kr/gameResult.do?method=byWin"
-            val doc = Jsoup.connect(url).timeout(1000 * 10).get()  //타임아웃 10초
-            val contentData : Elements = doc.select("table tbody tr")
+            try {
+                val url = "https://dhlottery.co.kr/gameResult.do?method=byWin"
+                val doc = Jsoup.connect(url).timeout(1000 * 10).get()  //타임아웃 10초
+                val contentData: Elements = doc.select("table tbody tr")
 
-            for(data in contentData) {
-                val element = data.select("td")
-                val lank  = element[0].text() //순위 : 1등, 2등...
-                val money = element[3].text() //등위별 당첨금액
-                val person = element[2].text() //당첨된 사람의 수
+                for (data in contentData) {
+                    val element = data.select("td")
+                    val lank = element[0].text() //순위 : 1등, 2등...
+                    val money = element[3].text() //등위별 당첨금액
+                    val person = element[2].text() //당첨된 사람의 수
 
-                when(lank) {
-                    "1등" -> binding.info1 = LottoInfo(money,person)
-                    "2등" -> binding.info2 = LottoInfo(money,person)
-                    "3등" -> binding.info3 = LottoInfo(money,person)
-                    "4등" -> binding.info4 = LottoInfo(money,person)
-                    else -> binding.info5 = LottoInfo(money,person)
+                    when (lank) {
+                        "1등" -> binding.info1 = LottoInfo(money, person)
+                        "2등" -> binding.info2 = LottoInfo(money, person)
+                        "3등" -> binding.info3 = LottoInfo(money, person)
+                        "4등" -> binding.info4 = LottoInfo(money, person)
+                        else -> binding.info5 = LottoInfo(money, person)
+                    }
                 }
+            }catch (e: Exception){
+                e.printStackTrace()
             }
         }
     }

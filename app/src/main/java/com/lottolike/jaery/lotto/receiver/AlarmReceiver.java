@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.lottolike.jaery.lotto.util.Database.LottoDB;
+import com.lottolike.jaery.lotto.util.FirebaseExt;
 import com.lottolike.jaery.lotto.util.GetJson;
 import com.lottolike.jaery.lotto.service.SenderAlert;
 import com.lottolike.jaery.lotto.service.ShowNotify;
@@ -19,6 +20,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -43,6 +46,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         int pastNum = sharedPreferences.getLottoNumber();
 
         sharedPreferences.setLottoNumber(++pastNum);
+
+        FirebaseExt.INSTANCE.getLottoNumber(new Function1<Integer, Unit>() {
+                                                @Override
+                                                public Unit invoke(Integer num) {
+                                                    if(!num.equals(-1)){
+                                                        if(sharedPreferences.getLottoNumber()>num) {
+                                                            FirebaseExt.INSTANCE.updateLottoNumber();
+                                                        }
+                                                    }
+                                                    return Unit.INSTANCE;
+                                                }
+                                            }
+        );
 
         //////////////////////////// 새로운 추천 번호 ///////////////////////
         ArrayList<Integer> integers = GetFreeNumber();

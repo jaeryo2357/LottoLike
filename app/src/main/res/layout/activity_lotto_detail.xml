@@ -176,8 +176,10 @@
         </RelativeLayout>
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/adView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recently_Lotto_info_layout">
@@ -192,8 +194,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="이번주 LottoLike 성과"
                     android:layout_marginTop="15dp"
+                    android:text="이번주 LottoLike 성과"
                     android:textColor="#000"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -201,11 +203,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/detail_app_rank_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:padding="10dp"
-                    android:id="@+id/detail_app_rank_layout"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -396,5 +398,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="SMART_BANNER"
+            app:adUnitId="@string/banner_ad_unit_id_for_test"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

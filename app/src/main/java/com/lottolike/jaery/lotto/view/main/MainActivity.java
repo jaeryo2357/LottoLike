@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
                                                             if(recentlyNum<num) {
                                                                 recentlyNum = num;
                                                                 LottoGet();
+                                                                sharedPreferences.setLottoNumber(recentlyNum-1);
+                                                                SenderAlert.senderAlarm(getApplicationContext(),new GregorianCalendar()); //알람 설정
                                                             }
                                                         }
                                                         return Unit.INSTANCE;
