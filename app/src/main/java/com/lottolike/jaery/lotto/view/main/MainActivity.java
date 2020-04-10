@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
             sharedPreferences.setInit(true);
             sharedPreferences.setLottoNumber(recentlyNum);
+            LottoGet();
         }else
         {
             recentlyNum = sharedPreferences.getLottoNumber();
