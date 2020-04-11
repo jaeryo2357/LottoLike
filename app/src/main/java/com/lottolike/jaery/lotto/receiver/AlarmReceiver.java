@@ -52,7 +52,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                                                 public Unit invoke(Integer num) {
                                                     if(!num.equals(-1)){
                                                         if(sharedPreferences.getLottoNumber()>num) {
-                                                            FirebaseExt.INSTANCE.updateLottoNumber();
+                                                            FirebaseExt.INSTANCE.updateLottoNumber(sharedPreferences.getLottoNumber());
                                                         }
                                                     }
                                                     return Unit.INSTANCE;

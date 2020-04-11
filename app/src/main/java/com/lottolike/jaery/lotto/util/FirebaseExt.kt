@@ -25,7 +25,7 @@ object FirebaseExt {
                 }
     }
 
-    fun updateLottoNumber(){
+    fun updateLottoNumber(num : Int){
         val db = FirebaseFirestore.getInstance()
         val sfDocRef = db.collection("LottoNum").document("Lotto")
 
@@ -35,7 +35,8 @@ object FirebaseExt {
             // Note: this could be done without a transaction
             //       by updating the population using FieldValue.increment()
             val newPopulation = snapshot.getLong("Num") ?: 0
-            transaction.update(sfDocRef, "Num", newPopulation + 1)
+            if(num > newPopulation)
+            transaction.update(sfDocRef, "Num", num)
 
             // Success
             null

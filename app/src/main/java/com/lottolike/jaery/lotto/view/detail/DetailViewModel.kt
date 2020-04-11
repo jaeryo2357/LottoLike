@@ -27,19 +27,19 @@ class DetailViewModel : ViewModel() {
 
     fun setLottoNumber(lottoN : Int,hash : HashMap<String,String>)
     {
-        _lottoNum.postValue(lottoN)
-        _numberOne.postValue(hash["N1"]!!.toInt())
-        _numberTwo.postValue(hash["N2"]!!.toInt())
-        _numberTrd.postValue(hash["N3"]!!.toInt())
-        _numberFor.postValue(hash["N4"]!!.toInt())
-        _numberFiv.postValue(hash["N5"]!!.toInt())
-        _numberSix.postValue(hash["N6"]!!.toInt())
-        _numberBus.postValue(hash["bonusNo"]!!.toInt())
+        if(hash.size > 0) {
+            _lottoNum.postValue(lottoN)
+            _numberOne.postValue(hash["N1"]!!.toInt())
+            _numberTwo.postValue(hash["N2"]!!.toInt())
+            _numberTrd.postValue(hash["N3"]!!.toInt())
+            _numberFor.postValue(hash["N4"]!!.toInt())
+            _numberFiv.postValue(hash["N5"]!!.toInt())
+            _numberSix.postValue(hash["N6"]!!.toInt())
+            _numberBus.postValue(hash["bonusNo"]!!.toInt())
+        }
 //
 //        val winnerMoney: Long = hash["winner"]!!.toLong()
 //        val format = DecimalFormat("###,###")
 //        _winner.postValue("${format.format(winnerMoney)}원")
     }
-
-
 }
