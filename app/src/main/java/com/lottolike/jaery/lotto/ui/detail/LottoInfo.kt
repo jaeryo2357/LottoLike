@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.view.detail
+package com.lottolike.jaery.lotto.ui.detail
 
 import java.util.*
 

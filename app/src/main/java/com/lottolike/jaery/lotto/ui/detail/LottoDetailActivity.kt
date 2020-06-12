@@ -1,11 +1,10 @@
-package com.lottolike.jaery.lotto.view.detail
+package com.lottolike.jaery.lotto.ui.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.lottolike.jaery.lotto.R
 import com.lottolike.jaery.lotto.databinding.ActivityLottoDetailBinding
 import com.lottolike.jaery.lotto.util.FirebaseExt

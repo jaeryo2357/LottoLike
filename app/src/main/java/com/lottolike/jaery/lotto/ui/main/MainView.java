@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.view.main;
+package com.lottolike.jaery.lotto.ui.main;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +17,9 @@ import android.widget.Toast;
 import com.lottolike.jaery.lotto.util.Database.LottoDB;
 import com.lottolike.jaery.lotto.util.FirebaseExt;
 import com.lottolike.jaery.lotto.util.GetJson;
-import com.lottolike.jaery.lotto.view.GetNumberActivity;
+import com.lottolike.jaery.lotto.ui.GetNumberActivity;
 import com.lottolike.jaery.lotto.util.LottoItem;
-import com.lottolike.jaery.lotto.view.MyListActivity;
+import com.lottolike.jaery.lotto.ui.MyListActivity;
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.service.SenderAlert;
 import com.google.android.gms.ads.AdRequest;
@@ -27,10 +27,10 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.lottolike.jaery.lotto.view.SettingActivity;
+import com.lottolike.jaery.lotto.ui.SettingActivity;
 import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
 import com.lottolike.jaery.lotto.util.SharedPreferences;
-import com.lottolike.jaery.lotto.view.detail.LottoDetailActivity;
+import com.lottolike.jaery.lotto.ui.detail.LottoDetailActivity;
 
 
 import org.json.JSONException;
@@ -50,7 +50,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainView extends AppCompatActivity {
 
     TextView Today_LottoNumber;
     TextView Today_LottoDay;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_qrCode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, BarcodeCaptureActivity.class);
+                Intent intent = new Intent(MainView.this, BarcodeCaptureActivity.class);
                 startActivity(intent);
             }
         });
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_myList).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MyListActivity.class);
+                Intent intent = new Intent(MainView.this, MyListActivity.class);
                 startActivity(intent);
             }
         });
@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_info_image_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LottoDetailActivity.class);
+                Intent intent = new Intent(MainView.this, LottoDetailActivity.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        MainActivity.this,
+                        MainView.this,
                         new Pair<View,String>(Today_LottoNumber,"lottoTitle"),
                         new Pair<View,String>(findViewById(R.id.main_result_layout),"lottoNumber"));
                 startActivity(intent,options.toBundle());
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_get_random_number).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GetNumberActivity.class);
+                Intent intent = new Intent(MainView.this, GetNumberActivity.class);
                 startActivity(intent);
             }
         });
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                Intent intent = new Intent(MainView.this, SettingActivity.class);
                 startActivity(intent);
             }
         });
@@ -294,10 +294,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onFailure(Call call, IOException e) {
 
-            MainActivity.this.runOnUiThread(new Runnable() {
+            MainView.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(MainActivity.this,"단말기 네트워크 환경을 확인해주세요.\n 정보를 불러오는데 필요합니다.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainView.this,"단말기 네트워크 환경을 확인해주세요.\n 정보를 불러오는데 필요합니다.",Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
 
                     db.MyListCheck(numbers,winner,bonus,drwNo);
 
-                    MainActivity.this.runOnUiThread(new Runnable() {
+                    MainView.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mainSetLottoNumber(newLotto);
@@ -374,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     //값 감소 후 공유요소에 저장 -> 해당 회수 아래를 보여줌
                     sharedPreferences.setLottoNumber(--recentlyNum);
-                    MainActivity.this.runOnUiThread(new Runnable() {
+                    MainView.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             LottoGet();
@@ -387,10 +387,10 @@ public class MainActivity extends AppCompatActivity {
             {
                //초기화 설정 완료
                 sharedPreferences.setInit(false);
-                MainActivity.this.runOnUiThread(new Runnable() {
+                MainView.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this,"현재 서버 상태가 이상하여 올바른 로또 회차를 불러올 수 없습니다. 잠시 후에 시도해주세요",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainView.this,"현재 서버 상태가 이상하여 올바른 로또 회차를 불러올 수 없습니다. 잠시 후에 시도해주세요",Toast.LENGTH_LONG).show();
                         finish();
                     }
                 });
@@ -444,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
                     newLotto.put("winner",""+winner);//1등 당첨금액
                     newLotto.put("bonusNo",""+bonus);//보너스 번호
 
-                    MainActivity.this.runOnUiThread(new Runnable() {
+                    MainView.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mainSetLottoNumber(newLotto);

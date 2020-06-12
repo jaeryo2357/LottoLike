@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.view;
+package com.lottolike.jaery.lotto.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
