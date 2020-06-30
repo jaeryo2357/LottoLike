@@ -51,7 +51,7 @@
             android:enabled="true" />
 
         <activity android:name=".ui.GetNumberActivity" />
-        <activity android:name=".ui.main.MainView">
+        <activity android:name=".ui.main.MainController">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

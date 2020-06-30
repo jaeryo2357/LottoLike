@@ -81,7 +81,7 @@ object LottoUtil {
             val doc = Jsoup.connect(url).timeout(1000 * 10).get()  //타임아웃 10초
             val contentData: String = doc.select("div[class=win_result] p[class=desc]").first().text()
 
-            date = contentData.substring(1, 13)
+            date = contentData.substring(1, 14)
 
         }catch (e: Exception){
             e.printStackTrace()

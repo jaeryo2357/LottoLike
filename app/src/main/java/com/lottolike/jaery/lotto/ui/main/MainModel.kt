@@ -9,10 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainModel {
-    lateinit var _lottoNumbers : MutableLiveData<String>
-    lateinit var _lottoRound : MutableLiveData<Int>
-    lateinit var _lottoRoundDate : MutableLiveData<String>
-    lateinit var _recommendLotto : MutableLiveData<ArrayList<Int>>
+    var _lottoNumbers : MutableLiveData<String> = MutableLiveData()
+    var _lottoRound : MutableLiveData<Int> = MutableLiveData()
+    var _lottoRoundDate : MutableLiveData<String> = MutableLiveData()
+    var _recommendLotto : MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
     var lottoNumbers : LiveData<String> = _lottoNumbers
     var lottoRound : LiveData<Int> = _lottoRound

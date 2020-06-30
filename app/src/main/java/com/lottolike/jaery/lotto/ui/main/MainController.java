@@ -21,6 +21,8 @@ import com.lottolike.jaery.lotto.ui.MyListActivity;
 import com.lottolike.jaery.lotto.ui.SettingActivity;
 import com.lottolike.jaery.lotto.ui.detail.LottoDetailActivity;
 
+import java.util.ArrayList;
+
 public class MainController extends AppCompatActivity implements View.OnClickListener {
 
     MainView mainView;
@@ -34,11 +36,12 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
         setContentView(view);
 
         mainView = new MainView(this, view);
-        mainModel = new MainModel(this);
+        mainModel = new MainModel();
 
         observeModel();
 
         mainModel.changeLottoInfo();
+        mainModel.changeRecommendLotto();
     }
 
 
@@ -93,8 +96,25 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
 
         mainModel.getLottoRound().observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(Integer integer) {
+            public void onChanged(Integer round) {
                 // 192
+                mainView.mainSetLottoRound(round);
+            }
+        });
+
+        mainModel.getLottoRoundDate().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String date) {
+                //2020년 06월 27일
+                mainView.mainSetLottoRoundDate(date);
+            }
+        });
+
+        //로또 추천번호
+        mainModel.getRecommendLotto().observe(this, new Observer<ArrayList<Integer>>() {
+            @Override
+            public void onChanged(ArrayList<Integer> numbers) {
+                mainView.mainSetRecommendNumber(numbers);
             }
         });
     }
