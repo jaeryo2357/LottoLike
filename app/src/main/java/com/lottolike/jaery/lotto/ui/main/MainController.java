@@ -33,7 +33,7 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
         View view = getLayoutInflater().inflate(R.layout.activity_main, null);
         setContentView(view);
 
-        mainView = new MainView(view);
+        mainView = new MainView(this, view);
         mainModel = new MainModel(this);
 
         observeModel();
@@ -87,6 +87,7 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onChanged(String lottoNumber) {
                  // 1,2,3,4,5,6+7
+                mainView.mainSetLottoNumber(lottoNumber);
             }
         });
 
