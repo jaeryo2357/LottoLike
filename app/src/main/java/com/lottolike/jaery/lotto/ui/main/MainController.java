@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
+import androidx.lifecycle.Observer;
 
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
@@ -22,6 +23,8 @@ import com.lottolike.jaery.lotto.ui.detail.LottoDetailActivity;
 
 public class MainController extends AppCompatActivity implements View.OnClickListener {
 
+    MainView mainView;
+    MainModel mainModel;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +32,13 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
         //view 생성
         View view = getLayoutInflater().inflate(R.layout.activity_main, null);
         setContentView(view);
-        //mainView에 전달 이후, initView() 호출
 
+        mainView = new MainView(view);
+        mainModel = new MainModel(this);
+
+        observeModel();
+
+        mainModel.changeLottoInfo();
     }
 
 
@@ -75,6 +83,18 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
 
     //모델의 변수 변화를 구독 후, 변경되면 View 반영
     private void observeModel() {
+        mainModel.getLottoNumbers().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String lottoNumber) {
+                 // 1,2,3,4,5,6+7
+            }
+        });
 
+        mainModel.getLottoRound().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                // 192
+            }
+        });
     }
 }
