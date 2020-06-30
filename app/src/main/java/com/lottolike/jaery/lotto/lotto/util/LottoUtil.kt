@@ -73,4 +73,20 @@ object LottoUtil {
         LottoNumberInfo(round ?: 0, number ?: "0,0,0,0,0,0+0")
     }
 
+    public suspend fun getLottoRoundDate() : String = withContext(Dispatchers.IO) {
+        var date : String = "2020년 6월 30일"
+
+        try {
+            val url = "https://dhlottery.co.kr/gameResult.do?method=byWin"
+            val doc = Jsoup.connect(url).timeout(1000 * 10).get()  //타임아웃 10초
+            val contentData: String = doc.select("div[class=win_result] p[class=desc]").first().text()
+
+            date = contentData.substring(1, 13)
+
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+
+        date
+    }
 }
