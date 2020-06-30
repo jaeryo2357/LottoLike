@@ -6,19 +6,19 @@
     <data>
         <variable
             name="info1"
-            type="com.lottolike.jaery.lotto.ui.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="info2"
-            type="com.lottolike.jaery.lotto.ui.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="info3"
-            type="com.lottolike.jaery.lotto.ui.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="info4"
-            type="com.lottolike.jaery.lotto.ui.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="info5"
-            type="com.lottolike.jaery.lotto.ui.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="vm"
             type="com.lottolike.jaery.lotto.ui.detail.DetailViewModel" />
