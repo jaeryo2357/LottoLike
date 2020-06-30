@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context="com.lottolike.jaery.lotto.view.main.MainActivity">
+    tools:context="com.lottolike.jaery.lotto.ui.main.MainView">
 
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"

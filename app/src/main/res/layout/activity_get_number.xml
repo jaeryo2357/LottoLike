@@ -7,7 +7,7 @@
     android:background="#fff"
     android:animateLayoutChanges="true"
     android:animationCache="true"
-    tools:context=".view.GetNumberActivity">
+    tools:context=".ui.GetNumberActivity">
 
     <Button
         android:id="@+id/get_number_back"

@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.view;
+package com.lottolike.jaery.lotto.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

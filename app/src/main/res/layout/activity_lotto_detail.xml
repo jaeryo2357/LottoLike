@@ -6,29 +6,29 @@
     <data>
         <variable
             name="info1"
-            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="info2"
-            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="info3"
-            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="info4"
-            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="info5"
-            type="com.lottolike.jaery.lotto.view.detail.LottoInfo" />
+            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
         <variable
             name="vm"
-            type="com.lottolike.jaery.lotto.view.detail.DetailViewModel" />
+            type="com.lottolike.jaery.lotto.ui.detail.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
-        tools:context="com.lottolike.jaery.lotto.view.detail.LottoDetailActivity">
+        tools:context="com.lottolike.jaery.lotto.ui.detail.LottoDetailActivity">
 
 
         <RelativeLayout

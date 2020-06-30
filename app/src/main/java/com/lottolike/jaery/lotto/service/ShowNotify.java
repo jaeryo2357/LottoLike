@@ -11,7 +11,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.lottolike.jaery.lotto.view.main.MainActivity;
+import com.lottolike.jaery.lotto.ui.main.MainView;
 
 import com.lottolike.jaery.lotto.application.App;
 import com.lottolike.jaery.lotto.R;
@@ -28,7 +28,7 @@ public class ShowNotify extends Service {
 
 
 
-        Intent notificationIntent=new Intent(this, MainActivity.class);
+        Intent notificationIntent=new Intent(this, MainView.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent=PendingIntent.getActivity(this
