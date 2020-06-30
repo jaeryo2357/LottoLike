@@ -96,6 +96,7 @@ public class MainView {
             } else {
                 number = Integer.parseInt(numberList[index]);
             }
+
             String resourceId = "L" + (index + 1);
             int resID = context.getResources().getIdentifier(resourceId, "id", context.getPackageName());
             Lotto = view.findViewById(resID);
