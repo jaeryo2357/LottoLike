@@ -19,7 +19,7 @@ import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
 import com.lottolike.jaery.lotto.ui.GetNumberActivity;
 import com.lottolike.jaery.lotto.ui.MyListActivity;
 import com.lottolike.jaery.lotto.ui.SettingActivity;
-import com.lottolike.jaery.lotto.ui.detail.LottoDetailActivity;
+import com.lottolike.jaery.lotto.ui.main.detail.MainDetailController;
 
 import java.util.ArrayList;
 
@@ -74,7 +74,7 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
                 TextView today_LottoNumber = findViewById(R.id.lottoResult_title);
                 RelativeLayout today_LottoLayout = findViewById(R.id.main_result_layout);
 
-                intent = new Intent(MainController.this, LottoDetailActivity.class);
+                intent = new Intent(MainController.this, MainDetailController.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         MainController.this,
                         new Pair<View,String>(today_LottoNumber,"lottoTitle"),

@@ -4,31 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="info1"
-            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
-        <variable
-            name="info2"
-            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
-        <variable
-            name="info3"
-            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
-        <variable
-            name="info4"
-            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
-        <variable
-            name="info5"
-            type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo" />
+        <import type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo"/>
         <variable
             name="vm"
-            type="com.lottolike.jaery.lotto.ui.detail.DetailViewModel" />
+            type="com.lottolike.jaery.lotto.ui.main.detail.MainDetailModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
-        tools:context="com.lottolike.jaery.lotto.ui.detail.LottoDetailActivity">
+        tools:context=".ui.main.detail.MainDetailController">
 
 
         <RelativeLayout
@@ -57,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
-                android:text='@{@string/lotto_title(vm.lottoNum)}'
+                android:text='@{@string/lotto_title(vm.lottoRound)}'
                 android:textColor="#ffffff"
                 android:textSize="19sp"
                 android:transitionName="lottoTitle"
@@ -85,9 +71,9 @@
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        app:lotto_background="@{vm.numberOne}"
+                        app:lotto_background="@{vm.numberArray[0]}"
                         android:gravity="center"
-                        android:text="@{@string/lotto_num(vm.numberOne)}"
+                        android:text="@{@string/lotto_num(vm.numberArray[0])}"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />
 
@@ -96,9 +82,9 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="6dp"
-                        app:lotto_background="@{vm.numberTwo}"
+                        app:lotto_background="@{vm.numberArray[1]}"
                         android:gravity="center"
-                        android:text="@{@string/lotto_num(vm.numberTwo)}"
+                        android:text="@{@string/lotto_num(vm.numberArray[1])}"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />
 
@@ -107,9 +93,9 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="6dp"
-                        app:lotto_background="@{vm.numberTrd}"
+                        app:lotto_background="@{vm.numberArray[2]}"
                         android:gravity="center"
-                        android:text="@{@string/lotto_num(vm.numberTrd)}"
+                        android:text="@{@string/lotto_num(vm.numberArray[2])}"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />/>
 
@@ -118,9 +104,9 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="6dp"
-                        app:lotto_background="@{vm.numberFor}"
+                        app:lotto_background="@{vm.numberArray[3]}"
                         android:gravity="center"
-                        android:text="@{@string/lotto_num(vm.numberFor)}"
+                        android:text="@{@string/lotto_num(vm.numberArray[3])}"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />
 
@@ -129,9 +115,9 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="6dp"
-                        app:lotto_background="@{vm.numberFiv}"
+                        app:lotto_background="@{vm.numberArray[4]}"
                         android:gravity="center"
-                        android:text="@{@string/lotto_num(vm.numberFiv)}"
+                        android:text="@{@string/lotto_num(vm.numberArray[4])}"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />/>
 
@@ -140,9 +126,9 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="6dp"
-                        app:lotto_background="@{vm.numberSix}"
+                        app:lotto_background="@{vm.numberArray[5]}"
                         android:gravity="center"
-                        android:text="@{@string/lotto_num(vm.numberSix)}"
+                        android:text="@{@string/lotto_num(vm.numberArray[5])}"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />/>
 
@@ -166,9 +152,9 @@
                     android:layout_alignBottom="@id/lottoResult_layout"
                     android:layout_marginRight="20dp"
                     android:layout_toRightOf="@id/loading_add_image"
-                    app:lotto_background="@{vm.numberBus}"
+                    app:lotto_background="@{vm.numberArray[6]}"
                     android:gravity="center"
-                    android:text="@{@string/lotto_num(vm.numberBus)}"
+                    android:text="@{@string/lotto_num(vm.numberArray[6])}"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />/>
             </RelativeLayout>
@@ -190,53 +176,17 @@
 
 
                 <TextView
-                    android:id="@+id/detail_t1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:text="지난 주 LottoLike 성과"
-                    android:textColor="#000"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/detail_app_rank_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:padding="10dp"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_t1">
-
-                    <com.db.williamchart.view.BarChartView
-                        android:id="@+id/detail_chart"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:layout_margin="15dp"
-                        app:chart_barsColor="@color/colorPrimary"
-                        app:chart_barsRadius="4dp"
-                        app:chart_labelsSize="14sp"
-                        app:chart_spacing="15dp" />
-                </androidx.cardview.widget.CardView>
-
-                <TextView
                     android:id="@+id/detail_t2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
                     android:text="지난 회차 정보"
                     android:textColor="#000"
+                    android:layout_marginTop="20dp"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_app_rank_layout" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -291,13 +241,13 @@
                                 android:layout_marginRight="3dp"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text='@{info1.money}'
+                                android:text='@{vm.numberRank[0].money}'
                                 android:textColor="@color/colorPrimaryDark" />
 
                             <TextView
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info1.person}"
+                                android:text="@{vm.numberRank[0].person}"
                                 android:textColor="#000" />
                         </TableRow>
 
@@ -314,13 +264,13 @@
                                 android:layout_marginRight="3dp"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info2.money}"
+                                android:text="@{vm.numberRank[1].money}"
                                 android:textColor="@color/colorPrimaryDark" />
 
                             <TextView
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info2.person}"
+                                android:text="@{vm.numberRank[1].person}"
                                 android:textColor="#000" />
                         </TableRow>
 
@@ -337,13 +287,13 @@
                                 android:layout_marginRight="3dp"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info3.money}"
+                                android:text="@{vm.numberRank[2].money}"
                                 android:textColor="@color/colorPrimaryDark" />
 
                             <TextView
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info3.person}"
+                                android:text="@{vm.numberRank[2].person}"
                                 android:textColor="#000" />
                         </TableRow>
 
@@ -360,13 +310,13 @@
                                 android:layout_marginRight="3dp"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info4.money}"
+                                android:text="@{vm.numberRank[3].money}"
                                 android:textColor="@color/colorPrimaryDark" />
 
                             <TextView
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info4.person}"
+                                android:text="@{vm.numberRank[3].person}"
                                 android:textColor="#000" />
                         </TableRow>
 
@@ -383,13 +333,13 @@
                                 android:layout_marginRight="3dp"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info5.money}"
+                                android:text="@{vm.numberRank[4].money}"
                                 android:textColor="@color/colorPrimaryDark" />
 
                             <TextView
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:text="@{info5.person}"
+                                android:text="@{vm.numberRank[4].person}"
                                 android:textColor="#000" />
                         </TableRow>
                     </TableLayout>
