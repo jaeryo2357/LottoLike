@@ -1,5 +1,6 @@
 package com.lottolike.jaery.lotto.lotto.util
 
+import com.lottolike.jaery.lotto.R
 import com.lottolike.jaery.lotto.lotto.domain.LottoNumberInfo
 import com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo
 import kotlinx.coroutines.*
@@ -26,6 +27,38 @@ object LottoUtil {
         numbers.sort()
 
         return numbers
+    }
+
+    public fun getLottoBackgroundColor(number : Int) : Int {
+        val color : Int
+
+        when (number) {
+            in 1..10 -> {
+                color = R.drawable.yellow_circle;
+            }
+
+            in 11..20 -> {
+                color = R.drawable.blue_circle
+            }
+
+            in 21..30 -> {
+                color = R.drawable.red_circle
+            }
+
+            in 31..40 -> {
+                color = R.drawable.shadow_circle
+            }
+
+            in 41..45 -> {
+                color = R.drawable.green_circle
+            }
+
+            else -> {
+                color = R.drawable.stroke_circle
+            }
+        }
+
+        return color
     }
 
     public suspend fun getLottoRankInfo() : ArrayList<LottoRankInfo> = withContext(Dispatchers.IO) {

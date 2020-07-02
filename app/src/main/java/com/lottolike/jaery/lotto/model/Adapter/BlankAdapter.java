@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lottolike.jaery.lotto.model.blank_Item;
-import com.lottolike.jaery.lotto.util.LottoItem;
 
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.Adapter.ViewHolder.Number_Blank_ViewHolder;

@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.lottolike.jaery.lotto.util.Database.LottoDB;
+import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.util.FirebaseExt;
-import com.lottolike.jaery.lotto.util.GetJson;
 import com.lottolike.jaery.lotto.service.SenderAlert;
 import com.lottolike.jaery.lotto.service.ShowNotify;
-import com.lottolike.jaery.lotto.util.SharedPreferences;
+import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
 
 import org.json.JSONObject;
 
@@ -31,13 +30,13 @@ import static com.lottolike.jaery.lotto.util.LottoItem.GetFreeNumber;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    SharedPreferences sharedPreferences;
+    LottoPreferences sharedPreferences;
     Context context;
     @Override
     public void onReceive(final Context context, Intent intent) {
 
         this.context = context;
-        sharedPreferences = new SharedPreferences(context);
+        sharedPreferences = new LottoPreferences(context);
           GregorianCalendar now = new GregorianCalendar();
           now.set(Calendar.MINUTE,0);
           now.add(Calendar.DAY_OF_MONTH,7);

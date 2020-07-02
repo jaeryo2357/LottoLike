@@ -15,26 +15,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
 import com.lottolike.jaery.lotto.model.Adapter.BlankAdapter;
-import com.lottolike.jaery.lotto.util.Database.LottoDB;
+import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.blank_Item;
-import com.lottolike.jaery.lotto.util.SharedPreferences;
+import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-
-import static com.lottolike.jaery.lotto.util.LottoItem.GetBackgroundColor;
-import static com.lottolike.jaery.lotto.util.LottoItem.GetFreeNumber;
-import static com.lottolike.jaery.lotto.util.LottoItem.GetNumber;
 
 public class GetNumberActivity extends AppCompatActivity {
 
     RelativeLayout if_selfInput;
-    SharedPreferences sharedPreferences;
+    LottoPreferences sharedPreferences;
     TextView L1;
     TextView L2;
     TextView L3;
@@ -58,24 +52,25 @@ public class GetNumberActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     BlankAdapter adapter;
-    ArrayList<blank_Item> items=new ArrayList<>();
-    ArrayList<Integer> blankItem=new ArrayList<>();
+    ArrayList<blank_Item> items = new ArrayList<>();
+    ArrayList<Integer> blankItem = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_number);
-        sharedPreferences = new SharedPreferences(this);
+        sharedPreferences = new LottoPreferences(this);
 
         if_selfInput = findViewById(R.id.get_number_if_self_input);
         TextView title = findViewById(R.id.get_number_times);
 
-        recyclerView =findViewById(R.id.lotto_btn_recycler);
-        adapter=new BlankAdapter(items);
+        recyclerView = findViewById(R.id.lotto_btn_recycler);
+        adapter = new BlankAdapter(items);
 
         RecyclerSetUP();
 
-        title.setText((sharedPreferences.getLottoNumber()+1)+"회");
-        methodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        title.setText((sharedPreferences.getLottoNumber()) + "회");
+        methodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         L1 = findViewById(R.id.L1);
         L2 = findViewById(R.id.L2);
@@ -85,16 +80,14 @@ public class GetNumberActivity extends AppCompatActivity {
         L6 = findViewById(R.id.L6);
 
 
-
         findViewById(R.id.get_number_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(!selfString.equals("")&&selfString.split(",").length==6)
-               InsertRecommend();
-                else
-                {
-                    Toast.makeText(GetNumberActivity.this,"번호를 입력해주세요",Toast.LENGTH_LONG).show();
+                if (!selfString.equals("") && selfString.split(",").length == 6)
+                    InsertRecommend();
+                else {
+                    Toast.makeText(GetNumberActivity.this, "번호를 입력해주세요", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -112,18 +105,17 @@ public class GetNumberActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                ArrayList<Integer> integers = GetFreeNumber();
-                selfString= "";
+                ArrayList<Integer> integers = LottoUtil.INSTANCE.getRecommendLotto();
+                selfString = "";
 
-                for(int i = 0 ;i< integers.size();i++)
-                {
-                    if(i!=0)selfString +=",";
+                for (int i = 0; i < integers.size(); i++) {
+                    if (i != 0) selfString += ",";
 
                     selfString += integers.get(i);
 
                 }
 
-                SetNumber(selfString);
+                setRecommendNumber(selfString);
             }
         });
 
@@ -157,25 +149,22 @@ public class GetNumberActivity extends AppCompatActivity {
                     Input_L6.addTextChangedListener(recommend_Edit);
 
 
-
                     if_selfInput.setVisibility(View.VISIBLE);
                     findViewById(R.id.get_number_self_end).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(checkSelf) {
+                            if (checkSelf) {
                                 button.setText("직접 입력");
-                                SetNumber(selfString);
+                                setRecommendNumber(selfString);
                                 self_Number_Setting_END();
                                 SelfEditTextClear();
                                 checkSelf = false;
-                            }
-                            else
-                            {
-                                Toast.makeText(GetNumberActivity.this,"숫자를 올바르게 중복없이 입력해주세요",Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(GetNumberActivity.this, "숫자를 올바르게 중복없이 입력해주세요", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
-                }else //취소
+                } else //취소
                 {
                     button.setText("직접 입력");
                     self_Number_Setting_END();
@@ -186,10 +175,9 @@ public class GetNumberActivity extends AppCompatActivity {
         });
     }
 
-    public void RecyclerSetUP()
-    {
+    public void RecyclerSetUP() {
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this,5));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 5));
         adapter.setClickListener(new BlankAdapter.OnBlankClickListener() {
             @Override
             public void OnClick(View view, int position) {
@@ -197,18 +185,14 @@ public class GetNumberActivity extends AppCompatActivity {
                 Integer n = Integer.parseInt(textView.getText().toString());
                 boolean check = items.get(position).isClick();
 
-                if(!check)
-                {
-                    if(blankItem.size()==6)
-                    {
-                        Toast.makeText(GetNumberActivity.this,"최대 6개까지 입력할 수 있습니다",Toast.LENGTH_LONG).show();
-                    }else
-                    {
+                if (!check) {
+                    if (blankItem.size() == 6) {
+                        Toast.makeText(GetNumberActivity.this, "최대 6개까지 입력할 수 있습니다", Toast.LENGTH_LONG).show();
+                    } else {
                         blankItem.add(n);
                         items.get(position).setClick(true);
                     }
-                }else
-                {
+                } else {
                     blankItem.remove(n);
                     items.get(position).setClick(false);
                 }
@@ -219,25 +203,22 @@ public class GetNumberActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-        for(int i = 1;i<=45;i++)
-        {
-            items.add(new blank_Item(i,false));
+        for (int i = 1; i <= 45; i++) {
+            items.add(new blank_Item(i, false));
         }
 
-        if(!selfString.equals(""))
-        {
+        if (!selfString.equals("")) {
             String[] numbers = selfString.split(",");
-            for(int i=0;i<numbers.length;i++)
-            {
+            for (int i = 0; i < numbers.length; i++) {
                 blankItem.add(Integer.parseInt(numbers[i]));
-                items.get(Integer.parseInt(numbers[i])-1).setClick(true);
+                items.get(Integer.parseInt(numbers[i]) - 1).setClick(true);
             }
         }
         adapter.notifyDataSetChanged();
     }
 
 
-    public void SelfEditTextClear(){
+    public void SelfEditTextClear() {
         Input_L1.setText("");
         Input_L2.setText("");
         Input_L3.setText("");
@@ -246,95 +227,68 @@ public class GetNumberActivity extends AppCompatActivity {
         Input_L6.setText("");
     }
 
-    public void InsertRecommend(){
+    public void InsertRecommend() {
 
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        HashMap<String,String> temp = GetNumber(getApplicationContext(),sharedPreferences.getLottoNumber());
+        LottoDB db = new LottoDB(this);
+        db.open();
+        db.MyListInsert(selfString);
 
-        if(temp.size()>0)
-        {
-            String date = temp.get("date");
-
-            String[] dates  = date.split("-");
-
-            gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
-            gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])-1); // 10
-            gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
-            gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
-            gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
-
-            LottoDB db = new LottoDB(this);
-            db.open();
-            db.MyListInsert(selfString,gregorianCalendar.get(Calendar.YEAR)+"-"+(gregorianCalendar.get(Calendar.MONTH)+1)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),sharedPreferences.getLottoNumber()+1);
-
-            Toast.makeText(GetNumberActivity.this,"저장완료했습니다",Toast.LENGTH_LONG).show();
-        }
+        Toast.makeText(GetNumberActivity.this, "저장완료했습니다", Toast.LENGTH_LONG).show();
     }
 
     private View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
-            if(hasFocus)
-            {
-                ((EditText)v).setBackgroundResource(R.drawable.stroke);
+            if (hasFocus) {
+                ((EditText) v).setBackgroundResource(R.drawable.stroke);
                 SetFocusIndex(v.getId());
 
-            }else
-            {
-                ((EditText)v).setBackgroundResource(R.drawable.stroke_not_focus);
+            } else {
+                ((EditText) v).setBackgroundResource(R.drawable.stroke_not_focus);
             }
         }
     };
 
 
-    public boolean Self_InputCheck(){
+    public boolean Self_InputCheck() {
 
         ArrayList<Integer> checks = new ArrayList<>();
 
-        for(int i = 0 ;i<6;i++)
-        {
+        for (int i = 0; i < 6; i++) {
             EditText editText = isFocus(i);
-            if(editText.getText().toString().equals(""))
-            {
+            if (editText.getText().toString().equals("")) {
                 return false;
             }
             int n = Integer.parseInt(editText.getText().toString());
 
 
-            if(checks.contains(n)) {
+            if (checks.contains(n)) {
                 return false;
-            }
-            else
-            {
+            } else {
                 checks.add(n);
             }
         }
 
         Collections.sort(checks);
 
-        for(int i = 0 ;i<checks.size();i++)
-        {
-            if(i!=0)
-            {
-                selfString +=",";
+        for (int i = 0; i < checks.size(); i++) {
+            if (i != 0) {
+                selfString += ",";
 
             }
-            selfString += checks.get(i)+"";
+            selfString += checks.get(i) + "";
         }
 
         return true; //완벽
     }
 
-    public void self_Number_Setting_END()
-    {
-        methodManager.hideSoftInputFromWindow(Input_L1.getWindowToken(),0);
+    public void self_Number_Setting_END() {
+        methodManager.hideSoftInputFromWindow(Input_L1.getWindowToken(), 0);
         if_selfInput.setVisibility(View.GONE);
     }
 
-    public void SetFocusIndex(int res)
-    {
-        switch (res)
-        {
+    public void SetFocusIndex(int res) {
+        switch (res) {
             case R.id.input_L1:
                 focusIndex = 0;
                 break;
@@ -346,7 +300,7 @@ public class GetNumberActivity extends AppCompatActivity {
                 break;
 
             case R.id.input_L4:
-                focusIndex =3;
+                focusIndex = 3;
                 break;
             case R.id.input_L5:
                 focusIndex = 4;
@@ -357,10 +311,8 @@ public class GetNumberActivity extends AppCompatActivity {
         }
     }
 
-    public EditText isFocus(int index)
-    {
-        switch (index)
-        {
+    public EditText isFocus(int index) {
+        switch (index) {
             case 0:
                 return Input_L1;
             case 1:
@@ -376,10 +328,8 @@ public class GetNumberActivity extends AppCompatActivity {
         }
     }
 
-    public TextView LottoIndex(int index)
-    {
-        switch (index)
-        {
+    public TextView LottoIndex(int index) {
+        switch (index) {
             case 0:
                 return L1;
             case 1:
@@ -399,12 +349,14 @@ public class GetNumberActivity extends AppCompatActivity {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
+
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
         }
+
         @Override
         public void afterTextChanged(Editable s) {
-            selfString="";
+            selfString = "";
             try {
                 int n = Integer.parseInt(s.toString());
 
@@ -414,81 +366,74 @@ public class GetNumberActivity extends AppCompatActivity {
                 } else if (n > 45) {
                     isFocus(focusIndex).setText("45");
                     Toast.makeText(GetNumberActivity.this, "로또 번호는 45번이 마지막입니다.", Toast.LENGTH_LONG).show();
-                }else
-                {
-                    if(Self_InputCheck())
+                } else {
+                    if (Self_InputCheck())
                         self_Number_Input_Perfect();
                     else
                         self_Number_Input_NonPerfect();
                 }
-            }catch (NumberFormatException e)
-            {
-               self_Number_Input_NonPerfect();
+            } catch (NumberFormatException e) {
+                self_Number_Input_NonPerfect();
             }
         }
     };
 
 
-    public void self_Number_Input_Perfect(){
+    public void self_Number_Input_Perfect() {
 
         Button button = findViewById(R.id.get_number_self_end);
         checkSelf = true;
         button.setBackgroundResource(R.drawable.corner_square);
     }
 
-    public void self_Number_Input_NonPerfect(){
+    public void self_Number_Input_NonPerfect() {
         checkSelf = false;
         Button button = findViewById(R.id.get_number_self_end);
         button.setBackgroundResource(R.drawable.corner_square_not_input);
     }
 
-    public void blankBtnClick(){
-        selfString  = "";
+    public void blankBtnClick() {
+        selfString = "";
         Collections.sort(blankItem);
         TextView L;
-        for(int i = 0;i<6;i++)
-        {
+        for (int i = 0; i < 6; i++) {
             L = LottoIndex(i);
-            if(i<blankItem.size()) {
-                if(i!=0) selfString = selfString + ",";
-                int n = blankItem.get(i);
-                L.setBackgroundResource(GetBackgroundColor(n));
-                L.setText(n + "");
-                selfString +=n;
-            }else
-            {
-                L.setBackgroundResource(GetBackgroundColor(46));
+            if (i < blankItem.size()) {
+                if (i != 0) selfString = selfString + ",";
+                int number = blankItem.get(i);
+                L.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
+                L.setText(number + "");
+                selfString += number;
+            } else {
+                L.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(-1));
                 L.setText("");
             }
         }
 
 
-
     }
 
-    public void SetNumber(String recommend){
+    public void setRecommendNumber(String recommend) {
         blankItem.clear();
         String[] numbers = recommend.split(",");
         TextView L;
-        for(int i = 0;i<numbers.length;i++) {
-            int n = Integer.parseInt(numbers[i]);
-            L= LottoIndex(i);
-            L.setBackgroundResource(GetBackgroundColor(n));
-            L.setText(n + "");
+        for (int i = 0; i < numbers.length; i++) {
+            int number = Integer.parseInt(numbers[i]);
+            L = LottoIndex(i);
+            L.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
+            L.setText(number + "");
 
         }
 
-        for(int i=0;i<45;i++)
-        {
+        for (int i = 0; i < 45; i++) {
             items.get(i).setClick(false);
         }
 
-        for(int i = 0; i<numbers.length;i++)
-        {
+        for (int i = 0; i < numbers.length; i++) {
             int n = Integer.parseInt(numbers[i]);
 
             blankItem.add(n);
-            items.get(n-1).setClick(true);
+            items.get(n - 1).setClick(true);
         }
 
         adapter.notifyDataSetChanged();

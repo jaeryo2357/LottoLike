@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lottolike.jaery.lotto.util.LottoItem;
 import com.lottolike.jaery.lotto.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;

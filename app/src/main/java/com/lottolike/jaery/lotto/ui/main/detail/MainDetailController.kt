@@ -8,11 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
 import com.lottolike.jaery.lotto.R
 import com.lottolike.jaery.lotto.databinding.ActivityLottoDetailBinding
-import com.lottolike.jaery.lotto.util.FirebaseExt
-import com.lottolike.jaery.lotto.util.LottoItem
-import com.lottolike.jaery.lotto.util.SharedPreferences
 import kotlinx.android.synthetic.main.activity_lotto_detail.*
-import kotlin.math.roundToInt
 
 class MainDetailController : AppCompatActivity() {
 

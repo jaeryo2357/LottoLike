@@ -3,11 +3,11 @@ package com.lottolike.jaery.lotto.util
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.lottolike.jaery.lotto.lotto.util.LottoUtil
 
 
 @BindingAdapter("app:lotto_background")
-fun lottoBackground(view : TextView, number : Int)
-{
-    view.setBackgroundResource(LottoItem.GetBackgroundColor(number))
+fun lottoBackground(view : TextView, number : Int) {
+    view.setBackgroundResource(LottoUtil.getLottoBackgroundColor(number))
 }
 

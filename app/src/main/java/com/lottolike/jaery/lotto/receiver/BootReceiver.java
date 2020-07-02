@@ -4,9 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.lottolike.jaery.lotto.util.Database.LottoDB;
+import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.service.SenderAlert;
-import com.lottolike.jaery.lotto.util.SharedPreferences;
+import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -20,39 +20,38 @@ public class BootReceiver extends BroadcastReceiver {
 
 
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
-            SharedPreferences sharedPreferences = new SharedPreferences(context);
+            LottoPreferences sharedPreferences = new LottoPreferences(context);
             int n = sharedPreferences.getLottoNumber();
 
             LottoDB db = new LottoDB(context);
             db.open();
 
-            HashMap<String,String> temp = db.GetNo(n+"");
+            HashMap<String, String> temp = db.GetNo(n + "");
 
             db.close();
 
 
-            if(temp.size()>0)
-            {
+            if (temp.size() > 0) {
                 String date = temp.get("date");
 
-                String[] dates  = date.split("-");
+                String[] dates = date.split("-");
 
-                gregorianCalendar.set(Calendar.YEAR,Integer.parseInt(dates[0])); //2019
-                gregorianCalendar.set(Calendar.MONTH,Integer.parseInt(dates[1])-1); // 10
-                gregorianCalendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dates[2]));//19
-                gregorianCalendar.set(Calendar.HOUR_OF_DAY,21);
-                gregorianCalendar.set(Calendar.MINUTE,0);
-                gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
+                gregorianCalendar.set(Calendar.YEAR, Integer.parseInt(dates[0])); //2019
+                gregorianCalendar.set(Calendar.MONTH, Integer.parseInt(dates[1]) - 1); // 10
+                gregorianCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));//19
+                gregorianCalendar.set(Calendar.HOUR_OF_DAY, 21);
+                gregorianCalendar.set(Calendar.MINUTE, 0);
+                gregorianCalendar.add(Calendar.DAY_OF_MONTH, 7);
 
                 GregorianCalendar now = new GregorianCalendar();
 
-                long diff = now.getTimeInMillis()-gregorianCalendar.getTimeInMillis();
+                long diff = now.getTimeInMillis() - gregorianCalendar.getTimeInMillis();
 
-                if(diff>0) //이미 현재시간이 알람시간보다 넘음
-                {
-                    SenderAlert.senderAlarm(context,now);
-                }else
-                    SenderAlert.senderAlarm(context,gregorianCalendar);//알림 보내기
+                if (diff > 0) {//이미 현재시간이 알람시간보다 넘음
+                    SenderAlert.senderAlarm(context, now);
+                } else {
+                    SenderAlert.senderAlarm(context, gregorianCalendar);//알림 보내기
+                }
             }
         }
     }

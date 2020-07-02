@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.lottolike.jaery.lotto.model.Adapter.NumberAdapter;
-import com.lottolike.jaery.lotto.util.Database.LottoDB;
+import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.BasicItem;
 
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class MyListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +29,7 @@ public class MyListActivity extends AppCompatActivity {
         ArrayList<BasicItem> items = lottoDB.GetMyList();
         lottoDB.close();
 
-        if(items.size()==0)
-        {
+        if (items.size() == 0) {
             findViewById(R.id.my_list_not_btn).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -38,7 +38,7 @@ public class MyListActivity extends AppCompatActivity {
                     finish();
                 }
             });
-        }else{
+        } else {
             recyclerView = findViewById(R.id.my_list_recycler);
             recyclerView.setVisibility(View.VISIBLE);
             findViewById(R.id.my_list_not_btn).setVisibility(View.GONE);

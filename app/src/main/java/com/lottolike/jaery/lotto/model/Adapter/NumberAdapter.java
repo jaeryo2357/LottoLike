@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lottolike.jaery.lotto.model.BasicItem;
 import com.lottolike.jaery.lotto.model.List_Item;
 import com.lottolike.jaery.lotto.model.What_DrwN0;
-import com.lottolike.jaery.lotto.util.LottoItem;
 
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.Adapter.ViewHolder.Number_List_ViewHolder;

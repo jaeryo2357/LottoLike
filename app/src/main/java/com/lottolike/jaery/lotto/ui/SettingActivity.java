@@ -10,20 +10,20 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.util.SharedPreferences;
+import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
 
 public class SettingActivity extends AppCompatActivity {
     boolean sound_check;
     boolean vibration_check;
     Switch Switch_sound;
     Switch Switch_vibration;
-    SharedPreferences sharedPreferences;
+    LottoPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        sharedPreferences = new SharedPreferences(this);
+        sharedPreferences = new LottoPreferences(this);
 
         findViewById(R.id.setting_back).setOnClickListener(new View.OnClickListener() {
             @Override
