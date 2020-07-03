@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
+import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.ui.GetNumberActivity;
 import com.lottolike.jaery.lotto.ui.MyListActivity;
 import com.lottolike.jaery.lotto.ui.SettingActivity;
@@ -40,7 +41,7 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
 
         observeModel();
 
-        mainModel.changeLottoInfo();
+        mainModel.changeLottoInfo(this);
         mainModel.changeRecommendLotto();
     }
 
@@ -117,5 +118,11 @@ public class MainController extends AppCompatActivity implements View.OnClickLis
                 mainView.mainSetRecommendNumber(numbers);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LottoDB.getInstance(this).close();
     }
 }

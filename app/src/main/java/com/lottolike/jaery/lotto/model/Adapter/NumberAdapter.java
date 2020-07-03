@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lottolike.jaery.lotto.model.BasicItem;
 import com.lottolike.jaery.lotto.model.List_Item;
-import com.lottolike.jaery.lotto.model.What_DrwN0;
+import com.lottolike.jaery.lotto.model.LottoRoundItem;
 
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.Adapter.ViewHolder.Number_List_ViewHolder;
@@ -53,9 +53,9 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if(items.get(position).getType()==0)
         {
             What_drwN0_ViewHolder viewHolder =(What_drwN0_ViewHolder)holder;
-            What_DrwN0  item = (What_DrwN0)items.get(position);
+            LottoRoundItem item = (LottoRoundItem)items.get(position);
 
-            viewHolder.times.setText(item.getDrwN0()+"회");
+            viewHolder.times.setText(item.getRound()+"회");
             String[] time = item.getTime().split("-");
             if(time[1].equals("111"))
             viewHolder.time.setText(time[0]+"-12-"+time[2]);

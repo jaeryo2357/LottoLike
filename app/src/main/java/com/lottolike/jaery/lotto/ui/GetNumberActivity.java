@@ -20,7 +20,6 @@ import com.lottolike.jaery.lotto.model.Adapter.BlankAdapter;
 import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.blank_Item;
-import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +27,6 @@ import java.util.Collections;
 public class GetNumberActivity extends AppCompatActivity {
 
     RelativeLayout if_selfInput;
-    LottoPreferences sharedPreferences;
     TextView L1;
     TextView L2;
     TextView L3;
@@ -59,17 +57,14 @@ public class GetNumberActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_number);
-        sharedPreferences = new LottoPreferences(this);
 
         if_selfInput = findViewById(R.id.get_number_if_self_input);
-        TextView title = findViewById(R.id.get_number_times);
 
         recyclerView = findViewById(R.id.lotto_btn_recycler);
         adapter = new BlankAdapter(items);
 
         RecyclerSetUP();
 
-        title.setText((sharedPreferences.getLottoNumber()) + "회");
         methodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         L1 = findViewById(R.id.L1);
@@ -156,7 +151,7 @@ public class GetNumberActivity extends AppCompatActivity {
                             if (checkSelf) {
                                 button.setText("직접 입력");
                                 setRecommendNumber(selfString);
-                                self_Number_Setting_END();
+                                selfNumberSettingEND();
                                 SelfEditTextClear();
                                 checkSelf = false;
                             } else {
@@ -167,7 +162,7 @@ public class GetNumberActivity extends AppCompatActivity {
                 } else //취소
                 {
                     button.setText("직접 입력");
-                    self_Number_Setting_END();
+                    selfNumberSettingEND();
                     checkSelf = false;
                     SelfEditTextClear();
                 }
@@ -229,9 +224,8 @@ public class GetNumberActivity extends AppCompatActivity {
 
     public void InsertRecommend() {
 
-        LottoDB db = new LottoDB(this);
-        db.open();
-        db.MyListInsert(selfString);
+        LottoDB db = LottoDB.getInstance(this);
+        db.myListInsert(selfString);
 
         Toast.makeText(GetNumberActivity.this, "저장완료했습니다", Toast.LENGTH_LONG).show();
     }
@@ -241,7 +235,7 @@ public class GetNumberActivity extends AppCompatActivity {
         public void onFocusChange(View v, boolean hasFocus) {
             if (hasFocus) {
                 ((EditText) v).setBackgroundResource(R.drawable.stroke);
-                SetFocusIndex(v.getId());
+                setFocusIndex(v.getId());
 
             } else {
                 ((EditText) v).setBackgroundResource(R.drawable.stroke_not_focus);
@@ -250,7 +244,7 @@ public class GetNumberActivity extends AppCompatActivity {
     };
 
 
-    public boolean Self_InputCheck() {
+    public boolean selfInputCheck() {
 
         ArrayList<Integer> checks = new ArrayList<>();
 
@@ -282,12 +276,12 @@ public class GetNumberActivity extends AppCompatActivity {
         return true; //완벽
     }
 
-    public void self_Number_Setting_END() {
+    public void selfNumberSettingEND() {
         methodManager.hideSoftInputFromWindow(Input_L1.getWindowToken(), 0);
         if_selfInput.setVisibility(View.GONE);
     }
 
-    public void SetFocusIndex(int res) {
+    public void setFocusIndex(int res) {
         switch (res) {
             case R.id.input_L1:
                 focusIndex = 0;
@@ -328,7 +322,7 @@ public class GetNumberActivity extends AppCompatActivity {
         }
     }
 
-    public TextView LottoIndex(int index) {
+    public TextView lottoTextViewIndex(int index) {
         switch (index) {
             case 0:
                 return L1;
@@ -367,26 +361,26 @@ public class GetNumberActivity extends AppCompatActivity {
                     isFocus(focusIndex).setText("45");
                     Toast.makeText(GetNumberActivity.this, "로또 번호는 45번이 마지막입니다.", Toast.LENGTH_LONG).show();
                 } else {
-                    if (Self_InputCheck())
-                        self_Number_Input_Perfect();
+                    if (selfInputCheck())
+                        selfNumberInputPerfect();
                     else
-                        self_Number_Input_NonPerfect();
+                        selfNumberInputNonPerfect();
                 }
             } catch (NumberFormatException e) {
-                self_Number_Input_NonPerfect();
+                selfNumberInputNonPerfect();
             }
         }
     };
 
 
-    public void self_Number_Input_Perfect() {
+    public void selfNumberInputPerfect() {
 
         Button button = findViewById(R.id.get_number_self_end);
         checkSelf = true;
         button.setBackgroundResource(R.drawable.corner_square);
     }
 
-    public void self_Number_Input_NonPerfect() {
+    public void selfNumberInputNonPerfect() {
         checkSelf = false;
         Button button = findViewById(R.id.get_number_self_end);
         button.setBackgroundResource(R.drawable.corner_square_not_input);
@@ -397,7 +391,7 @@ public class GetNumberActivity extends AppCompatActivity {
         Collections.sort(blankItem);
         TextView L;
         for (int i = 0; i < 6; i++) {
-            L = LottoIndex(i);
+            L = lottoTextViewIndex(i);
             if (i < blankItem.size()) {
                 if (i != 0) selfString = selfString + ",";
                 int number = blankItem.get(i);
@@ -419,7 +413,7 @@ public class GetNumberActivity extends AppCompatActivity {
         TextView L;
         for (int i = 0; i < numbers.length; i++) {
             int number = Integer.parseInt(numbers[i]);
-            L = LottoIndex(i);
+            L = lottoTextViewIndex(i);
             L.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
             L.setText(number + "");
 
@@ -437,6 +431,5 @@ public class GetNumberActivity extends AppCompatActivity {
         }
 
         adapter.notifyDataSetChanged();
-
     }
 }

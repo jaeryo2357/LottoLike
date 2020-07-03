@@ -93,7 +93,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             gregorianCalendar.add(Calendar.DAY_OF_MONTH,7);
 
             db.open();
-            db.MyListInsert(sharedPreferences.getRecommend(),gregorianCalendar.get(Calendar.YEAR)+"-"+(gregorianCalendar.get(Calendar.MONTH)+1)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),sharedPreferences.getLottoNumber()+1);
+            db.myListInsert(sharedPreferences.getRecommend(),gregorianCalendar.get(Calendar.YEAR)+"-"+(gregorianCalendar.get(Calendar.MONTH)+1)+"-"+gregorianCalendar.get(Calendar.DAY_OF_MONTH),sharedPreferences.getLottoNumber()+1);
     }
 
 
@@ -152,7 +152,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     numbers.add(N5);
                     numbers.add(N6);
 
-                    db.MyListCheck(numbers,winner,bonus,drwNo);
+                    db.myListCheck(numbers,winner,bonus,drwNo);
 
                     InsertRecommend(db,date);
                 }

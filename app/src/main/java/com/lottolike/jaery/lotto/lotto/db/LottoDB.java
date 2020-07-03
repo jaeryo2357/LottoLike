@@ -17,11 +17,23 @@ import java.util.ArrayList;
 
 public class LottoDB {
 
+    public static LottoDB instance = null;
 
-    private static final int DATABASE_VERSION = 4;
-    private static SQLiteDatabase MyListDB;
+    private static final int DATABASE_VERSION = 5;
+    private static SQLiteDatabase myListDB;
     private DatabaseHelper mDBHelper;
-    private Context mCtx;
+
+    private LottoDB() {}
+
+    public static LottoDB getInstance(Context context) {
+        synchronized (context) {
+            if (instance == null) {
+                instance = new LottoDB();
+                instance.open(context);
+            }
+        }
+        return instance;
+    }
 
     private class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -47,28 +59,19 @@ public class LottoDB {
 
     }
 
-    public LottoDB(Context context) {
-        this.mCtx = context;
-    }
+    public void myListInsert(String numbers) {
 
-    public void MyListInsert(String numbers) {
-
-        MyListDB.execSQL("INSERT INTO " + MyListTable._TABLENAME + " (number, level, money, correct) VALUES ('" + numbers + "', -1, 0, '');");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
+        myListDB.execSQL("INSERT INTO " + MyListTable._TABLENAME + " (number, level, money, correct) VALUES ('" + numbers + "', -1, '0', '');");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
     }
 
 
-    public ArrayList<BasicItem> GetMyList() {
+    public ArrayList<BasicItem> getMyList() {
 
         ArrayList<BasicItem> items = new ArrayList<>();
 
-        Cursor cursor = MyListDB.rawQuery("select * from " + MyListTable._TABLENAME + " ORDER BY level desc", null);
+        Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME + " ORDER BY level desc", null);
 
         while (cursor.moveToNext()) {
-//            if(drwN0!=cursor.getInt(6))
-//            {
-//                drwN0 = cursor.getInt(6);
-//                items.add(new What_DrwN0(0,drwN0,cursor.getString(2)));
-//            }
 
             ArrayList<Integer> integers = new ArrayList<>();
 
@@ -81,7 +84,7 @@ public class LottoDB {
                     integers.add(n);
                 }
             }
-            items.add(new List_Item(1, cursor.getInt(0), cursor.getLong(4), cursor.getInt(3), cursor.getString(1), integers));
+            items.add(new List_Item(1, cursor.getInt(0), cursor.getString(4), cursor.getInt(3), cursor.getString(1), integers));
 
         }
         cursor.close();
@@ -91,8 +94,20 @@ public class LottoDB {
 
 
     //리스트의 모든 번호에 대해서 체크
-    public void MyListCheck(ArrayList<Integer> integers, long money, int bonus) {
-        Cursor cursor = MyListDB.rawQuery("select * from " + MyListTable._TABLENAME, null);
+    public void myListCheck(String correct, String winner) {
+        Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME, null);
+
+        String money = "0원";
+        ArrayList<Integer> correctList = new ArrayList<>();
+        String[] correctArray = correct.split(",");
+
+        for (int index = 0; index < 5; index++) {
+            correctList.add(Integer.parseInt(correctArray[index]));
+        }
+        correctList.add(Integer.parseInt(correctArray[correctArray.length - 1].split("[+]")[0]));
+
+        int bonus = Integer.parseInt(correctArray[correctArray.length - 1].split("[+]")[1]);
+
 
         while (cursor.moveToNext()) {
             int primary_key = cursor.getInt(0);
@@ -100,15 +115,17 @@ public class LottoDB {
             int correctScore = 0;
             String correctString = "";
             boolean bonusCheck = false;
-            String number = cursor.getString(1);
-            String[] numbers = number.split(",");
-            for (int i = 0; i < numbers.length; i++) {
-                int n = Integer.parseInt(numbers[i]);
-                if (integers.contains(n)) {
+
+            String myNumber = cursor.getString(1);
+            String[] myNumbers = myNumber.split(",");
+
+            for (int i = 0; i < myNumbers.length; i++) {
+                int number = Integer.parseInt(myNumbers[i]);
+                if (correctList.contains(number)) {
                     if (correctScore != 0) correctString += ",";
                     correctScore++;
                     correctString += i;
-                } else if (n == bonus) {
+                } else if (number == bonus) {
                     if (correctScore != 0) correctString += ",";
                     correctString += i;
                     bonusCheck = true;
@@ -117,38 +134,39 @@ public class LottoDB {
 
             if (correctScore == 3) {
                 level = 5;
-                money = 5000;
+                money = "5000원";
             } else if (correctScore == 4) {
                 level = 4;
-                money = 50000;
+                money = "50000원";
             } else if (correctScore == 5) {
                 if (bonusCheck) {
                     level = 2;
-                    money = 49815170;
+                    money = "대략 45000000원";
                 } else {
                     level = 3;
-                    money = 1524722;
+                    money = "대략 1500000원";
                 }
             } else if (correctScore == 6) {
                 level = 1;
-            } else {
-                money = 0;
+                money = winner;
             }
-            MyListDB.execSQL("UPDATE " + MyListTable._TABLENAME + " SET level=" + level + ",money=" + money + ",correct='" + correctString + "' where id=" + primary_key + ";");
+            myListDB.execSQL("UPDATE " + MyListTable._TABLENAME + " SET level=" + level + ",money='" + money + "',correct='" + correctString + "' where id=" + primary_key + ";");
         }
 
         cursor.close();
     }
 
-    public LottoDB open() throws SQLException {
+    public LottoDB open(Context context) throws SQLException {
 
-        mDBHelper = new DatabaseHelper(mCtx, MyListTable._TABLENAME + ".db", null, DATABASE_VERSION);
-        MyListDB = mDBHelper.getWritableDatabase();
+        mDBHelper = new DatabaseHelper(context, MyListTable._TABLENAME + ".db", null, DATABASE_VERSION);
+        myListDB = mDBHelper.getWritableDatabase();
         return this;
     }
 
     public void close() { //3개 table 쓰기 모드 종료
-        MyListDB.close();
+        if (myListDB != null) {
+            myListDB.close();
+        }
     }
 
 }

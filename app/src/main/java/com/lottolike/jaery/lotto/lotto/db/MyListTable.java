@@ -10,7 +10,7 @@ public final class MyListTable {
                         + "number" + " text,"
                         + "time" + " text,"
                         + "level" + " integer,"    //등수
-                        + "money" + " integer, "   //당첨 금액
+                        + "money" + " text, "   //당첨 금액
                         + "correct" + " text); ";   //맞는 자리
 
 }

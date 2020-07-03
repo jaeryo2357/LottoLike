@@ -11,6 +11,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
 
 import java.util.ArrayList;
 
@@ -73,7 +74,7 @@ public class MainView {
             String resourceid = "recommend_L" + (index + 1);
             int resID = context.getResources().getIdentifier(resourceid, "id", context.getPackageName());
             Lotto = view.findViewById(resID);
-            Lotto.setBackgroundResource(LottoItem.GetBackgroundColor(number));
+            Lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
             Lotto.setText(number+"");
         }
     }
@@ -99,13 +100,13 @@ public class MainView {
             String resourceId = "L" + (index + 1);
             int resID = context.getResources().getIdentifier(resourceId, "id", context.getPackageName());
             Lotto = view.findViewById(resID);
-            Lotto.setBackgroundResource(LottoItem.GetBackgroundColor(number));
+            Lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
             Lotto.setText(number + "");
         }
         //보너스 번호
         int number = Integer.parseInt(numberList[numberList.length - 1].split("[+]")[1]);
         Lotto = view.findViewById(R.id.bonus);
-        Lotto.setBackgroundResource(LottoItem.GetBackgroundColor(number));
+        Lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
         Lotto.setText(number + "");
     }
 }

@@ -7,7 +7,6 @@ import kotlinx.coroutines.*
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 import java.util.*
-import java.util.concurrent.CompletableFuture
 
 object LottoUtil {
     public fun getRecommendLotto(): ArrayList<Int> {
@@ -85,8 +84,11 @@ object LottoUtil {
     public suspend fun getLottoNumberInfo() : LottoNumberInfo = withContext(Dispatchers.IO) {
         var round : Int? = null
         var number : String? = null
+        var money : String? = null
+
         val roundRegex : Regex = "[0-9]+회".toRegex()
         val numbersRegex : Regex = """[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+\+[0-9]+""".toRegex()
+        val moneyRegex : Regex = """[,0-9]+원""".toRegex()
         try {
             val url = "https://dhlottery.co.kr/gameResult.do?method=byWin"
             val doc = Jsoup.connect(url).timeout(1000 * 10).get()  //타임아웃 10초
@@ -99,15 +101,19 @@ object LottoUtil {
                 number = it.value
             }
 
+            moneyRegex.find(contentData)?.let {
+                money = it.value
+            }
+
         }catch (e: Exception){
             e.printStackTrace()
         }
 
-        LottoNumberInfo(round ?: 0, number ?: "0,0,0,0,0,0+0")
+        LottoNumberInfo(round ?: 0, number ?: "0,0,0,0,0,0+0", money ?: "0원")
     }
 
     public suspend fun getLottoRoundDate() : String = withContext(Dispatchers.IO) {
-        var date : String = "2020년 6월 30일"
+        var date : String = "2020년 06월 30일"
 
         try {
             val url = "https://dhlottery.co.kr/gameResult.do?method=byWin"

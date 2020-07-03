@@ -1,22 +1,21 @@
 package com.lottolike.jaery.lotto.model;
 
-public class What_DrwN0 extends BasicItem{
-    int drwN0;
+public class LottoRoundItem extends BasicItem{
+    int round;
     String time;
 
-
-    public What_DrwN0(int type, int drwN0, String time) {
+    public LottoRoundItem(int type, int drwN0, String time) {
         super(type);
-        this.drwN0 = drwN0;
+        this.round = drwN0;
         this.time = time;
     }
 
-    public int getDrwN0() {
-        return drwN0;
+    public int getRound() {
+        return round;
     }
 
-    public void setDrwN0(int drwN0) {
-        this.drwN0 = drwN0;
+    public void setRound(int round) {
+        this.round = round;
     }
 
     public String getTime() {

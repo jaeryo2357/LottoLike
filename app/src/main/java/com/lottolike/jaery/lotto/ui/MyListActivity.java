@@ -3,10 +3,12 @@ package com.lottolike.jaery.lotto.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
 import com.lottolike.jaery.lotto.model.Adapter.NumberAdapter;
 import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.model.BasicItem;
+import com.lottolike.jaery.lotto.model.LottoRoundItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,10 +26,9 @@ public class MyListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
-        LottoDB lottoDB = new LottoDB(getApplicationContext());
-        lottoDB.open();
-        ArrayList<BasicItem> items = lottoDB.GetMyList();
-        lottoDB.close();
+
+        LottoDB lottoDB = LottoDB.getInstance(this);
+        ArrayList<BasicItem> items = lottoDB.getMyList();
 
         if (items.size() == 0) {
             findViewById(R.id.my_list_not_btn).setOnClickListener(new View.OnClickListener() {
@@ -39,6 +40,8 @@ public class MyListActivity extends AppCompatActivity {
                 }
             });
         } else {
+            items.add(0, inputLottoRoundView());
+
             recyclerView = findViewById(R.id.my_list_recycler);
             recyclerView.setVisibility(View.VISIBLE);
             findViewById(R.id.my_list_not_btn).setVisibility(View.GONE);
@@ -49,11 +52,21 @@ public class MyListActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
+
         findViewById(R.id.my_list_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    public LottoRoundItem inputLottoRoundView() {
+        LottoPreferences pref = new LottoPreferences(this);
+
+        int round = pref.getLottoNumber();
+        String date = pref.getLottoDate();
+
+        return new LottoRoundItem(0, round, date);
     }
 }
