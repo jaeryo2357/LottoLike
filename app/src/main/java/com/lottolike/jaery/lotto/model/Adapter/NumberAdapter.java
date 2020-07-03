@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
 import com.lottolike.jaery.lotto.model.BasicItem;
 import com.lottolike.jaery.lotto.model.List_Item;
 import com.lottolike.jaery.lotto.model.What_DrwN0;
@@ -69,22 +70,22 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             String[] numbers = item.getNumbers().split(",");
 
             int n = Integer.parseInt(numbers[0]);
-            viewHolder.L1.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L1.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(n));
             viewHolder.L1.setText(n+"");
             n = Integer.parseInt(numbers[1]);
-            viewHolder.L2.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L2.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(n));
             viewHolder.L2.setText(n+"");
             n = Integer.parseInt(numbers[2]);
-            viewHolder.L3.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L3.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(n));
             viewHolder.L3.setText(n+"");
             n = Integer.parseInt(numbers[3]);
-            viewHolder.L4.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L4.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(n));
             viewHolder.L4.setText(n+"");
             n = Integer.parseInt(numbers[4]);
-            viewHolder.L5.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L5.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(n));
             viewHolder.L5.setText(n+"");
             n = Integer.parseInt(numbers[5]);
-            viewHolder.L6.setBackgroundResource(LottoItem.GetBackgroundColor(n));
+            viewHolder.L6.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(n));
             viewHolder.L6.setText(n+"");
 
 

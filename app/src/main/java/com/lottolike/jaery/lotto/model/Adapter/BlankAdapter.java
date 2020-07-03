@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
 import com.lottolike.jaery.lotto.model.blank_Item;
 
 import com.lottolike.jaery.lotto.R;
@@ -49,9 +50,9 @@ public class BlankAdapter extends RecyclerView.Adapter<Number_Blank_ViewHolder> 
         holder.lotto.setText(item.getNumber()+"");
 
         if(item.isClick()){
-            holder.lotto.setBackgroundResource(LottoItem.GetBackgroundColor(item.getNumber()));
+            holder.lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(item.getNumber()));
         }else
-            holder.lotto.setBackgroundResource(LottoItem.GetBackgroundColor(46));
+            holder.lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(46));
 
         if(clickListener!=null)
             holder.lotto.setOnClickListener(new View.OnClickListener() {

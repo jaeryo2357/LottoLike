@@ -21,24 +21,15 @@ public class BootReceiver extends BroadcastReceiver {
 
             GregorianCalendar gregorianCalendar = new GregorianCalendar();
             LottoPreferences sharedPreferences = new LottoPreferences(context);
-            int n = sharedPreferences.getLottoNumber();
+            String date = sharedPreferences.getLottoDate();
 
-            LottoDB db = new LottoDB(context);
-            db.open();
+            if (!date.equals("")) {
 
-            HashMap<String, String> temp = db.GetNo(n + "");
+                String[] dates = date.split(" ");
 
-            db.close();
-
-
-            if (temp.size() > 0) {
-                String date = temp.get("date");
-
-                String[] dates = date.split("-");
-
-                gregorianCalendar.set(Calendar.YEAR, Integer.parseInt(dates[0])); //2019
-                gregorianCalendar.set(Calendar.MONTH, Integer.parseInt(dates[1]) - 1); // 10
-                gregorianCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));//19
+                gregorianCalendar.set(Calendar.YEAR, Integer.parseInt(dates[0].substring(0, dates[0].length() -1))); //2019
+                gregorianCalendar.set(Calendar.MONTH, Integer.parseInt(dates[1].substring(0, dates[1].length() - 1)) - 1); // 10
+                gregorianCalendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2].substring(0, dates[2].length() - 1)));//19
                 gregorianCalendar.set(Calendar.HOUR_OF_DAY, 21);
                 gregorianCalendar.set(Calendar.MINUTE, 0);
                 gregorianCalendar.add(Calendar.DAY_OF_MONTH, 7);
