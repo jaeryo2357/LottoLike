@@ -16,10 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
-import com.lottolike.jaery.lotto.model.Adapter.BlankAdapter;
+import com.lottolike.jaery.lotto.lotto.adapter.BlankAdapter;
 import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.model.blank_Item;
+import com.lottolike.jaery.lotto.lotto.model.BlankItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +50,7 @@ public class GetNumberActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     BlankAdapter adapter;
-    ArrayList<blank_Item> items = new ArrayList<>();
+    ArrayList<BlankItem> items = new ArrayList<>();
     ArrayList<Integer> blankItem = new ArrayList<>();
 
     @Override
@@ -199,7 +199,7 @@ public class GetNumberActivity extends AppCompatActivity {
 
 
         for (int i = 1; i <= 45; i++) {
-            items.add(new blank_Item(i, false));
+            items.add(new BlankItem(i, false));
         }
 
         if (!selfString.equals("")) {

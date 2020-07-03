@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.model.Adapter;
+package com.lottolike.jaery.lotto.lotto.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,16 +8,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
-import com.lottolike.jaery.lotto.model.blank_Item;
+import com.lottolike.jaery.lotto.lotto.model.BlankItem;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.model.Adapter.ViewHolder.Number_Blank_ViewHolder;
+import com.lottolike.jaery.lotto.lotto.adapter.ViewHolder.Number_Blank_ViewHolder;
 
 import java.util.ArrayList;
 
 public class BlankAdapter extends RecyclerView.Adapter<Number_Blank_ViewHolder> {
 
-    private ArrayList<blank_Item> items;
+    private ArrayList<BlankItem> items;
 
     private OnBlankClickListener clickListener;
 
@@ -31,7 +31,7 @@ public class BlankAdapter extends RecyclerView.Adapter<Number_Blank_ViewHolder> 
     }
 
 
-    public BlankAdapter(ArrayList<blank_Item> items)
+    public BlankAdapter(ArrayList<BlankItem> items)
     {
         this.items = items;
     }
@@ -46,7 +46,7 @@ public class BlankAdapter extends RecyclerView.Adapter<Number_Blank_ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull Number_Blank_ViewHolder holder, final int position) {
 
-        blank_Item item = items.get(position);
+        BlankItem item = items.get(position);
         holder.lotto.setText(item.getNumber()+"");
 
         if(item.isClick()){

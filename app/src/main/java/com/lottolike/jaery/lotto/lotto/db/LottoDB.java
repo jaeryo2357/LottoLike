@@ -6,8 +6,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.lottolike.jaery.lotto.model.BasicItem;
-import com.lottolike.jaery.lotto.model.List_Item;
+import com.lottolike.jaery.lotto.lotto.model.BasicItem;
+import com.lottolike.jaery.lotto.lotto.model.LottoListItem;
 
 import java.util.ArrayList;
 
@@ -84,7 +84,7 @@ public class LottoDB {
                     integers.add(n);
                 }
             }
-            items.add(new List_Item(1, cursor.getInt(0), cursor.getString(4), cursor.getInt(3), cursor.getString(1), integers));
+            items.add(new LottoListItem(1, cursor.getInt(0), cursor.getString(4), cursor.getInt(3), cursor.getString(1), integers));
 
         }
         cursor.close();

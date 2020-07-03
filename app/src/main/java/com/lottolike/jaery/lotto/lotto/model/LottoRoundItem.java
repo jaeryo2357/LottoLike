@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.model;
+package com.lottolike.jaery.lotto.lotto.model;
 
 public class LottoRoundItem extends BasicItem{
     int round;

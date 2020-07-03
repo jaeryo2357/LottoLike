@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
-import com.lottolike.jaery.lotto.model.Adapter.NumberAdapter;
+import com.lottolike.jaery.lotto.lotto.adapter.NumberAdapter;
 import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.model.BasicItem;
-import com.lottolike.jaery.lotto.model.LottoRoundItem;
+import com.lottolike.jaery.lotto.lotto.model.BasicItem;
+import com.lottolike.jaery.lotto.lotto.model.LottoRoundItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

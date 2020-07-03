@@ -1,10 +1,10 @@
-package com.lottolike.jaery.lotto.model;
+package com.lottolike.jaery.lotto.lotto.model;
 
-public class blank_Item {
+public class BlankItem {
     private int number;
     private boolean click;
 
-    public blank_Item(int number, boolean click) {
+    public BlankItem(int number, boolean click) {
         this.number = number;
         this.click = click;
     }
