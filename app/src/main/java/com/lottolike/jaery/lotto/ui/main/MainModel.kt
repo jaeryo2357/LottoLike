@@ -3,10 +3,13 @@ package com.lottolike.jaery.lotto.ui.main
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+
 import com.lottolike.jaery.lotto.lotto.db.LottoDB
 import com.lottolike.jaery.lotto.lotto.db.LottoPreferences
+
 import com.lottolike.jaery.lotto.lotto.domain.LottoNumberInfo
 import com.lottolike.jaery.lotto.lotto.util.LottoUtil
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +28,7 @@ class MainModel {
 
     public fun changeLottoInfo(context: Context) {
         CoroutineScope(Dispatchers.Main).launch {
-            val pref = LottoPreferences(context)
+            val pref = LottoPreferences.getInstance(context)
 
             val info : LottoNumberInfo = LottoUtil.getLottoNumberInfo()
             _lottoRound.postValue(info.round)
@@ -33,6 +36,7 @@ class MainModel {
 
             val date : String = LottoUtil.getLottoRoundDate()
             _lottoRoundDate.postValue(date)
+
 
             //이전과 로또 회차와 날짜가 달라질 경우 DB에 있는 번호 목록 재채점
             if (info.round != pref.lottoNumber || date != pref.lottoDate) {

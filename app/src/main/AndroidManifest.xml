@@ -46,10 +46,6 @@
             android:enabled="true"
             android:exported="false" />
 
-        <receiver
-            android:name=".receiver.AlarmReceiver"
-            android:enabled="true" />
-
         <activity android:name=".ui.GetNumberActivity" />
         <activity android:name=".ui.main.MainController">
             <intent-filter>

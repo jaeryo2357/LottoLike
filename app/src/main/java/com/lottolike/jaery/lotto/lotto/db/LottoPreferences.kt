@@ -3,7 +3,7 @@ package com.lottolike.jaery.lotto.lotto.db
 import android.content.Context
 import android.content.SharedPreferences
  
-class LottoPreferences(context: Context) {
+class LottoPreferences private constructor(context: Context) {
     private final val PREFS_FILENAME = "appName.prefs"
     private final val LOTTO_NUM = "LottoNo"
     private final val LOTTO_DATE = "LottoDate"
@@ -11,7 +11,7 @@ class LottoPreferences(context: Context) {
     private final val VIBRATION = "vibration"
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
-    
+
     var sound: Boolean
         get () = prefs.getBoolean(SOUND, true)
         set(value) = prefs.edit().putBoolean(SOUND, value).apply()
@@ -27,4 +27,13 @@ class LottoPreferences(context: Context) {
     var lottoDate: String
         get() = prefs.getString(LOTTO_DATE, "")!!;
         set(value) = prefs.edit().putString(LOTTO_DATE, value).apply()
+
+    companion object {
+        var instance : LottoPreferences? = null
+
+        fun getInstance(context : Context) : LottoPreferences =
+            instance ?: synchronized(context) {
+                instance ?: LottoPreferences(context)
+            }
+    }
 }
