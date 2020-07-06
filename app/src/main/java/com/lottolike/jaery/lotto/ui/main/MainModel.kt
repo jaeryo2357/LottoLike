@@ -2,8 +2,10 @@ package com.lottolike.jaery.lotto.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+
 import com.lottolike.jaery.lotto.lotto.domain.LottoNumberInfo
 import com.lottolike.jaery.lotto.lotto.util.LottoUtil
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +30,7 @@ class MainModel {
 
             val date : String = LottoUtil.getLottoRoundDate()
             _lottoRoundDate.postValue(date)
+
         }
     }
 
