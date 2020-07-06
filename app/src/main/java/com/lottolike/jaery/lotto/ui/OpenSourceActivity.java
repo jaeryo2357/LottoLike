@@ -25,22 +25,16 @@ public class OpenSourceActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        TextView okHttp = findViewById(R.id.open_source_okhttp_link);
-
+        TextView jsoup = findViewById(R.id.open_source_jsoup_link);
         TextView vision = findViewById(R.id.open_source_vision_link);
-
-        TextView chart = findViewById(R.id.open_source_chart_link);
 
         Linkify.TransformFilter mTransform = new Linkify.TransformFilter() {
             @Override public String transformUrl(Matcher match, String url) { return ""; }
         };
 
-        Pattern pattern = Pattern.compile(okHttp.getText().toString());
-        Linkify.addLinks(okHttp, pattern, "https://github.com/square/okhttp",null,mTransform);
+        Pattern pattern = Pattern.compile(jsoup.getText().toString());
+        Linkify.addLinks(jsoup, pattern,"https://github.com/jhy/jsoup",null,mTransform);
         pattern = Pattern.compile(vision.getText().toString());
-        Linkify.addLinks(vision,pattern,"https://developers.google.com/vision",null,mTransform);
-        pattern = Pattern.compile(chart.getText().toString());
-        Linkify.addLinks(chart,pattern,"https://github.com/diogobernardino/williamchart",null,mTransform);
+        Linkify.addLinks(vision, pattern,"https://developers.google.com/vision",null,mTransform);
     }
 }

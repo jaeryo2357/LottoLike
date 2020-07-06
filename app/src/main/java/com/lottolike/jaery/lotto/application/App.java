@@ -15,7 +15,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        sharedPreferences = new LottoPreferences(getApplicationContext());
+        sharedPreferences = LottoPreferences.Companion.getInstance(this);
         createNotificationChannel();
     }
 

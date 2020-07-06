@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class MainDetailModel : ViewModel() {
     private val _lottoRound = MutableLiveData<Int>(0)
-    private val _numberArray = MutableLiveData<ArrayList<Int>>(arrayListOf())
+    private val _numberArray = MutableLiveData<ArrayList<Int>>(arrayListOf(0, 0, 0, 0, 0, 0, 0))
     private val _numberRank = MutableLiveData<ArrayList<LottoRankInfo>>(arrayListOf())
 
     var lottoRound : LiveData<Int> = _lottoRound

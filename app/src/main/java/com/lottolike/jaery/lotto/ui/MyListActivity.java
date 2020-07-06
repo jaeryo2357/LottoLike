@@ -62,7 +62,7 @@ public class MyListActivity extends AppCompatActivity {
     }
 
     public LottoRoundItem inputLottoRoundView() {
-        LottoPreferences pref = new LottoPreferences(this);
+        LottoPreferences pref = LottoPreferences.Companion.getInstance(this);
 
         int round = pref.getLottoNumber();
         String date = pref.getLottoDate();

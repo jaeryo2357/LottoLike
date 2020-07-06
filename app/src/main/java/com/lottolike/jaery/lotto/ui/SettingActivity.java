@@ -23,7 +23,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        sharedPreferences = new LottoPreferences(this);
+        sharedPreferences = LottoPreferences.Companion.getInstance(this);
 
         findViewById(R.id.setting_back).setOnClickListener(new View.OnClickListener() {
             @Override
