@@ -13,6 +13,7 @@ import com.lottolike.jaery.lotto.lotto.util.LottoUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainModel {
 
@@ -37,15 +38,20 @@ class MainModel {
             val date : String = LottoUtil.getLottoRoundDate()
             _lottoRoundDate.postValue(date)
 
+            CoroutineScope(Dispatchers.Default).launch {
 
-            //이전과 로또 회차와 날짜가 달라질 경우 DB에 있는 번호 목록 재채점
-            if (info.round != pref.lottoNumber || date != pref.lottoDate) {
-                pref.lottoNumber = info.round
-                pref.lottoDate = date
+                val rankInfo = withContext(Dispatchers.IO) {
+                    LottoUtil.getLottoRankInfo()
+                }
+                //이전과 로또 회차와 날짜가 달라질 경우 DB에 있는 번호 목록 재채점
+                if (info.round != pref.lottoNumber || date != pref.lottoDate) {
+                    pref.lottoNumber = info.round
+                    pref.lottoDate = date
 
-                //채점
-                val lottoDB : LottoDB = LottoDB.getInstance(context)
-                lottoDB.myListCheck(info.numbers, info.money)
+                    //채점
+                    val lottoDB : LottoDB = LottoDB.getInstance(context)
+                    lottoDB.myListCheck(info.numbers, rankInfo)
+                }
             }
         }
     }

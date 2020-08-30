@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo;
 import com.lottolike.jaery.lotto.lotto.model.BasicItem;
 import com.lottolike.jaery.lotto.lotto.model.LottoListItem;
 
@@ -69,7 +70,7 @@ public class LottoDB {
 
         ArrayList<BasicItem> items = new ArrayList<>();
 
-        Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME + " ORDER BY level desc", null);
+        Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME + " ORDER BY level asc", null);
 
         while (cursor.moveToNext()) {
 
@@ -94,7 +95,7 @@ public class LottoDB {
 
 
     //리스트의 모든 번호에 대해서 체크
-    public void myListCheck(String correct, String winner) {
+    public void myListCheck(String correct, ArrayList<LottoRankInfo> rankInfo) {
         Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME, null);
 
         String money = "0원";
@@ -141,14 +142,16 @@ public class LottoDB {
             } else if (correctScore == 5) {
                 if (bonusCheck) {
                     level = 2;
-                    money = "대략 45000000원";
+                    money = rankInfo.get(1).getMoney() + "원";
                 } else {
                     level = 3;
-                    money = "대략 1500000원";
+                    money = rankInfo.get(2).getMoney() + "원";
                 }
             } else if (correctScore == 6) {
                 level = 1;
-                money = winner;
+                money = rankInfo.get(0).getMoney() + "원";
+            } else {
+                money = "0원";
             }
             myListDB.execSQL("UPDATE " + MyListTable._TABLENAME + " SET level=" + level + ",money='" + money + "',correct='" + correctString + "' where id=" + primary_key + ";");
         }

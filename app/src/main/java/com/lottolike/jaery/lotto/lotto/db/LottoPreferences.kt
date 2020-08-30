@@ -29,7 +29,7 @@ class LottoPreferences private constructor(context: Context) {
         set(value) = prefs.edit().putString(LOTTO_DATE, value).apply()
 
     companion object {
-        var instance : LottoPreferences? = null
+        private var instance : LottoPreferences? = null
 
         fun getInstance(context : Context) : LottoPreferences =
             instance ?: synchronized(context) {
