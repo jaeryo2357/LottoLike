@@ -1,6 +1,6 @@
 package com.lottolike.jaery.lotto.lotto.model;
 
-public class LottoRoundItem extends BasicItem{
+public class LottoRoundItem extends BasicItem {
     int round;
     String time;
 

@@ -17,43 +17,59 @@ import kotlinx.coroutines.withContext
 
 class MainModel {
 
-    var _lottoNumbers : MutableLiveData<String> = MutableLiveData()
-    var _lottoRound : MutableLiveData<Int> = MutableLiveData()
-    var _lottoRoundDate : MutableLiveData<String> = MutableLiveData()
-    var _recommendLotto : MutableLiveData<ArrayList<Int>> = MutableLiveData()
+    var _lottoNumbers: MutableLiveData<String> = MutableLiveData()
+    var _lottoRound: MutableLiveData<Int> = MutableLiveData()
+    var _lottoRoundDate: MutableLiveData<String> = MutableLiveData()
+    var _recommendLotto: MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
-    var lottoNumbers : LiveData<String> = _lottoNumbers
-    var lottoRound : LiveData<Int> = _lottoRound
-    var lottoRoundDate : LiveData<String> = _lottoRoundDate
-    var recommendLotto : LiveData<ArrayList<Int>> = _recommendLotto
+    var lottoNumbers: LiveData<String> = _lottoNumbers
+    var lottoRound: LiveData<Int> = _lottoRound
+    var lottoRoundDate: LiveData<String> = _lottoRoundDate
+    var recommendLotto: LiveData<ArrayList<Int>> = _recommendLotto
 
     public fun changeLottoInfo(context: Context) {
         CoroutineScope(Dispatchers.Main).launch {
-            val pref = LottoPreferences.getInstance(context)
 
-            val info : LottoNumberInfo = LottoUtil.getLottoNumberInfo()
-            _lottoRound.postValue(info.round)
-            _lottoNumbers.postValue(info.numbers)
 
-            val date : String = LottoUtil.getLottoRoundDate()
-            _lottoRoundDate.postValue(date)
+            val info: LottoNumberInfo? = withContext(Dispatchers.IO) {
+                LottoUtil.getLottoInfo()
+            }
+            info?.let {
+                val pref = LottoPreferences.getInstance(context)
 
-            CoroutineScope(Dispatchers.Default).launch {
+                pref.lottoRound = it.round
+                _lottoRound.postValue(it.round)
 
-                val rankInfo = withContext(Dispatchers.IO) {
-                    LottoUtil.getLottoRankInfo()
-                }
-                //이전과 로또 회차와 날짜가 달라질 경우 DB에 있는 번호 목록 재채점
-                if (info.round != pref.lottoNumber || date != pref.lottoDate) {
-                    pref.lottoNumber = info.round
-                    pref.lottoDate = date
+                pref.lottoNumber = it.numbers
+                _lottoNumbers.postValue(it.numbers)
 
-                    //채점
-                    val lottoDB : LottoDB = LottoDB.getInstance(context)
-                    lottoDB.myListCheck(info.numbers, rankInfo)
-                }
+                pref.lottoDate = it.date
+                _lottoRoundDate.postValue(it.date)
             }
         }
+
+//        CoroutineScope(Dispatchers.Default).launch {
+//
+//            val info: LottoNumberInfo = withContext(Dispatchers.IO) {
+//                LottoUtil.getLottoNumberInfo()
+//            }
+//            val rankInfo = withContext(Dispatchers.IO) {
+//                LottoUtil.getLottoRankInfo()
+//            }
+//
+//            val pref = LottoPreferences.getInstance(context)
+//
+//            if (info.round != pref.lottoNumber || info.date != pref.lottoDate) {
+//
+//            }
+//
+//            pref.lottoNumber = info.round
+//            pref.lottoDate = date
+//
+//            //채점
+//            val lottoDB: LottoDB = LottoDB.getInstance(context)
+//            lottoDB.myListCheck(info.numbers, rankInfo)
+//        }
     }
 
     public fun changeRecommendLotto() {

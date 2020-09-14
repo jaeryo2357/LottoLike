@@ -20,7 +20,7 @@
         <activity android:name=".ui.PersonalActivity" />
         <activity android:name=".ui.OpenSourceActivity" />
         <activity
-            android:name=".ui.MyListActivity"
+            android:name=".ui.mylist.MyListActivity"
             android:label="@string/title_activity_my_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.SettingActivity" />

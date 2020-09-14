@@ -5,8 +5,9 @@ import android.content.SharedPreferences
  
 class LottoPreferences private constructor(context: Context) {
     private final val PREFS_FILENAME = "appName.prefs"
-    private final val LOTTO_NUM = "LottoNo"
+    private final val LOTTO_ROUND = "LottoRound"
     private final val LOTTO_DATE = "LottoDate"
+    private final val LOTTO_NUBMER = "LottoNumber"
     private final val SOUND = "sound"
     private final val VIBRATION = "vibration"
 
@@ -20,13 +21,17 @@ class LottoPreferences private constructor(context: Context) {
         get () = prefs.getBoolean(VIBRATION, true)
         set(value) = prefs.edit().putBoolean(VIBRATION, value).apply()
 
-    var lottoNumber: Int
-        get () = prefs.getInt(LOTTO_NUM, -1);
-        set(value) = prefs.edit().putInt(LOTTO_NUM, value).apply()
+    var lottoRound: Int
+        get () = prefs.getInt(LOTTO_ROUND, -1);
+        set(value) = prefs.edit().putInt(LOTTO_ROUND, value).apply()
 
     var lottoDate: String
         get() = prefs.getString(LOTTO_DATE, "")!!;
         set(value) = prefs.edit().putString(LOTTO_DATE, value).apply()
+
+    var lottoNumber: String
+        get() = prefs.getString(LOTTO_NUBMER, "")!!;
+        set(value) = prefs.edit().putString(LOTTO_NUBMER, value).apply()
 
     companion object {
         private var instance : LottoPreferences? = null

@@ -27,12 +27,15 @@ public class LottoDB {
     private LottoDB() {}
 
     public static LottoDB getInstance(Context context) {
-        synchronized (context) {
-            if (instance == null) {
-                instance = new LottoDB();
-                instance.open(context);
+        if (instance == null) {
+            synchronized (LottoDB.class) {
+                if (instance == null) {
+                    instance = new LottoDB();
+                    instance.open(context);
+                }
             }
         }
+
         return instance;
     }
 
@@ -165,11 +168,4 @@ public class LottoDB {
         myListDB = mDBHelper.getWritableDatabase();
         return this;
     }
-
-    public void close() { //3개 table 쓰기 모드 종료
-        if (myListDB != null) {
-            myListDB.close();
-        }
-    }
-
 }

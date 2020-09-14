@@ -6,4 +6,4 @@ package com.lottolike.jaery.lotto.lotto.domain
  * @param numbers : String ex) 1,2,3,4,5,6+7
  * @param money : 2,321,231원
  */
-data class LottoNumberInfo(val round : Int, val numbers : String, val money : String)
+data class LottoNumberInfo(val round : Int, val numbers : String, val money : String, var date : String)

@@ -23,18 +23,20 @@ class MainDetailModel : ViewModel() {
     fun initLottoNumber()
     {
         CoroutineScope(Dispatchers.Main).launch {
-            val info : LottoNumberInfo = LottoUtil.getLottoNumberInfo()
+            val info : LottoNumberInfo? = LottoUtil.getLottoInfo()
 
-            _lottoRound.postValue(info.round)
+            info?.let {
+                _lottoRound.postValue(it.round)
 
-            val numberArray : ArrayList<Int> = arrayListOf()
-            val numbers  = info.numbers.replace("+",",").split(",")
+                val numberArray : ArrayList<Int> = arrayListOf()
+                val numbers  = it.numbers.replace("+",",").split(",")
 
-            for (index in numbers.indices) {
+                for (index in numbers.indices) {
                     numberArray.add(numbers[index].toInt())
-            }
+                }
 
-            _numberArray.postValue(numberArray)
+                _numberArray.postValue(numberArray)
+            }
         }
     }
 
