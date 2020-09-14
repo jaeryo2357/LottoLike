@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".ui.MyListActivity">
+    tools:context=".ui.mylist.MyListActivity">
 
     <Button
         android:layout_width="30dp"
@@ -28,6 +28,20 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/my_list_t1">
     </TextView>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/my_list_calculate"
+        android:text="재채점"
+        android:background="@null"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="13dp"
+        ></Button>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
