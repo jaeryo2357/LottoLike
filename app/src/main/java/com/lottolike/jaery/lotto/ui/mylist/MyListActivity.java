@@ -5,36 +5,66 @@ import android.os.Bundle;
 
 import com.lottolike.jaery.lotto.lotto.adapter.NumberAdapter;
 import com.lottolike.jaery.lotto.R;
+import com.lottolike.jaery.lotto.lotto.db.LottoDB;
+import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
 import com.lottolike.jaery.lotto.lotto.model.BasicItem;
 import com.lottolike.jaery.lotto.ui.GetNumberActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 
-public class MyListActivity extends AppCompatActivity implements MyListContract.MyListView {
+public class MyListActivity extends AppCompatActivity implements MyListContract.View {
 
+    private MyListContract.Presenter presenter;
+    private NumberAdapter adapter;
     private RecyclerView recyclerView;
-    private MyListPresenter presenter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_list);
 
-        presenter = new MyListPresenter(this);
+        presenter = setPresenter();
 
         initView();
     }
 
-    private void initView() {
-        recyclerView = findViewById(R.id.my_list_recycler);
+    @Override
+    public MyListContract.Presenter setPresenter() {
+        return new MyListPresenter(this,
+                LottoDB.getInstance(this),
+                LottoPreferences.Companion.getInstance(this));
+    }
 
+    private void initView() {
+        swipeRefreshLayout = findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+//                        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
+//
+//                        // This method performs the actual data-refresh operation.
+//                        // The method calls setRefreshing(false) when it's finished.
+//                        myUpdateOperation();
+                        presenter.onSwipeRefresh();
+                    }
+                }
+        );
+
+        adapter = new NumberAdapter();
+
+        recyclerView = findViewById(R.id.my_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
         findViewById(R.id.my_list_not_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +85,7 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
         findViewById(R.id.my_list_calculate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.reCalculateMyList();
+                presenter.calculateMyList();
             }
         });
     }
@@ -64,7 +94,7 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
     public void onStart() {
         super.onStart();
 
-        presenter.start(this);
+        presenter.start();
     }
 
 
@@ -75,9 +105,18 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
         findViewById(R.id.my_list_not_btn).setVisibility(View.GONE);
         findViewById(R.id.my_list_not_tv).setVisibility(View.GONE);
 
-        NumberAdapter adapter = new NumberAdapter(list);
-        recyclerView.setAdapter(adapter);
+        adapter.setItems(list);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showRefreshIndicator() {
+        swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void dismissRefreshIndicator() {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -85,5 +124,11 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
         findViewById(R.id.my_list_not_btn).setVisibility(View.VISIBLE);
         findViewById(R.id.my_list_not_tv).setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }
