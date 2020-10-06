@@ -88,7 +88,7 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 viewHolder.money.setText("미정");
             } else {
                 if (item.getLevel() == 6) {
-                    viewHolder.Level.setText("낙점");
+                    viewHolder.Level.setText("낙첨");
                 } else{
                     viewHolder.Level.setText(item.getLevel() + "등");
                 }
