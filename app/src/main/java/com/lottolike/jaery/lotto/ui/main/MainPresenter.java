@@ -1,5 +1,7 @@
 package com.lottolike.jaery.lotto.ui.main;
 
+import android.content.Context;
+
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
@@ -81,6 +83,8 @@ public class MainPresenter implements MainContract.Presenter{
     public void start() {
         if (!isObserve) {
             observeModel();
+            mainModel.changeRecommendLotto();
+            mainModel.changeLottoInfo((Context)mainView);
             isObserve = true;
         }
     }
