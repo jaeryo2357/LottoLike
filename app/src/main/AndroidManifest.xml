@@ -32,7 +32,7 @@
         <activity android:name=".barcode.BarcodeCaptureActivity" />
 
         <activity android:name=".ui.GetNumberActivity" />
-        <activity android:name=".ui.main.MainController">
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

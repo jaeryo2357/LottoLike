@@ -13,7 +13,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff"
         tools:context=".ui.main.detail.MainDetailController">
 
 
@@ -356,7 +355,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             app:adSize="SMART_BANNER"
-            app:adUnitId="@string/banner_ad_unit_id"
+            app:adUnitId="@string/banner_ad_unit_id_for_test"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>

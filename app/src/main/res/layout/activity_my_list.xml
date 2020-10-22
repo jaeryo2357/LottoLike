@@ -1,83 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/swiperefresh"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context=".ui.mylist.MyListActivity">
-
-    <Button
-        android:layout_width="30dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="30dp"
-        android:background="@drawable/back"
-        android:id="@+id/my_list_back">
-
-    </Button>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내 추첨번호 목록"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:textSize="17sp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/my_list_t1">
-    </TextView>
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/my_list_calculate"
-        android:text="재채점"
-        android:background="@null"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="13dp"
-        ></Button>
-
-    <androidx.recyclerview.widget.RecyclerView
+    >
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/my_list_recycler"
-        android:layout_below="@id/my_list_t1"
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.mylist.MyListActivity">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="30dp"
+            android:background="@drawable/back"
+            android:id="@+id/my_list_back">
+
+        </ImageButton>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 추첨번호 목록"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/my_list_t1">
+        </TextView>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="생성하신 목록이 존재하지 않습니다. \n 추첨번호를 추가해주세요"
-        android:textSize="17sp"
-        android:id="@+id/my_list_not_tv"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:textColor="#000000"></TextView>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_list_calculate"
+            android:text="재채점"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="13dp"
+            />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="추가하러 가기"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:paddingLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/my_list_not_btn"
-        android:layout_below="@id/my_list_not_tv"
-        android:paddingRight="20dp"
-        android:background="@drawable/corner_square">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/my_list_recycler"
+            android:layout_below="@id/my_list_t1"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_height="match_parent">
 
-    </Button>
+        </androidx.recyclerview.widget.RecyclerView>
 
-</RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="생성하신 목록이 존재하지 않습니다. \n 추첨번호를 추가해주세요"
+            android:textSize="17sp"
+            android:id="@+id/my_list_not_tv"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="#000000"></TextView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="추가하러 가기"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/my_list_not_btn"
+            android:layout_below="@id/my_list_not_tv"
+            android:paddingRight="20dp"
+            android:background="@drawable/corner_square">
+
+        </Button>
+
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -21,10 +21,11 @@ import com.lottolike.jaery.lotto.lotto.adapter.ViewHolder.What_drwN0_ViewHolder;
 import java.util.ArrayList;
 
 public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<BasicItem> items;
+    private ArrayList<BasicItem> items = new ArrayList<>();
 
-    public NumberAdapter(ArrayList<BasicItem> item) {
-        this.items = item;
+
+    public void setItems(ArrayList<BasicItem> list) {
+        this.items = list;
     }
 
     @NonNull
@@ -88,7 +89,7 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 viewHolder.money.setText("미정");
             } else {
                 if (item.getLevel() == 6) {
-                    viewHolder.Level.setText("낙점");
+                    viewHolder.Level.setText("낙첨");
                 } else{
                     viewHolder.Level.setText(item.getLevel() + "등");
                 }
