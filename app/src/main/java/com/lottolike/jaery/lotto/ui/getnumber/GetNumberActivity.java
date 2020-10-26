@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.ui;
+package com.lottolike.jaery.lotto.ui.getnumber;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,56 +24,98 @@ import com.lottolike.jaery.lotto.lotto.model.BlankItem;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class GetNumberActivity extends AppCompatActivity {
+public class GetNumberActivity extends AppCompatActivity implements GetNumberContract.View{
 
-    RelativeLayout if_selfInput;
-    TextView L1;
-    TextView L2;
-    TextView L3;
-    TextView L4;
-    TextView L5;
-    TextView L6;
+    private GetNumberContract.Presenter presenter;
 
-    EditText Input_L1;
-    EditText Input_L2;
-    EditText Input_L3;
-    EditText Input_L4;
-    EditText Input_L5;
-    EditText Input_L6;
+    private RelativeLayout selfInputLayout;
 
-    InputMethodManager methodManager;
+    private TextView lottoTextViewOne;
+    private TextView lottoTextViewTwo;
+    private TextView lottoTextViewThree;
+    private TextView lottoTextViewFour;
+    private TextView lottoTextViewFive;
+    private TextView lottoTextViewSix;
+
+    private EditText numberInputIndexOfOne;
+    private EditText numberInputIndexOfTwo;
+    private EditText numberInputIndexOfThree;
+    private EditText numberInputIndexOfFour;
+    private EditText numberInputIndexOfFive;
+    private EditText numberInputIndexOfSix;
+
+    private Button selfInputButton;
+
+    private InputMethodManager methodManager;
     boolean checkSelf = false;
 
     String selfString = "";
 
     int focusIndex = 0;
 
-    RecyclerView recyclerView;
-    BlankAdapter adapter;
-    ArrayList<BlankItem> items = new ArrayList<>();
-    ArrayList<Integer> blankItem = new ArrayList<>();
-
+    private RecyclerView recyclerView;
+    private BlankAdapter adapter;
+    private ArrayList<BlankItem> items = new ArrayList<>();
+    private ArrayList<Integer> blankItem = new ArrayList<>();
+g
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_number);
 
-        if_selfInput = findViewById(R.id.get_number_if_self_input);
+        presenter = setPresenter();
 
-        recyclerView = findViewById(R.id.lotto_btn_recycler);
-        adapter = new BlankAdapter(items);
-
-        RecyclerSetUP();
+        initView();
+        initEditTextView();
+        initRecyclerView();
+        initButtonView();
 
         methodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
-        L1 = findViewById(R.id.L1);
-        L2 = findViewById(R.id.L2);
-        L3 = findViewById(R.id.L3);
-        L4 = findViewById(R.id.L4);
-        L5 = findViewById(R.id.L5);
-        L6 = findViewById(R.id.L6);
+    }
 
+    private void initView() {
+
+        selfInputLayout = findViewById(R.id.get_number_if_self_input);
+
+        lottoTextViewOne = findViewById(R.id.L1);
+        lottoTextViewTwo = findViewById(R.id.L2);
+        lottoTextViewThree = findViewById(R.id.L3);
+        lottoTextViewFour = findViewById(R.id.L4);
+        lottoTextViewFive = findViewById(R.id.L5);
+        lottoTextViewSix = findViewById(R.id.L6);
+    }
+
+    private void initButtonView() {
+
+        selfInputButton = findViewById(R.id.get_number_self);
+
+        findViewById(R.id.get_number_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        findViewById(R.id.get_number_recommend).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.recommendButtonClick();
+            }
+        });
+
+        findViewById(R.id.get_number_self).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Button button = (Button) v;
+                if (button.getText().toString().equals("직접 입력")) {
+                    presenter.selfInputButtonClick();
+                } else {
+                    presenter.selfInputCancelButtonClick();
+                }
+            }
+        });
 
         findViewById(R.id.get_number_save).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,91 +129,52 @@ public class GetNumberActivity extends AppCompatActivity {
             }
         });
 
-
-        findViewById(R.id.get_number_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.get_number_self_end).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-            }
-        });
-
-        findViewById(R.id.get_number_again).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                ArrayList<Integer> integers = LottoUtil.INSTANCE.getRecommendLotto();
-                selfString = "";
-
-                for (int i = 0; i < integers.size(); i++) {
-                    if (i != 0) selfString += ",";
-
-                    selfString += integers.get(i);
-
-                }
-
-                setRecommendNumber(selfString);
-            }
-        });
-
-        findViewById(R.id.get_number_self).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final Button button = (Button) v;
-                if (button.getText().toString().equals("직접 입력")) {
-
-                    button.setText("취소");
-                    Input_L1 = findViewById(R.id.input_L1);
-                    Input_L2 = findViewById(R.id.input_L2);
-                    Input_L3 = findViewById(R.id.input_L3);
-                    Input_L4 = findViewById(R.id.input_L4);
-                    Input_L5 = findViewById(R.id.input_L5);
-                    Input_L6 = findViewById(R.id.input_L6);
-
-                    Input_L1.setOnFocusChangeListener(focusChangeListener);
-                    Input_L2.setOnFocusChangeListener(focusChangeListener);
-                    Input_L3.setOnFocusChangeListener(focusChangeListener);
-                    Input_L4.setOnFocusChangeListener(focusChangeListener);
-                    Input_L5.setOnFocusChangeListener(focusChangeListener);
-                    Input_L6.setOnFocusChangeListener(focusChangeListener);
-
-                    Input_L1.addTextChangedListener(recommend_Edit);
-                    Input_L2.addTextChangedListener(recommend_Edit);
-                    Input_L3.addTextChangedListener(recommend_Edit);
-                    Input_L4.addTextChangedListener(recommend_Edit);
-                    Input_L5.addTextChangedListener(recommend_Edit);
-                    Input_L6.addTextChangedListener(recommend_Edit);
-
-
-                    if_selfInput.setVisibility(View.VISIBLE);
-                    findViewById(R.id.get_number_self_end).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (checkSelf) {
-                                button.setText("직접 입력");
-                                setRecommendNumber(selfString);
-                                selfNumberSettingEND();
-                                SelfEditTextClear();
-                                checkSelf = false;
-                            } else {
-                                Toast.makeText(GetNumberActivity.this, "숫자를 올바르게 중복없이 입력해주세요", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                } else //취소
-                {
+                if (checkSelf) {
                     button.setText("직접 입력");
+                    setRecommendNumber(selfString);
                     selfNumberSettingEND();
-                    checkSelf = false;
                     SelfEditTextClear();
+                    checkSelf = false;
+                } else {
+                    Toast.makeText(GetNumberActivity.this, "숫자를 올바르게 중복없이 입력해주세요", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
     }
 
-    public void RecyclerSetUP() {
+    private void initEditTextView() {
 
+        //EditText 초기화
+        numberInputIndexOfOne = findViewById(R.id.input_L1);
+        numberInputIndexOfTwo = findViewById(R.id.input_L2);
+        numberInputIndexOfThree = findViewById(R.id.input_L3);
+        numberInputIndexOfFour = findViewById(R.id.input_L4);
+        numberInputIndexOfFive = findViewById(R.id.input_L5);
+        numberInputIndexOfSix = findViewById(R.id.input_L6);
+
+        numberInputIndexOfOne.setOnFocusChangeListener(focusChangeListener);
+        numberInputIndexOfTwo.setOnFocusChangeListener(focusChangeListener);
+        numberInputIndexOfThree.setOnFocusChangeListener(focusChangeListener);
+        numberInputIndexOfFour.setOnFocusChangeListener(focusChangeListener);
+        numberInputIndexOfFive.setOnFocusChangeListener(focusChangeListener);
+        numberInputIndexOfSix.setOnFocusChangeListener(focusChangeListener);
+
+        numberInputIndexOfOne.addTextChangedListener(recommend_Edit);
+        numberInputIndexOfTwo.addTextChangedListener(recommend_Edit);
+        numberInputIndexOfThree.addTextChangedListener(recommend_Edit);
+        numberInputIndexOfFour.addTextChangedListener(recommend_Edit);
+        numberInputIndexOfFive.addTextChangedListener(recommend_Edit);
+        numberInputIndexOfSix.addTextChangedListener(recommend_Edit);
+    }
+
+    private void initRecyclerView() {
+        adapter = new BlankAdapter(items);
+
+        recyclerView = findViewById(R.id.lotto_btn_recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 5));
         adapter.setClickListener(new BlankAdapter.OnBlankClickListener() {
             @Override
@@ -210,16 +213,6 @@ public class GetNumberActivity extends AppCompatActivity {
             }
         }
         adapter.notifyDataSetChanged();
-    }
-
-
-    public void SelfEditTextClear() {
-        Input_L1.setText("");
-        Input_L2.setText("");
-        Input_L3.setText("");
-        Input_L4.setText("");
-        Input_L5.setText("");
-        Input_L6.setText("");
     }
 
     public void InsertRecommend() {
@@ -276,10 +269,6 @@ public class GetNumberActivity extends AppCompatActivity {
         return true; //완벽
     }
 
-    public void selfNumberSettingEND() {
-        methodManager.hideSoftInputFromWindow(Input_L1.getWindowToken(), 0);
-        if_selfInput.setVisibility(View.GONE);
-    }
 
     public void setFocusIndex(int res) {
         switch (res) {
@@ -308,34 +297,34 @@ public class GetNumberActivity extends AppCompatActivity {
     public EditText isFocus(int index) {
         switch (index) {
             case 0:
-                return Input_L1;
+                return numberInputIndexOfOne;
             case 1:
-                return Input_L2;
+                return numberInputIndexOfTwo;
             case 2:
-                return Input_L3;
+                return numberInputIndexOfThree;
             case 3:
-                return Input_L4;
+                return numberInputIndexOfFour;
             case 4:
-                return Input_L5;
+                return numberInputIndexOfFive;
             default:
-                return Input_L6;
+                return numberInputIndexOfSix;
         }
     }
 
     public TextView lottoTextViewIndex(int index) {
         switch (index) {
             case 0:
-                return L1;
+                return lottoTextViewOne;
             case 1:
-                return L2;
+                return lottoTextViewTwo;
             case 2:
-                return L3;
+                return lottoTextViewThree;
             case 3:
-                return L4;
+                return lottoTextViewFour;
             case 4:
-                return L5;
+                return lottoTextViewFive;
             default:
-                return L6;
+                return lottoTextViewSix;
         }
     }
 
@@ -373,14 +362,14 @@ public class GetNumberActivity extends AppCompatActivity {
     };
 
 
-    public void selfNumberInputPerfect() {
+    private void selfNumberInputPerfect() {
 
         Button button = findViewById(R.id.get_number_self_end);
         checkSelf = true;
         button.setBackgroundResource(R.drawable.corner_square);
     }
 
-    public void selfNumberInputNonPerfect() {
+    private void selfNumberInputNonPerfect() {
         checkSelf = false;
         Button button = findViewById(R.id.get_number_self_end);
         button.setBackgroundResource(R.drawable.corner_square_not_input);
@@ -403,33 +392,59 @@ public class GetNumberActivity extends AppCompatActivity {
                 L.setText("");
             }
         }
-
-
     }
 
-    public void setRecommendNumber(String recommend) {
-        blankItem.clear();
-        String[] numbers = recommend.split(",");
-        TextView L;
-        for (int i = 0; i < numbers.length; i++) {
-            int number = Integer.parseInt(numbers[i]);
-            L = lottoTextViewIndex(i);
-            L.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
-            L.setText(number + "");
 
-        }
+    @Override
+    public void clearRecommendView() {
+        numberInputIndexOfOne.setText("");
+        numberInputIndexOfTwo.setText("");
+        numberInputIndexOfThree.setText("");
+        numberInputIndexOfFour.setText("");
+        numberInputIndexOfFive.setText("");
+        numberInputIndexOfSix.setText("");
+    }
+
+    @Override
+    public void hideSelfInputView() {
+        checkSelf = false;
+        selfInputButton.setText("직접 입력");
+        methodManager.hideSoftInputFromWindow(numberInputIndexOfOne.getWindowToken(), 0);
+        selfInputLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showRecommendView(ArrayList<Integer> recommend) {
+        blankItem.clear();
+
+        TextView lottoTextView;
 
         for (int i = 0; i < 45; i++) {
             items.get(i).setClick(false);
         }
 
-        for (int i = 0; i < numbers.length; i++) {
-            int n = Integer.parseInt(numbers[i]);
+        for (int i = 0; i < recommend.size(); i++) {
+            int number = recommend.get(i);
 
-            blankItem.add(n);
-            items.get(n - 1).setClick(true);
+            lottoTextView = lottoTextViewIndex(i);
+            lottoTextView.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
+            lottoTextView.setText(number + "");
+
+            blankItem.add(number);
+            items.get(number).setClick(true);
         }
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showSelfInputView() {
+        selfInputButton.setText("취소");
+        selfInputLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public GetNumberContract.Presenter setPresenter() {
+        return new GetNumberPresenter(this);
     }
 }

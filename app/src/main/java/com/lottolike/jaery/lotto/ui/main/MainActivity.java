@@ -19,7 +19,7 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
 import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
-import com.lottolike.jaery.lotto.ui.GetNumberActivity;
+import com.lottolike.jaery.lotto.ui.getnumber.GetNumberActivity;
 import com.lottolike.jaery.lotto.ui.SettingActivity;
 import com.lottolike.jaery.lotto.ui.main.detail.MainDetailController;
 import com.lottolike.jaery.lotto.ui.mylist.MyListActivity;
