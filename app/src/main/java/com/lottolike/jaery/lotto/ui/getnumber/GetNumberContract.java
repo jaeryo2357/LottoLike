@@ -1,5 +1,7 @@
 package com.lottolike.jaery.lotto.ui.getnumber;
 
+import android.widget.EditText;
+
 import com.lottolike.jaery.lotto.BasePresenter;
 import com.lottolike.jaery.lotto.BaseView;
 
@@ -9,22 +11,24 @@ public interface GetNumberContract {
 
     interface View extends BaseView<Presenter> {
 
-
-        void clearRecommendView();
-
-        void hideSelfInputView();
-
         void showRecommendView(ArrayList<Integer> recommend);
 
-        void showSelfInputView();
+        void showSaveSuccess();
+
+        void showSaveError();
+
+        void clearSelectedNumber();
+
     }
 
     interface Presenter extends BasePresenter {
 
+        void numberSaveButtonClick();
+
         void recommendButtonClick();
 
-        void selfInputCancelButtonClick();
+        void selfNumberButtonClick(int value);
 
-        void selfInputButtonClick();
+        void clearButtonClick();
     }
 }

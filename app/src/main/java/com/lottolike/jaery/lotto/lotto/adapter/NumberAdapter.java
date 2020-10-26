@@ -15,8 +15,8 @@ import com.lottolike.jaery.lotto.lotto.model.LottoListItem;
 import com.lottolike.jaery.lotto.lotto.model.LottoRoundItem;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.lotto.adapter.ViewHolder.Number_List_ViewHolder;
-import com.lottolike.jaery.lotto.lotto.adapter.ViewHolder.What_drwN0_ViewHolder;
+import com.lottolike.jaery.lotto.lotto.adapter.ViewHolder.NumberListViewHolder;
+import com.lottolike.jaery.lotto.lotto.adapter.ViewHolder.LottoInfoViewHolder;
 
 import java.util.ArrayList;
 
@@ -36,10 +36,10 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (viewType == 0) //time
         {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.what_drwn0, parent, false);
-            return new What_drwN0_ViewHolder(view);
+            return new LottoInfoViewHolder(view);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.number_list, parent, false);
-            return new Number_List_ViewHolder(view);
+            return new NumberListViewHolder(view);
         }
     }
 
@@ -52,14 +52,14 @@ public class NumberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         if (items.get(position).getType() == 0) {
-            What_drwN0_ViewHolder viewHolder = (What_drwN0_ViewHolder) holder;
+            LottoInfoViewHolder viewHolder = (LottoInfoViewHolder) holder;
             LottoRoundItem item = (LottoRoundItem) items.get(position);
 
             viewHolder.times.setText(item.getRound() + "회 당첨 결과");
 
             viewHolder.time.setText(item.getTime());
         } else {
-            Number_List_ViewHolder viewHolder = (Number_List_ViewHolder) holder;
+            NumberListViewHolder viewHolder = (NumberListViewHolder) holder;
             LottoListItem item = (LottoListItem) items.get(position);
 
             String[] numbers = item.getNumbers().split(",");

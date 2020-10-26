@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lottolike.jaery.lotto.R;
 
 
-public class Number_List_ViewHolder extends RecyclerView.ViewHolder {
+public class NumberListViewHolder extends RecyclerView.ViewHolder {
 
     public TextView L1;
     public TextView L2;
@@ -41,7 +41,7 @@ public class Number_List_ViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    public Number_List_ViewHolder(@NonNull View itemView) {
+    public NumberListViewHolder(@NonNull View itemView) {
         super(itemView);
 
         Level = itemView.findViewById(R.id.number_list_level);
