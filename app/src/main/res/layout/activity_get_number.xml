@@ -8,7 +8,7 @@
     android:animationCache="true"
     tools:context=".ui.GetNumberActivity">
 
-    <Button
+    <ImageButton
         android:id="@+id/get_number_back"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/back">
 
-    </Button>
+    </ImageButton>
 
     <LinearLayout
         android:id="@+id/get_number_t1"
