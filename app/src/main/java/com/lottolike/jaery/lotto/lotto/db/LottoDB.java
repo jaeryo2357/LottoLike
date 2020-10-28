@@ -65,7 +65,7 @@ public class LottoDB {
 
     public void myListInsert(ArrayList<Integer> selectedNumber) {
         String numbers = selectedNumber.toString();
-        numbers = numbers.substring(1, numbers.length() - 1);
+        numbers = numbers.substring(1, numbers.length() - 1).replaceAll(" ", "");
         myListDB.execSQL("INSERT INTO " + MyListTable._TABLENAME + " (number, level, money, correct) VALUES ('" + numbers + "', -1, '0', '');");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
     }
 

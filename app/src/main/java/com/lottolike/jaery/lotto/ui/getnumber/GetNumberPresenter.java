@@ -29,29 +29,30 @@ public class GetNumberPresenter implements GetNumberContract.Presenter {
 
     @Override
     public void recommendButtonClick() {
-        view.showRecommendView(LottoUtil.INSTANCE.getRecommendLotto());
+        selectedNumber = LottoUtil.INSTANCE.getRecommendLotto();
+        view.showRecommendView(selectedNumber);
     }
 
     @Override
     public void selfNumberButtonClick(int value) {
         Integer newValue = value;
 
-        if (selectedNumber.size() == 6) {
-            view.showSaveError();
-            return;
-        }
-
         if (selectedNumber.contains(newValue)) {
             selectedNumber.remove(newValue);
         } else {
-            selectedNumber.add(newValue);
+            if (selectedNumber.size() == 6) {
+                view.showSaveError();
+            } else {
+                selectedNumber.add(newValue);
+            }
         }
-
+        view.clearSelectedNumber();
         view.showRecommendView(selectedNumber);
     }
 
     @Override
     public void clearButtonClick() {
+        selectedNumber.clear();
         view.clearSelectedNumber();
     }
 
