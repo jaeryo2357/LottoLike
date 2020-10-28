@@ -1,5 +1,6 @@
 package com.lottolike.jaery.lotto.lotto.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,63 +9,59 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
-import com.lottolike.jaery.lotto.lotto.model.BlankItem;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.lotto.adapter.ViewHolder.Number_Blank_ViewHolder;
+import com.lottolike.jaery.lotto.lotto.adapter.ViewHolder.NumberBlankViewHolder;
 
 import java.util.ArrayList;
 
-public class BlankAdapter extends RecyclerView.Adapter<Number_Blank_ViewHolder> {
+public class BlankAdapter extends RecyclerView.Adapter<NumberBlankViewHolder> {
 
-    private ArrayList<BlankItem> items;
+    private ArrayList<Integer> selectedItem;
 
     private OnBlankClickListener clickListener;
 
-    public interface OnBlankClickListener{
-        void OnClick(View view,int position);
+    public interface OnBlankClickListener {
+        void OnClick(View view, int position);
     }
 
-    public void setClickListener(OnBlankClickListener clickListener)
-    {
+    public void setClickListener(OnBlankClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
+    public void setSelectedItem(ArrayList<Integer> item) {
+        this.selectedItem = item;
+    }
 
-    public BlankAdapter(ArrayList<BlankItem> items)
-    {
-        this.items = items;
+    public BlankAdapter(ArrayList<Integer> items, OnBlankClickListener listener) {
+        this.selectedItem = items;
+        this.clickListener = listener;
     }
 
     @NonNull
     @Override
-    public Number_Blank_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lotto_number_blank,parent,false);
-        return new Number_Blank_ViewHolder(view);
+    public NumberBlankViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lotto_number_blank, parent, false);
+        return new NumberBlankViewHolder(view, clickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Number_Blank_ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull NumberBlankViewHolder holder, final int position) {
 
-        BlankItem item = items.get(position);
-        holder.lotto.setText(item.getNumber()+"");
+        Integer value = position;
+        holder.lotto.setText(value.toString());
 
-        if(item.isClick()){
-            holder.lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(item.getNumber()));
-        }else
-            holder.lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(46));
-
-        if(clickListener!=null)
-            holder.lotto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.OnClick(v,position);
-                }
-            });
+        if (selectedItem.contains(value)) {
+            holder.lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(value));
+            holder.lotto.setTextColor(Color.WHITE);
+        } else {
+            holder.lotto.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(-1));
+            holder.lotto.setTextColor(Color.BLACK);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return 45;
     }
 }

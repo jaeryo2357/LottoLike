@@ -7,7 +7,7 @@
     tools:context=".ui.SettingActivity">
 
 
-    <Button
+    <ImageButton
         android:layout_width="30dp"
         android:layout_marginLeft="13dp"
         android:layout_marginTop="10dp"
@@ -15,7 +15,8 @@
         android:background="@drawable/back"
         android:id="@+id/open_source_back">
 
-    </Button>
+    </ImageButton>
+
 
     <TextView
         android:layout_width="wrap_content"

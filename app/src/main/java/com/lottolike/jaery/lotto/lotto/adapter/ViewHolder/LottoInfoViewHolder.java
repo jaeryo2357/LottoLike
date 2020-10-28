@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lottolike.jaery.lotto.R;
 
 
-public class What_drwN0_ViewHolder extends RecyclerView.ViewHolder {
+public class LottoInfoViewHolder extends RecyclerView.ViewHolder {
 
     public TextView times;
     public TextView time;
 
-    public What_drwN0_ViewHolder(@NonNull View itemView) {
+    public LottoInfoViewHolder(@NonNull View itemView) {
         super(itemView);
 
         times = itemView.findViewById(R.id.what_drwn0_times);

@@ -8,14 +8,13 @@ import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.lotto.db.LottoDB;
 import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
 import com.lottolike.jaery.lotto.lotto.model.BasicItem;
-import com.lottolike.jaery.lotto.ui.GetNumberActivity;
+import com.lottolike.jaery.lotto.ui.getnumber.GetNumberActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;

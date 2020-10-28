@@ -22,7 +22,9 @@ class MyListPresenter(
     override fun start() {
         val list = loadMyList()
         list?.let {
-            view.showMyList(it)
+            if (list.size != 0) {
+                view.showMyList(it)
+            }
         }
     }
 
