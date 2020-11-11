@@ -18,10 +18,10 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
-import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
+import com.lottolike.jaery.lotto.data.util.LottoUtil;
 import com.lottolike.jaery.lotto.ui.getnumber.GetNumberActivity;
 import com.lottolike.jaery.lotto.ui.SettingActivity;
-import com.lottolike.jaery.lotto.ui.main.detail.MainDetailController;
+import com.lottolike.jaery.lotto.ui.main.detail.MainDetailActivity;
 import com.lottolike.jaery.lotto.ui.mylist.MyListActivity;
 
 import java.util.ArrayList;
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void showDetailLottoView() {
         RelativeLayout today_LottoLayout = findViewById(R.id.main_result_layout);
 
-        Intent intent = new Intent(this, MainDetailController.class);
+        Intent intent = new Intent(this, MainDetailActivity.class);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 this,
                 new Pair<View, String>(lottoRoundTextView, "lottoTitle"),

@@ -3,11 +3,11 @@ package com.lottolike.jaery.lotto.ui.mylist;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.lottolike.jaery.lotto.lotto.adapter.NumberAdapter;
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.lotto.db.LottoDB;
-import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
-import com.lottolike.jaery.lotto.lotto.model.BasicItem;
+import com.lottolike.jaery.lotto.data.OfficialLottoData;
+import com.lottolike.jaery.lotto.data.UserLottoData;
+import com.lottolike.jaery.lotto.data.db.LottoDB;
+import com.lottolike.jaery.lotto.data.db.LottoPreferences;
 import com.lottolike.jaery.lotto.ui.getnumber.GetNumberActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,15 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MyListActivity extends AppCompatActivity implements MyListContract.View {
 
     private MyListContract.Presenter presenter;
-    private NumberAdapter adapter;
+
+    private MyListAdapter adapter;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView myListLottoRound;
+    private TextView myListLottoDate;
+    private TextView myListEmptyTextView;
+    private Button myListEmptyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +66,16 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
                 }
         );
 
-        adapter = new NumberAdapter();
-
-        recyclerView = findViewById(R.id.my_list_recycler);
+        recyclerView = findViewById(R.id.mylist_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setItemViewCacheSize(10);
 
-        findViewById(R.id.my_list_not_btn).setOnClickListener(new View.OnClickListener() {
+        myListLottoDate = findViewById(R.id.mylist_lottodate);
+        myListLottoRound = findViewById(R.id.mylist_lottoround);
+        myListEmptyTextView = findViewById(R.id.mylist_not_tv);
+        myListEmptyButton = findViewById(R.id.my_list_not_btn);
+
+        myListEmptyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MyListActivity.this, GetNumberActivity.class);
@@ -74,14 +84,14 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
             }
         });
 
-        findViewById(R.id.my_list_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.mylist_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        findViewById(R.id.my_list_calculate).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.mylist_calculate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presenter.calculateMyList();
@@ -98,14 +108,21 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
 
 
     @Override
-    public void showMyList(ArrayList<BasicItem> list) {
+    public void showMyList(List<UserLottoData> userData, OfficialLottoData officialLottoData) {
 
         recyclerView.setVisibility(View.VISIBLE);
-        findViewById(R.id.my_list_not_btn).setVisibility(View.GONE);
-        findViewById(R.id.my_list_not_tv).setVisibility(View.GONE);
+        myListEmptyButton.setVisibility(View.GONE);
+        myListEmptyTextView.setVisibility(View.GONE);
 
-        adapter.setItems(list);
+        adapter = new MyListAdapter(userData, officialLottoData);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showOfficialDate(OfficialLottoData officialLottoData) {
+        myListLottoRound.setText(officialLottoData.getLottoRound() + "");
+        myListLottoDate.setText(officialLottoData.getLottoDate());
     }
 
     @Override
@@ -120,8 +137,8 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
 
     @Override
     public void showErrorListEmpty() {
-        findViewById(R.id.my_list_not_btn).setVisibility(View.VISIBLE);
-        findViewById(R.id.my_list_not_tv).setVisibility(View.VISIBLE);
+        myListEmptyButton.setVisibility(View.VISIBLE);
+        myListEmptyTextView.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
     }
 

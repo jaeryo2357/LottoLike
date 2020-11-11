@@ -6,6 +6,8 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 
+import com.lottolike.jaery.lotto.data.OfficialLottoData;
+
 import java.util.ArrayList;
 
 public class MainPresenter implements MainContract.Presenter{
@@ -21,27 +23,14 @@ public class MainPresenter implements MainContract.Presenter{
 
     //모델의 변수 변화를 구독 후, 변경되면 View 반영
     private void observeModel() {
-        mainModel.getLottoNumbers().observe((LifecycleOwner) mainView, new Observer<String>() {
-            @Override
-            public void onChanged(String lottoNumber) {
-                 // 1,2,3,4,5,6+7
-                mainView.showLottoNumber(lottoNumber);
-            }
-        });
 
-        mainModel.getLottoRound().observe((LifecycleOwner) mainView, new Observer<Integer>() {
+        mainModel.getOfficialLottoData().observe((LifecycleOwner) mainView, new Observer<OfficialLottoData>() {
             @Override
-            public void onChanged(Integer round) {
-                // 192
-                mainView.showLottoRound(round);
-            }
-        });
-
-        mainModel.getLottoRoundDate().observe((LifecycleOwner) mainView, new Observer<String>() {
-            @Override
-            public void onChanged(String date) {
+            public void onChanged(OfficialLottoData data) {
                 //2020년 06월 27일
-                mainView.showLottoRoundDate(date);
+                mainView.showLottoRound(data.getLottoRound());
+                mainView.showLottoNumber(data.getOfficialLottoNumber());
+                mainView.showLottoRoundDate(data.getLottoDate());
             }
         });
 

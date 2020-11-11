@@ -1,16 +1,6 @@
 package com.example.jaery.lotto
 
-import com.lottolike.jaery.lotto.lotto.util.LottoUtil
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert
-import org.junit.Test
-
 class LottoUnitTest {
-
-    @Test
-    fun getLottoDate() = runBlocking {
-        val date : String = LottoUtil.getLottoRoundDate()
-
-        Assert.assertEquals(date, "2020년 06월 27일")
-    }
+    //당첨번호 문자열이
+    //1,2,3,4,5,6+7 인지 확인
 }

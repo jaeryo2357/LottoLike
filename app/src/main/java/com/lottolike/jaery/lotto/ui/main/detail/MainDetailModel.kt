@@ -3,46 +3,30 @@ package com.lottolike.jaery.lotto.ui.main.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lottolike.jaery.lotto.lotto.domain.LottoNumberInfo
-import com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo
-import com.lottolike.jaery.lotto.lotto.util.LottoUtil
+import com.lottolike.jaery.lotto.data.OfficialLottoData
+import com.lottolike.jaery.lotto.data.domain.LottoNumberInfo
+import com.lottolike.jaery.lotto.data.domain.LottoRankInfo
+import com.lottolike.jaery.lotto.data.util.LottoUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainDetailModel : ViewModel() {
-    private val _lottoRound = MutableLiveData<Int>(0)
-    private val _numberArray = MutableLiveData<ArrayList<Int>>(arrayListOf(0, 0, 0, 0, 0, 0, 0))
-    private val _numberRank = MutableLiveData<ArrayList<LottoRankInfo>>(arrayListOf())
 
-    var lottoRound : LiveData<Int> = _lottoRound
-    var numberArray : LiveData<ArrayList<Int>> = _numberArray
-    var numberRank : LiveData<ArrayList<LottoRankInfo>> = _numberRank
+    private val _officialLottoData : MutableLiveData<List<OfficialLottoData>> = MutableLiveData()
+
+    var officialLottoData : LiveData<List<OfficialLottoData>> = _officialLottoData
 
 
-    fun initLottoNumber()
+    fun loadOfficialLottoData()
     {
         CoroutineScope(Dispatchers.Main).launch {
-            val info : LottoNumberInfo? = LottoUtil.getLottoInfo()
+            val data : List<OfficialLottoData>? = LottoUtil.getLottoInfo()
 
-            info?.let {
-                _lottoRound.postValue(it.round)
-
-                val numberArray : ArrayList<Int> = arrayListOf()
-                val numbers  = it.numbers.replace("+",",").split(",")
-
-                for (index in numbers.indices) {
-                    numberArray.add(numbers[index].toInt())
-                }
-
-                _numberArray.postValue(numberArray)
+            data?.let {
+                _officialLottoData.postValue(data)
             }
         }
     }
 
-    fun initLottoRanK() {
-        CoroutineScope(Dispatchers.Main).launch {
-           _numberRank.postValue(LottoUtil.getLottoRankInfo())
-        }
-    }
 }

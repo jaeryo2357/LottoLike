@@ -1,12 +1,11 @@
 package com.lottolike.jaery.lotto.ui.mylist
 
-import android.content.Context
-import com.lottolike.jaery.lotto.lotto.db.LottoDB
-import com.lottolike.jaery.lotto.lotto.db.LottoPreferences
-import com.lottolike.jaery.lotto.lotto.db.LottoPreferences.Companion.getInstance
-import com.lottolike.jaery.lotto.lotto.model.BasicItem
-import com.lottolike.jaery.lotto.lotto.model.LottoRoundItem
-import com.lottolike.jaery.lotto.lotto.util.LottoUtil
+import com.lottolike.jaery.lotto.data.UserLottoData
+import com.lottolike.jaery.lotto.data.db.LottoDB
+import com.lottolike.jaery.lotto.data.db.LottoPreferences
+import com.lottolike.jaery.lotto.data.model.BasicItem
+import com.lottolike.jaery.lotto.data.model.LottoRoundItem
+import com.lottolike.jaery.lotto.data.util.LottoUtil
 import kotlinx.coroutines.*
 
 import java.util.*
@@ -56,22 +55,13 @@ class MyListPresenter(
         scope.cancel()
     }
 
-    private fun loadMyList(): ArrayList<BasicItem>? {
+    private fun loadMyList(): List<UserLottoData>? {
         val items = lottoDB.myList
 
         if (items.size == 0) {
             view.showErrorListEmpty()
-        } else {
-            items.add(0, inputLottoRoundView())
         }
 
         return items
     }
-
-    private fun inputLottoRoundView(): LottoRoundItem {
-        val round = pref.lottoRound
-        val date = pref.lottoDate
-        return LottoRoundItem(0, round, date)
-    }
-
 }

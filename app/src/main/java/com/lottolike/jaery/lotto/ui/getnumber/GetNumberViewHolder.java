@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.lotto.adapter.ViewHolder;
+package com.lottolike.jaery.lotto.ui.getnumber;
 
 import android.view.View;
 import android.widget.TextView;
@@ -7,14 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.lotto.adapter.BlankAdapter;
 
 
-public class NumberBlankViewHolder extends RecyclerView.ViewHolder {
+public class GetNumberViewHolder extends RecyclerView.ViewHolder {
 
     public TextView lotto;
 
-    public NumberBlankViewHolder(@NonNull View itemView, final BlankAdapter.OnBlankClickListener clickListener) {
+    public GetNumberViewHolder(@NonNull View itemView, final GetNumberAdapter.OnBlankClickListener clickListener) {
         super(itemView);
         lotto = itemView.findViewById(R.id.number_blank_tv);
 

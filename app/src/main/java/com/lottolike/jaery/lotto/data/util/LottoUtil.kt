@@ -1,8 +1,8 @@
-package com.lottolike.jaery.lotto.lotto.util
+package com.lottolike.jaery.lotto.data.util
 
 import com.lottolike.jaery.lotto.R
-import com.lottolike.jaery.lotto.lotto.domain.LottoNumberInfo
-import com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo
+import com.lottolike.jaery.lotto.data.domain.LottoNumberInfo
+import com.lottolike.jaery.lotto.data.domain.LottoRankInfo
 import kotlinx.coroutines.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document

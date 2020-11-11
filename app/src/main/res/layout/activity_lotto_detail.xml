@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo"/>
+        <import type="com.lottolike.jaery.lotto.data.domain.LottoRankInfo"/>
         <variable
             name="vm"
             type="com.lottolike.jaery.lotto.ui.main.detail.MainDetailModel" />
@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.detail.MainDetailController">
+        tools:context=".ui.main.detail.MainDetailActivity">
 
 
         <RelativeLayout

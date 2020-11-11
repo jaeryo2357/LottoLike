@@ -1,7 +1,7 @@
 package com.lottolike.jaery.lotto.ui.getnumber;
 
-import com.lottolike.jaery.lotto.lotto.db.LottoDB;
-import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
+import com.lottolike.jaery.lotto.data.db.LottoDB;
+import com.lottolike.jaery.lotto.data.util.LottoUtil;
 
 import java.util.ArrayList;
 
