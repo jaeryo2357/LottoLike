@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.lotto.db;
+package com.lottolike.jaery.lotto.data.db;
 
 public final class MyListTable {
 
@@ -10,7 +10,6 @@ public final class MyListTable {
                         + "number" + " text,"
                         + "time" + " text,"
                         + "level" + " integer,"    //등수
-                        + "money" + " text, "   //당첨 금액
-                        + "correct" + " text); ";   //맞는 자리
+                        + "money" + " text); ";   //당첨 금액
 
 }

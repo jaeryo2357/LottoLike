@@ -17,7 +17,7 @@
             android:layout_marginTop="10dp"
             android:layout_height="30dp"
             android:background="@drawable/back"
-            android:id="@+id/my_list_back">
+            android:id="@+id/mylist_back">
 
         </ImageButton>
 
@@ -30,14 +30,54 @@
             android:layout_marginTop="10dp"
             android:textSize="17sp"
             android:layout_centerHorizontal="true"
-            android:id="@+id/my_list_t1">
+            android:id="@+id/mylist_title">
         </TextView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/mylist_dateinfo_layout"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/mylist_title"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_square"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/mylist_lottoround"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="802회">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="2019-10-26"
+                android:layout_toRightOf="@id/mylist_lottoround"
+                android:id="@+id/mylist_lottodate"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:textColor="#ffffff">
+
+            </TextView>
+        </RelativeLayout>
 
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/my_list_calculate"
+            android:id="@+id/mylist_calculate"
             android:text="재채점"
             android:textColor="@android:color/white"
             android:textStyle="bold"
@@ -47,8 +87,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:id="@+id/my_list_recycler"
-            android:layout_below="@id/my_list_t1"
+            android:id="@+id/mylist_recycler"
+            android:layout_below="@id/mylist_title"
             android:visibility="gone"
             android:layout_marginTop="10dp"
             android:layout_height="match_parent">
@@ -61,7 +101,7 @@
             android:layout_height="wrap_content"
             android:text="생성하신 목록이 존재하지 않습니다. \n 추첨번호를 추가해주세요"
             android:textSize="17sp"
-            android:id="@+id/my_list_not_tv"
+            android:id="@+id/mylist_not_tv"
             android:gravity="center"
             android:layout_centerInParent="true"
             android:textColor="#000000"></TextView>
@@ -76,7 +116,7 @@
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:id="@+id/my_list_not_btn"
-            android:layout_below="@id/my_list_not_tv"
+            android:layout_below="@id/mylist_not_tv"
             android:paddingRight="20dp"
             android:background="@drawable/corner_square">
 

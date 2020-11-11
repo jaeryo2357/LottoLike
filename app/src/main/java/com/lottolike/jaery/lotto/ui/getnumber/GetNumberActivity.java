@@ -9,9 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lottolike.jaery.lotto.lotto.util.LottoUtil;
-import com.lottolike.jaery.lotto.lotto.adapter.BlankAdapter;
-import com.lottolike.jaery.lotto.lotto.db.LottoDB;
+import com.lottolike.jaery.lotto.data.util.LottoUtil;
+import com.lottolike.jaery.lotto.data.db.LottoDB;
 import com.lottolike.jaery.lotto.R;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class GetNumberActivity extends AppCompatActivity implements GetNumberCon
     private TextView lottoTextViewSix;
 
     private RecyclerView recyclerView;
-    private BlankAdapter adapter;
+    private GetNumberAdapter adapter;
     private ArrayList<Integer> selectedItem = new ArrayList<>();
 
     @Override
@@ -86,7 +85,7 @@ public class GetNumberActivity extends AppCompatActivity implements GetNumberCon
     }
 
     private void initRecyclerView() {
-        adapter = new BlankAdapter(selectedItem, new BlankAdapter.OnBlankClickListener() {
+        adapter = new GetNumberAdapter(selectedItem, new GetNumberAdapter.OnBlankClickListener() {
             @Override
             public void OnClick(View view, int position) {
                 presenter.selfNumberButtonClick(position);

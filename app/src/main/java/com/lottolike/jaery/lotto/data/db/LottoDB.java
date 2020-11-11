@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.lotto.db;
+package com.lottolike.jaery.lotto.data.db;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,11 +6,13 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.lottolike.jaery.lotto.lotto.domain.LottoRankInfo;
-import com.lottolike.jaery.lotto.lotto.model.BasicItem;
-import com.lottolike.jaery.lotto.lotto.model.LottoListItem;
+import com.lottolike.jaery.lotto.data.OfficialLottoData;
+import com.lottolike.jaery.lotto.data.UserLottoData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by jaery on 2018-05-04.
@@ -20,7 +22,8 @@ public class LottoDB {
 
     public static LottoDB instance = null;
 
-    private static final int DATABASE_VERSION = 5;
+    //version 6 : 당첨번호를 파싱해서 받자
+    private static final int DATABASE_VERSION = 6;
     private static SQLiteDatabase myListDB;
     private DatabaseHelper mDBHelper;
 
@@ -66,31 +69,19 @@ public class LottoDB {
     public void myListInsert(ArrayList<Integer> selectedNumber) {
         String numbers = selectedNumber.toString();
         numbers = numbers.substring(1, numbers.length() - 1).replaceAll(" ", "");
-        myListDB.execSQL("INSERT INTO " + MyListTable._TABLENAME + " (number, level, money, correct) VALUES ('" + numbers + "', -1, '0', '');");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
+        myListDB.execSQL("INSERT INTO " + MyListTable._TABLENAME + " (number, level, money) VALUES ('" + numbers + "', -1, '0');");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
     }
 
 
-    public ArrayList<BasicItem> getMyList() {
+    public ArrayList<UserLottoData> getMyList() {
 
-        ArrayList<BasicItem> items = new ArrayList<>();
+        ArrayList<UserLottoData> items = new ArrayList<>();
 
         Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME + " ORDER BY level asc", null);
 
         while (cursor.moveToNext()) {
 
-            ArrayList<Integer> integers = new ArrayList<>();
-
-            String correct = cursor.getString(5);
-            if (!correct.equals("")) {
-                String[] corrects = correct.split(",");
-
-                for (int i = 0; i < corrects.length; i++) {
-                    int n = Integer.parseInt(corrects[i]);
-                    integers.add(n);
-                }
-            }
-            items.add(new LottoListItem(1, cursor.getInt(0), cursor.getString(4), cursor.getInt(3), cursor.getString(1), integers));
-
+            items.add(new UserLottoData(cursor.getInt(0), cursor.getInt(3), cursor.getString(4), cursor.getString(1)));
         }
         cursor.close();
         return items;
@@ -99,26 +90,19 @@ public class LottoDB {
 
 
     //리스트의 모든 번호에 대해서 체크
-    public void myListCheck(String correct, ArrayList<LottoRankInfo> rankInfo) {
+    public void myListCheck(List<OfficialLottoData> data) {
         Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME, null);
 
         String money = "0원";
-        ArrayList<Integer> correctList = new ArrayList<>();
-        String[] correctArray = correct.split(",");
 
-        for (int index = 0; index < 5; index++) {
-            correctList.add(Integer.parseInt(correctArray[index]));
-        }
-        correctList.add(Integer.parseInt(correctArray[correctArray.length - 1].split("[+]")[0]));
-
-        int bonus = Integer.parseInt(correctArray[correctArray.length - 1].split("[+]")[1]);
+        int bonus = data.get(0).getBonusNumber();
+        String[] correctArray = data.get(0).getOfficialLottoNumber().split(",");
 
 
         while (cursor.moveToNext()) {
             int primary_key = cursor.getInt(0);
             int level = 6; //6등
             int correctScore = 0;
-            String correctString = "";
             boolean bonusCheck = false;
 
             String myNumber = cursor.getString(1);
@@ -126,13 +110,15 @@ public class LottoDB {
 
             for (int i = 0; i < myNumbers.length; i++) {
                 int number = Integer.parseInt(myNumbers[i]);
-                if (correctList.contains(number)) {
-                    if (correctScore != 0) correctString += ",";
+                int position = Arrays.binarySearch(correctArray, myNumbers[i], new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        return Integer.parseInt(o1) - Integer.parseInt(o2);
+                    }
+                });
+                if (position != -1) {
                     correctScore++;
-                    correctString += i;
                 } else if (number == bonus) {
-                    if (correctScore != 0) correctString += ",";
-                    correctString += i;
                     bonusCheck = true;
                 }
             }
@@ -146,18 +132,18 @@ public class LottoDB {
             } else if (correctScore == 5) {
                 if (bonusCheck) {
                     level = 2;
-                    money = rankInfo.get(1).getMoney() + "원";
+                    money = data.get(1).getVictoryMoney() + "원";
                 } else {
                     level = 3;
-                    money = rankInfo.get(2).getMoney() + "원";
+                    money = data.get(2).getVictoryMoney() + "원";
                 }
             } else if (correctScore == 6) {
                 level = 1;
-                money = rankInfo.get(0).getMoney() + "원";
+                money = data.get(0).getVictoryMoney() + "원";
             } else {
                 money = "0원";
             }
-            myListDB.execSQL("UPDATE " + MyListTable._TABLENAME + " SET level=" + level + ",money='" + money + "',correct='" + correctString + "' where id=" + primary_key + ";");
+            myListDB.execSQL("UPDATE " + MyListTable._TABLENAME + " SET level=" + level + ",money='" + money + "' where id=" + primary_key + ";");
         }
 
         cursor.close();

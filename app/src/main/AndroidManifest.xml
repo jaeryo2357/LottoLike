@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/lotto_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.lottolike.jaery.lotto.ui.main.detail.MainDetailController"></activity>
+        <activity android:name="com.lottolike.jaery.lotto.ui.main.detail.MainDetailActivity"></activity>
         <activity android:name=".ui.PersonalActivity" />
         <activity android:name=".ui.OpenSourceActivity" />
         <activity

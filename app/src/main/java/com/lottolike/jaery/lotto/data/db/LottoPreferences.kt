@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.lotto.db
+package com.lottolike.jaery.lotto.data.db
 
 import android.content.Context
 import android.content.SharedPreferences

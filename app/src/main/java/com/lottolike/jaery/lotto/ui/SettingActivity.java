@@ -10,7 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
+import com.lottolike.jaery.lotto.data.db.LottoPreferences;
 
 public class SettingActivity extends AppCompatActivity {
     boolean sound_check;

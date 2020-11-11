@@ -6,12 +6,12 @@ import android.app.NotificationManager;
 
 import android.os.Build;
 
-import com.lottolike.jaery.lotto.lotto.db.LottoPreferences;
+import com.lottolike.jaery.lotto.data.db.LottoPreferences;
 
 public class App extends Application {
 
-    public static final String CHAANEL_ID="LottoChannel";
-    LottoPreferences sharedPreferences;
+    public static final String CHANNEL_ID="LottoChannel";
+    private LottoPreferences sharedPreferences;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,7 +23,7 @@ public class App extends Application {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel serviceChannel=new NotificationChannel(
-                    CHAANEL_ID,
+                    CHANNEL_ID,
                     "Lotto Alert Service",
                     NotificationManager.IMPORTANCE_DEFAULT
             );

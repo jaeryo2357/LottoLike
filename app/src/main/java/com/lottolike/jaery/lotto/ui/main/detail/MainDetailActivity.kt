@@ -10,16 +10,16 @@ import com.lottolike.jaery.lotto.R
 import com.lottolike.jaery.lotto.databinding.ActivityLottoDetailBinding
 import kotlinx.android.synthetic.main.activity_lotto_detail.*
 
-class MainDetailController : AppCompatActivity() {
+class MainDetailActivity : AppCompatActivity() {
 
-    private val viewModel by lazy{ ViewModelProvider(this@MainDetailController).get(MainDetailModel::class.java)}
+    private val viewModel by lazy{ ViewModelProvider(this@MainDetailActivity).get(MainDetailModel::class.java)}
     private lateinit var binding: ActivityLottoDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_lotto_detail)
         binding.run {
-            lifecycleOwner = this@MainDetailController
+            lifecycleOwner = this@MainDetailActivity
             vm = viewModel
         }
         val adRequest = AdRequest.Builder().build()
