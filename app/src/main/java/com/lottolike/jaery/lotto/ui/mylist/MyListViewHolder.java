@@ -8,13 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.data.OfficialLottoData;
-import com.lottolike.jaery.lotto.data.UserLottoData;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
 import com.lottolike.jaery.lotto.data.util.LottoUtil;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -64,10 +61,10 @@ public class MyListViewHolder extends RecyclerView.ViewHolder {
         lottoTextViewSix = itemView.findViewById(R.id.L6);
     }
 
-    public void bindMyList(UserLottoData userLottoData, OfficialLottoData officialLottoData) {
+    public void bindMyList(UserLottoData userLottoData, OfficialLottoMainData officialLottoMainData) {
 
         String[] numbers = userLottoData.getUserNumbers().split(",");
-        String[] officialNumbers = officialLottoData.getOfficialLottoNumber().split(",");
+        String[] officialNumbers = officialLottoMainData.getOfficialLottoNumber().split(",");
 
 
         for (int i = 0; i < numbers.length; i++) {
@@ -76,7 +73,7 @@ public class MyListViewHolder extends RecyclerView.ViewHolder {
 
             int position = -1;
 
-            if (officialLottoData.getBonusNumber() != number) {
+            if (officialLottoMainData.getBonusNumber() != number) {
                 position = Arrays.binarySearch(officialNumbers, numbers[0], new Comparator<String>() {
                     @Override
                     public int compare(String o1, String o2) {
@@ -85,7 +82,7 @@ public class MyListViewHolder extends RecyclerView.ViewHolder {
                 });
             }
 
-            if (position == -1 || officialLottoData.getBonusNumber() != number) {
+            if (position == -1 || officialLottoMainData.getBonusNumber() != number) {
                 textView.setTextColor(Color.BLACK);
                 textView.setBackgroundResource(0);
             } else {

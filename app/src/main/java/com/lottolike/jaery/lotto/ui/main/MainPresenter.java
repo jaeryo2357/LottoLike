@@ -6,7 +6,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 
-import com.lottolike.jaery.lotto.data.OfficialLottoData;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
 
 import java.util.ArrayList;
 
@@ -24,9 +24,9 @@ public class MainPresenter implements MainContract.Presenter{
     //모델의 변수 변화를 구독 후, 변경되면 View 반영
     private void observeModel() {
 
-        mainModel.getOfficialLottoData().observe((LifecycleOwner) mainView, new Observer<OfficialLottoData>() {
+        mainModel.getOfficialLottoMainData().observe((LifecycleOwner) mainView, new Observer<OfficialLottoMainData>() {
             @Override
-            public void onChanged(OfficialLottoData data) {
+            public void onChanged(OfficialLottoMainData data) {
                 //2020년 06월 27일
                 mainView.showLottoRound(data.getLottoRound());
                 mainView.showLottoNumber(data.getOfficialLottoNumber());

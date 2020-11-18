@@ -1,19 +1,21 @@
 package com.lottolike.jaery.lotto.ui.getnumber;
 
-import com.lottolike.jaery.lotto.data.db.LottoDB;
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
+import com.lottolike.jaery.lotto.data.userlottodata.source.UserLottoDataRepository;
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoDBHelper;
 import com.lottolike.jaery.lotto.data.util.LottoUtil;
 
 import java.util.ArrayList;
 
 public class GetNumberPresenter implements GetNumberContract.Presenter {
     private GetNumberContract.View view;
-    private LottoDB db;
+    private UserLottoDataRepository repository;
 
     private ArrayList<Integer> selectedNumber;
 
-    public GetNumberPresenter(GetNumberContract.View view, LottoDB db) {
+    public GetNumberPresenter(GetNumberContract.View view, UserLottoDataRepository repository) {
         this.view = view;
-        this.db = db;
+        this.repository = repository;
         selectedNumber = new ArrayList<>();
     }
 
@@ -67,6 +69,11 @@ public class GetNumberPresenter implements GetNumberContract.Presenter {
     }
 
     private void insertLottoNumber(ArrayList<Integer> number) {
-        db.myListInsert(number);
+
+        String userNumber = number.toString();
+        userNumber = userNumber.substring(1, userNumber.length() - 1);
+        UserLottoData userLottoData = new UserLottoData(userNumber);
+
+        repository.insertUserLottoData(userLottoData);
     }
 }

@@ -1,16 +1,14 @@
 package com.lottolike.jaery.lotto.ui.mylist;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lottolike.jaery.lotto.data.OfficialLottoData;
-import com.lottolike.jaery.lotto.data.UserLottoData;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
 
 import com.lottolike.jaery.lotto.R;
 
@@ -18,11 +16,11 @@ import java.util.List;
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListViewHolder> {
     private final List<UserLottoData> userLottoData;
-    private final OfficialLottoData officialLottoData;
+    private final OfficialLottoMainData officialLottoMainData;
 
-    public MyListAdapter(List<UserLottoData> userLottoData, OfficialLottoData officialLottoData) {
+    public MyListAdapter(List<UserLottoData> userLottoData, OfficialLottoMainData officialLottoMainData) {
         this.userLottoData = userLottoData;
-        this.officialLottoData = officialLottoData;
+        this.officialLottoMainData = officialLottoMainData;
     }
 
     @NonNull
@@ -38,7 +36,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListViewHolder> {
 
         UserLottoData data = userLottoData.get(position);
 
-        holder.bindMyList(data, officialLottoData);
+        holder.bindMyList(data, officialLottoMainData);
     }
 
     @Override

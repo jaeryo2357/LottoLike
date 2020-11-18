@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.data.db;
+package com.lottolike.jaery.lotto.data.userlottodata.source.local;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,8 +6,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.lottolike.jaery.lotto.data.OfficialLottoData;
-import com.lottolike.jaery.lotto.data.UserLottoData;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,22 +20,31 @@ import java.util.List;
  * Created by jaery on 2018-05-04.
  */
 
-public class LottoDB {
+public class LottoDBHelper {
 
-    public static LottoDB instance = null;
+    private static final String TABLE_NAME = "UserLottoDataList";
 
-    //version 6 : 당첨번호를 파싱해서 받자
-    private static final int DATABASE_VERSION = 6;
+    private static final String TABLE_CREATE =
+            "create table " + TABLE_NAME + "("
+                    + "id" + " integer primary key AUTOINCREMENT, "
+                    + "number" + " text,"
+                    + "time" + " text,"
+                    + "level" + " integer,"    //등수
+                    + "money" + " text); ";   //당첨 금액
+
+
+    public static LottoDBHelper instance = null;
+
+    private static final int DATABASE_VERSION = 1;
     private static SQLiteDatabase myListDB;
-    private DatabaseHelper mDBHelper;
 
-    private LottoDB() {}
+    private LottoDBHelper() {}
 
-    public static LottoDB getInstance(Context context) {
+    public static LottoDBHelper getInstance(Context context) {
         if (instance == null) {
-            synchronized (LottoDB.class) {
+            synchronized (LottoDBHelper.class) {
                 if (instance == null) {
-                    instance = new LottoDB();
+                    instance = new LottoDBHelper();
                     instance.open(context);
                 }
             }
@@ -42,7 +53,7 @@ public class LottoDB {
         return instance;
     }
 
-    private class DatabaseHelper extends SQLiteOpenHelper {
+    private static class DatabaseHelper extends SQLiteOpenHelper {
 
         // 생성자
         private DatabaseHelper(Context context, String name,
@@ -53,31 +64,30 @@ public class LottoDB {
         // 최초 DB를 만들때 한번만 호출된다.
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL(MyListTable._CREATE);
+            db.execSQL(TABLE_CREATE);
         }
 
         // 버전이 업데이트 되었을 경우 DB를 다시 만들어 준다.
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS " + MyListTable._TABLENAME);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
             onCreate(db);
         }
 
 
     }
 
-    public void myListInsert(ArrayList<Integer> selectedNumber) {
-        String numbers = selectedNumber.toString();
-        numbers = numbers.substring(1, numbers.length() - 1).replaceAll(" ", "");
-        myListDB.execSQL("INSERT INTO " + MyListTable._TABLENAME + " (number, level, money) VALUES ('" + numbers + "', -1, '0');");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
+    public void insertLottoUserData(@NotNull  UserLottoData data) {
+        String numbers = data.getUserNumbers();
+        myListDB.execSQL("INSERT INTO " + TABLE_NAME + " (number, level, money) VALUES ('" + numbers + "', -1, '0');");   // string은 값은 '이름' 처럼 따음표를 붙여줘야함
     }
 
 
-    public ArrayList<UserLottoData> getMyList() {
+    public List<UserLottoData> getUserLottoDataList() {
 
         ArrayList<UserLottoData> items = new ArrayList<>();
 
-        Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME + " ORDER BY level asc", null);
+        Cursor cursor = myListDB.rawQuery("select * from " + TABLE_NAME + " ORDER BY level asc", null);
 
         while (cursor.moveToNext()) {
 
@@ -90,8 +100,8 @@ public class LottoDB {
 
 
     //리스트의 모든 번호에 대해서 체크
-    public void myListCheck(List<OfficialLottoData> data) {
-        Cursor cursor = myListDB.rawQuery("select * from " + MyListTable._TABLENAME, null);
+    public void calculateUserLottoDataList(List<OfficialLottoMainData> data) {
+        Cursor cursor = myListDB.rawQuery("select * from " + TABLE_NAME, null);
 
         String money = "0원";
 
@@ -143,15 +153,15 @@ public class LottoDB {
             } else {
                 money = "0원";
             }
-            myListDB.execSQL("UPDATE " + MyListTable._TABLENAME + " SET level=" + level + ",money='" + money + "' where id=" + primary_key + ";");
+            myListDB.execSQL("UPDATE " + TABLE_NAME + " SET level=" + level + ",money='" + money + "' where id=" + primary_key + ";");
         }
 
         cursor.close();
     }
 
-    public LottoDB open(Context context) throws SQLException {
+    public LottoDBHelper open(Context context) throws SQLException {
 
-        mDBHelper = new DatabaseHelper(context, MyListTable._TABLENAME + ".db", null, DATABASE_VERSION);
+        DatabaseHelper mDBHelper = new DatabaseHelper(context, TABLE_NAME + ".db", null, DATABASE_VERSION);
         myListDB = mDBHelper.getWritableDatabase();
         return this;
     }
