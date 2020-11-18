@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#ffffff"
     android:layout_height="match_parent"
     tools:context=".ui.SettingActivity">
 
 
-    <ImageButton
+    <Button
         android:layout_width="30dp"
         android:layout_marginLeft="13dp"
         android:layout_marginTop="10dp"
@@ -15,8 +16,7 @@
         android:background="@drawable/back"
         android:id="@+id/open_source_back">
 
-    </ImageButton>
-
+    </Button>
 
     <TextView
         android:layout_width="wrap_content"

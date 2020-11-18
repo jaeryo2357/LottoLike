@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical"
-    tools:context="com.lottolike.jaery.lotto.ui.main.MainActivity">
+    tools:context="com.lottolike.jaery.lotto.ui.main.MainView">
 
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -15,7 +16,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id_for_test"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -305,7 +306,7 @@
             </RelativeLayout>
 
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/main_get_random_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -315,9 +316,9 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/corner_square_not_important"
                 android:text="추첨번호 추가하기"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
-                android:textStyle="bold"></com.google.android.material.button.MaterialButton>
+                android:textStyle="bold"></Button>
 
             <Button
                 android:id="@+id/main_qrCode"
@@ -329,7 +330,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/corner_square_not_important"
                 android:text="QR코드"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
                 android:textStyle="bold"></Button>
 
@@ -343,7 +344,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/corner_square_not_important"
                 android:text="설정"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
                 android:textStyle="bold"></Button>
 
