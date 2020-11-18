@@ -1,60 +1,65 @@
 package com.lottolike.jaery.lotto.ui.mylist
 
-import android.content.Context
-import com.lottolike.jaery.lotto.lotto.db.LottoDB
-import com.lottolike.jaery.lotto.lotto.db.LottoPreferences
-import com.lottolike.jaery.lotto.lotto.db.LottoPreferences.Companion.getInstance
-import com.lottolike.jaery.lotto.lotto.model.BasicItem
-import com.lottolike.jaery.lotto.lotto.model.LottoRoundItem
-import com.lottolike.jaery.lotto.lotto.util.LottoUtil
-import com.lottolike.jaery.lotto.lotto.util.LottoUtil.getLottoRankInfo
-import com.lottolike.jaery.lotto.ui.mylist.MyListContract.MyListView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.*
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoDBHelper
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoPreferences
+import com.lottolike.jaery.lotto.data.model.BasicItem
+import com.lottolike.jaery.lotto.data.model.LottoRoundItem
+import com.lottolike.jaery.lotto.data.util.LottoUtil
+import kotlinx.coroutines.*
 
-class MyListPresenter(private val view: MyListView) : MyListContract.MyListPresenter {
-    private var lottoDB: LottoDB? = null
-    private var pref: LottoPreferences? = null
-    override fun start(context: Context) {
-        lottoDB = LottoDB.getInstance(context)
-        pref = getInstance(context)
-        val list = loadMyList()
+class MyListPresenter(
+        private val view: MyListContract.View,
+        private val lottoDBHelper: LottoDBHelper,
+        private val pref : LottoPreferences
+) : MyListContract.Presenter {
+
+    private var scope : Job = Job()
+
+    override fun start() {
+        val list = getUserDataList()
         list?.let {
-            view.showMyList(list)
+            if (it.isNotEmpty()) {
+                view.showMyList(it)
+            }
         }
     }
 
-    override fun reCalculateMyList() {
-        CoroutineScope(Dispatchers.Main).launch{
+    override fun onSwipeRefresh() {
+        start()
+    }
+
+    override fun calculateMyList() {
+        view.showRefreshIndicator()
+        scope = CoroutineScope(Dispatchers.Main + scope).launch{
 
             val rankInfo = LottoUtil.getLottoRankInfo()
-            withContext(Dispatchers.Default) {
-                lottoDB?.myListCheck(pref!!.lottoNumber, rankInfo)
+
+            //같은 scope 를 공유?
+            launch(Dispatchers.Default) {
+                lottoDBHelper.calculateUserLottoDataList(pref.lottoNumber, rankInfo)
             }
 
-            view.showMyList(loadMyList())
+            view.dismissRefreshIndicator()
+            view.showMyList(getUserDataList())
         }
     }
 
-    private fun loadMyList(): ArrayList<BasicItem>? {
-        val items = lottoDB!!.myList
+    /**
+     * MyListContact.View 종료될때 호출
+     * Coroutine 작업을 중지
+     */
+    override fun onDestroy() {
+        scope.cancel()
+    }
+
+    private fun getUserDataList(): List<UserLottoData>? {
+        val items = lottoDBHelper.userLottoDataList
 
         if (items.size == 0) {
             view.showErrorListEmpty()
-            return null
-        } else {
-            items.add(0, inputLottoRoundView())
-            return items
         }
-    }
 
-    private fun inputLottoRoundView(): LottoRoundItem {
-        val round = pref!!.lottoRound
-        val date = pref!!.lottoDate
-        return LottoRoundItem(0, round, date)
+        return items
     }
-
 }
