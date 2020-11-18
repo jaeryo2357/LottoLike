@@ -1,27 +1,25 @@
 package com.lottolike.jaery.lotto.ui.mylist
 
-import com.lottolike.jaery.lotto.data.UserLottoData
-import com.lottolike.jaery.lotto.data.db.LottoDB
-import com.lottolike.jaery.lotto.data.db.LottoPreferences
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoDBHelper
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoPreferences
 import com.lottolike.jaery.lotto.data.model.BasicItem
 import com.lottolike.jaery.lotto.data.model.LottoRoundItem
 import com.lottolike.jaery.lotto.data.util.LottoUtil
 import kotlinx.coroutines.*
 
-import java.util.*
-
 class MyListPresenter(
         private val view: MyListContract.View,
-        private val lottoDB: LottoDB,
+        private val lottoDBHelper: LottoDBHelper,
         private val pref : LottoPreferences
 ) : MyListContract.Presenter {
 
     private var scope : Job = Job()
 
     override fun start() {
-        val list = loadMyList()
+        val list = getUserDataList()
         list?.let {
-            if (list.size != 0) {
+            if (it.isNotEmpty()) {
                 view.showMyList(it)
             }
         }
@@ -39,11 +37,11 @@ class MyListPresenter(
 
             //같은 scope 를 공유?
             launch(Dispatchers.Default) {
-                lottoDB.myListCheck(pref.lottoNumber, rankInfo)
+                lottoDBHelper.calculateUserLottoDataList(pref.lottoNumber, rankInfo)
             }
 
             view.dismissRefreshIndicator()
-            view.showMyList(loadMyList())
+            view.showMyList(getUserDataList())
         }
     }
 
@@ -55,8 +53,8 @@ class MyListPresenter(
         scope.cancel()
     }
 
-    private fun loadMyList(): List<UserLottoData>? {
-        val items = lottoDB.myList
+    private fun getUserDataList(): List<UserLottoData>? {
+        val items = lottoDBHelper.userLottoDataList
 
         if (items.size == 0) {
             view.showErrorListEmpty()

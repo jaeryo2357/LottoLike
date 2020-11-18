@@ -2,17 +2,17 @@ package com.lottolike.jaery.lotto.ui.mylist;
 
 import com.lottolike.jaery.lotto.BasePresenter;
 import com.lottolike.jaery.lotto.BaseView;
-import com.lottolike.jaery.lotto.data.OfficialLottoData;
-import com.lottolike.jaery.lotto.data.UserLottoData;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
 
 import java.util.List;
 
 public interface MyListContract {
 
     interface View extends BaseView<Presenter> {
-        void showMyList(List<UserLottoData> userLottoData, OfficialLottoData officialLottoData);
+        void showMyList(List<UserLottoData> userLottoData, OfficialLottoMainData officialLottoMainData);
 
-        void showOfficialDate(OfficialLottoData officialLottoData);
+        void showOfficialDate(OfficialLottoMainData officialLottoMainData);
 
         void showRefreshIndicator();
 

@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.lottolike.jaery.lotto.R;
-import com.lottolike.jaery.lotto.data.OfficialLottoData;
-import com.lottolike.jaery.lotto.data.UserLottoData;
-import com.lottolike.jaery.lotto.data.db.LottoDB;
-import com.lottolike.jaery.lotto.data.db.LottoPreferences;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoDBHelper;
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoPreferences;
 import com.lottolike.jaery.lotto.ui.getnumber.GetNumberActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +46,7 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
     @Override
     public MyListContract.Presenter setPresenter() {
         return new MyListPresenter(this,
-                LottoDB.getInstance(this),
+                LottoDBHelper.getInstance(this),
                 LottoPreferences.Companion.getInstance(this));
     }
 
@@ -108,21 +108,21 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
 
 
     @Override
-    public void showMyList(List<UserLottoData> userData, OfficialLottoData officialLottoData) {
+    public void showMyList(List<UserLottoData> userData, OfficialLottoMainData officialLottoMainData) {
 
         recyclerView.setVisibility(View.VISIBLE);
         myListEmptyButton.setVisibility(View.GONE);
         myListEmptyTextView.setVisibility(View.GONE);
 
-        adapter = new MyListAdapter(userData, officialLottoData);
+        adapter = new MyListAdapter(userData, officialLottoMainData);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void showOfficialDate(OfficialLottoData officialLottoData) {
-        myListLottoRound.setText(officialLottoData.getLottoRound() + "");
-        myListLottoDate.setText(officialLottoData.getLottoDate());
+    public void showOfficialDate(OfficialLottoMainData officialLottoMainData) {
+        myListLottoRound.setText(officialLottoMainData.getLottoRound() + "");
+        myListLottoDate.setText(officialLottoMainData.getLottoDate());
     }
 
     @Override

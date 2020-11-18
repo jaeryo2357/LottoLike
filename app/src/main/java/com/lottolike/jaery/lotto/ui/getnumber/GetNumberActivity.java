@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lottolike.jaery.lotto.data.util.LottoUtil;
-import com.lottolike.jaery.lotto.data.db.LottoDB;
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoDBHelper;
 import com.lottolike.jaery.lotto.R;
 
 import java.util.ArrayList;
@@ -161,6 +161,6 @@ public class GetNumberActivity extends AppCompatActivity implements GetNumberCon
 
     @Override
     public GetNumberContract.Presenter setPresenter() {
-        return new GetNumberPresenter(this, LottoDB.getInstance(this));
+        return new GetNumberPresenter(this, );
     }
 }

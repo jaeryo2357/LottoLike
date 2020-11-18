@@ -3,9 +3,9 @@ package com.lottolike.jaery.lotto.ui.main
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.lottolike.jaery.lotto.data.OfficialLottoData
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData
 
-import com.lottolike.jaery.lotto.data.db.LottoPreferences
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoPreferences
 
 import com.lottolike.jaery.lotto.data.util.LottoUtil
 
@@ -16,17 +16,17 @@ import kotlinx.coroutines.withContext
 
 class MainModel {
 
-    private var _officialLottoData: MutableLiveData<OfficialLottoData> = MutableLiveData()
+    private var _officialLottoMainData: MutableLiveData<OfficialLottoMainData> = MutableLiveData()
     private var _recommendLotto: MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
-    var officialLottoData: LiveData<OfficialLottoData> = _officialLottoData
+    var officialLottoMainData: LiveData<OfficialLottoMainData> = _officialLottoMainData
     var recommendLotto: LiveData<ArrayList<Int>> = _recommendLotto
 
     public fun changeLottoInfo(context: Context) {
         CoroutineScope(Dispatchers.Main).launch {
 
 
-            val info: OfficialLottoData = withContext(Dispatchers.IO) {
+            val info: OfficialLottoMainData = withContext(Dispatchers.IO) {
                 LottoUtil.getLottoInfo()
             }
             info?.let {
@@ -38,7 +38,7 @@ class MainModel {
 
                 pref.lottoDate = it.lottoDate
 
-                _officialLottoData.postValue(it)
+                _officialLottoMainData.postValue(it)
             }
         }
 

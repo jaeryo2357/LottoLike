@@ -1,4 +1,4 @@
-package com.lottolike.jaery.lotto.data;
+package com.lottolike.jaery.lotto.data.userlottodata;
 
 /**
  * 사용자가 추가한 로또 번호 목록에 대한 정보
@@ -7,7 +7,11 @@ public class UserLottoData {
     private int primaryKey; //db 기본키
     private String money;
     private int level; //등수  -1: 미 추첨
-    private String userNumbers;
+    private String userNumbers; //1,2,3,4,5,6
+
+    public UserLottoData(String userNumbers) {
+        this.userNumbers = userNumbers;
+    }
 
     public UserLottoData(int primaryKey, int level, String money, String userNumbers) {
         this.primaryKey = primaryKey;
