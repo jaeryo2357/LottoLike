@@ -1,0 +1,16 @@
+package com.lottolike.jaery.lotto.lotto.db;
+
+public final class MyListTable {
+
+        public static final String _TABLENAME = "MyList";
+
+        public static final String _CREATE =
+                "create table " + _TABLENAME + "("
+                        + "id" + " integer primary key AUTOINCREMENT, "
+                        + "number" + " text,"
+                        + "time" + " text,"
+                        + "level" + " integer,"    //등수
+                        + "money" + " text, "   //당첨 금액
+                        + "correct" + " text); ";   //맞는 자리
+
+}
