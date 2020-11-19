@@ -1,46 +1,37 @@
 package com.lottolike.jaery.lotto.ui.main;
 
-import android.content.Context;
-
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-
-
-import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.source.OfficialLottoMainDataRepository;
+import com.lottolike.jaery.lotto.data.util.LottoUtil;
 
 import java.util.ArrayList;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainPresenter implements MainContract.Presenter{
 
     private MainContract.View mainView;
-    private MainModel mainModel;
+    private OfficialLottoMainDataRepository repository;
     private boolean isObserve = false;
 
-    MainPresenter(MainContract.View view,  MainModel model) {
-        mainView = view;
-        mainModel = model;
+    MainPresenter(MainContract.View view,  OfficialLottoMainDataRepository repository) {
+        this.mainView = view;
+        this.repository = repository;
     }
 
-    //모델의 변수 변화를 구독 후, 변경되면 View 반영
-    private void observeModel() {
+    @Override
+    public void getOfficialLottoMainData() {
+        repository.getOfficialLottoData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mainView::showOfficialLottoData);
+    }
 
-        mainModel.getOfficialLottoMainData().observe((LifecycleOwner) mainView, new Observer<OfficialLottoMainData>() {
-            @Override
-            public void onChanged(OfficialLottoMainData data) {
-                //2020년 06월 27일
-                mainView.showLottoRound(data.getLottoRound());
-                mainView.showLottoNumber(data.getOfficialLottoNumber());
-                mainView.showLottoRoundDate(data.getLottoDate());
-            }
-        });
-
-        //로또 추천번호
-        mainModel.getRecommendLotto().observe((LifecycleOwner) mainView, new Observer<ArrayList<Integer>>() {
-            @Override
-            public void onChanged(ArrayList<Integer> numbers) {
-                mainView.showRecommendNumber(numbers);
-            }
-        });
+    @Override
+    public void getRecommendLottoNumber() {
+        ArrayList<Integer> recommendLottoNumber = LottoUtil.INSTANCE.getRecommendLotto();
+        mainView.showRecommendNumber(recommendLottoNumber);
     }
 
     @Override
@@ -70,12 +61,9 @@ public class MainPresenter implements MainContract.Presenter{
 
     @Override
     public void start() {
-        if (!isObserve) {
-            observeModel();
-            mainModel.changeRecommendLotto();
-            mainModel.changeLottoInfo((Context)mainView);
-            isObserve = true;
-        }
+        getOfficialLottoMainData();
+
+        getRecommendLottoNumber();
     }
 
 }
