@@ -18,6 +18,9 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.lottolike.jaery.lotto.barcode.BarcodeCaptureActivity;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.source.OfficialLottoMainDataRepositoryImpl;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.source.remote.RemoteOfficialLottoMainDataSource;
 import com.lottolike.jaery.lotto.data.util.LottoUtil;
 import com.lottolike.jaery.lotto.ui.getnumber.GetNumberActivity;
 import com.lottolike.jaery.lotto.ui.SettingActivity;
@@ -78,6 +81,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mAdView.loadAd(adRequest);
     }
 
+    @Override
+    public void showOfficialLottoData(OfficialLottoMainData data) {
+        showLottoNumber(data.getOfficialLottoNumber(), data.getBonusNumber());
+        showLottoRound(data.getLottoRound());
+        showLottoRoundDate(data.getLottoDate());
+    }
+
     /**
      * 매 앱이 실행 될때마다 새로운 추천번호 보여주기
      *
@@ -134,38 +144,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         startActivity(intent, options.toBundle());
     }
 
-    /**
-     * 이번주 로또 회차 번호 적용시키기
-     *
-     * @param numbers :  String    ex) 1,2,3,4,5,6+7
-     */
-    @Override
-    public void showLottoNumber(String numbers) {
-        String[] numberList = numbers.split(",");
-        TextView lottoTempTextView;
-
-        for (int index = 0; index < numberList.length; index++) {
-
-            int number;
-            if (index == numberList.length - 1) {
-                number = Integer.parseInt(numberList[index].split("[+]")[0]);
-            } else {
-                number = Integer.parseInt(numberList[index]);
-            }
-
-            String resourceId = "L" + (index + 1);
-            int resID = getResources().getIdentifier(resourceId, "id", getPackageName());
-            lottoTempTextView = findViewById(resID);
-            lottoTempTextView.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
-            lottoTempTextView.setText(number + "");
-        }
-        //보너스 번호
-        int number = Integer.parseInt(numberList[numberList.length - 1].split("[+]")[1]);
-        lottoTempTextView = findViewById(R.id.bonus);
-        lottoTempTextView.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
-        lottoTempTextView.setText(number + "");
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -191,18 +169,42 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         }
     }
 
-    @Override
-    public void showLottoRound(int round) {
+    private void showLottoNumber(String lottoNumbers, int bonus) {
+        String[] numberList = lottoNumbers.split(",");
+        TextView lottoTempTextView;
+
+        for (int index = 0; index < numberList.length; index++) {
+
+            int number;
+            if (index == numberList.length - 1) {
+                number = Integer.parseInt(numberList[index].split("[+]")[0]);
+            } else {
+                number = Integer.parseInt(numberList[index]);
+            }
+
+            String resourceId = "L" + (index + 1);
+            int resID = getResources().getIdentifier(resourceId, "id", getPackageName());
+            lottoTempTextView = findViewById(resID);
+            lottoTempTextView.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
+            lottoTempTextView.setText(number + "");
+        }
+        //보너스 번호
+        int number = Integer.parseInt(numberList[numberList.length - 1].split("[+]")[1]);
+        lottoTempTextView = findViewById(R.id.bonus);
+        lottoTempTextView.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
+        lottoTempTextView.setText(number + "");
+    }
+
+    private void showLottoRound(int round) {
         lottoRoundTextView.setText(round + "회");
     }
 
-    @Override
-    public void showLottoRoundDate(String date) {
+    private void showLottoRoundDate(String date) {
         lottoRoundDateTextView.setText(date);
     }
 
     @Override
     public MainContract.Presenter setPresenter() {
-        return new MainPresenter(this, new MainModel());
+        return new MainPresenter(this, OfficialLottoMainDataRepositoryImpl.getInstance(new RemoteOfficialLottoMainDataSource()));
     }
 }

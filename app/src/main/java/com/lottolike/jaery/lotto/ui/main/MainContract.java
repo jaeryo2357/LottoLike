@@ -5,6 +5,7 @@ import android.widget.TextView;
 import com.lottolike.jaery.lotto.BasePresenter;
 import com.lottolike.jaery.lotto.BaseView;
 import com.lottolike.jaery.lotto.R;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
 
 import java.util.ArrayList;
 
@@ -12,11 +13,7 @@ public interface MainContract {
 
     interface View extends BaseView<Presenter> {
 
-        public void showLottoRound(int round);
-
-        public void showLottoRoundDate(String date);
-
-        void showLottoNumber(String lottoNumber);
+        void showOfficialLottoData(OfficialLottoMainData data);
 
         void showRecommendNumber(ArrayList<Integer> numbers);
 
@@ -41,5 +38,9 @@ public interface MainContract {
         void addLottoListButtonClick();
 
         void detailButtonClick();
+
+        void getOfficialLottoMainData();
+
+        void getRecommendLottoNumber();
     }
 }
