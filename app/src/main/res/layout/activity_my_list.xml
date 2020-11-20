@@ -88,7 +88,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/mylist_recycler"
-            android:layout_below="@id/mylist_title"
+            android:layout_below="@id/mylist_dateinfo_layout"
             android:visibility="gone"
             android:layout_marginTop="10dp"
             android:layout_height="match_parent">

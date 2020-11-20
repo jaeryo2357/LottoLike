@@ -7,6 +7,11 @@ import com.lottolike.jaery.lotto.data.util.LottoUtil;
 
 import java.util.ArrayList;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class GetNumberPresenter implements GetNumberContract.Presenter {
     private GetNumberContract.View view;
     private UserLottoDataRepository repository;
@@ -23,7 +28,6 @@ public class GetNumberPresenter implements GetNumberContract.Presenter {
     public void numberSaveButtonClick() {
         if (selectedNumberCheck()) {
             insertLottoNumber(selectedNumber);
-            view.showSaveSuccess();
         } else {
             view.showSaveError();
         }
@@ -58,6 +62,11 @@ public class GetNumberPresenter implements GetNumberContract.Presenter {
         view.clearSelectedNumber();
     }
 
+    @Override
+    public void onDestroy() {
+        compositeDisposable.clear();
+    }
+
 
     @Override
     public void start() {
@@ -74,6 +83,15 @@ public class GetNumberPresenter implements GetNumberContract.Presenter {
         userNumber = userNumber.substring(1, userNumber.length() - 1);
         UserLottoData userLottoData = new UserLottoData(userNumber);
 
-        repository.insertUserLottoData(userLottoData);
+        Disposable disposable = repository.insertUserLottoData(userLottoData)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    view.showSaveSuccess();
+                },error -> {
+                    view.showSaveError();
+                });
+
+        compositeDisposable.add(disposable);
     }
 }

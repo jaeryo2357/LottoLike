@@ -22,22 +22,22 @@ public class RemoteOfficialLottoRankRankDataSource implements OfficialLottoRankD
     @Override
     public Single<List<OfficialLottoRankData>> getOfficialLottoRankData() {
         return Single.create(emitter -> {
-            getOfficialLottoRankDataUsingJsoup();
+            emitter.onSuccess(getOfficialLottoRankDataUsingJsoup());
         });
     }
 
     private List<OfficialLottoRankData> getOfficialLottoRankDataUsingJsoup() throws Exception {
         List<OfficialLottoRankData> officialLottoRankDataList = new ArrayList<>();
 
-        Document document = Jsoup.connect(remoteUrl).timeout(1000 * 5).get();
+        Document document = Jsoup.connect(remoteUrl).timeout(1000 * 10).get();
 
         Elements lottoRankData = document.select("table tbody tr");
 
         for (Element element : lottoRankData) {
             Elements rankElements = element.select("td");
-            String rank = rankElements.get(0).toString();
-            String person = rankElements.get(2).toString();
-            String money = rankElements.get(3).toString();
+            String rank = rankElements.get(0).text();
+            String person = rankElements.get(2).text();
+            String money = rankElements.get(3).text();
 
             officialLottoRankDataList.add(new OfficialLottoRankData(rank, money, person));
         }

@@ -5,7 +5,13 @@ import android.os.Bundle;
 
 import com.lottolike.jaery.lotto.R;
 import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.source.OfficialLottoMainDataRepositoryImpl;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.source.remote.RemoteOfficialLottoMainDataSource;
+import com.lottolike.jaery.lotto.data.officiallottorankdata.source.OfficialLottoRankDataRepositoryImpl;
+import com.lottolike.jaery.lotto.data.officiallottorankdata.source.remote.RemoteOfficialLottoRankRankDataSource;
 import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
+import com.lottolike.jaery.lotto.data.userlottodata.source.UserLottoDataRepositoryImpl;
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LocalUserLottoDataSource;
 import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoDBHelper;
 import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoPreferences;
 import com.lottolike.jaery.lotto.ui.getnumber.GetNumberActivity;
@@ -46,8 +52,9 @@ public class MyListActivity extends AppCompatActivity implements MyListContract.
     @Override
     public MyListContract.Presenter setPresenter() {
         return new MyListPresenter(this,
-                LottoDBHelper.getInstance(this),
-                LottoPreferences.Companion.getInstance(this));
+                UserLottoDataRepositoryImpl.getInstance(new LocalUserLottoDataSource(this)),
+                OfficialLottoMainDataRepositoryImpl.getInstance(new RemoteOfficialLottoMainDataSource()),
+                OfficialLottoRankDataRepositoryImpl.getInstance(new RemoteOfficialLottoRankRankDataSource()));
     }
 
     private void initView() {

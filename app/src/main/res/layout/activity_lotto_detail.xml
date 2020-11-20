@@ -34,7 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:text='@{@string/lotto_title(data.)}'
             android:textColor="#ffffff"
             android:textSize="19sp"
             android:textStyle="bold"
@@ -74,7 +73,7 @@
                     android:layout_marginLeft="6dp"
                     android:gravity="center"
                     android:textColor="#ffffff"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/detail_lottonumber_tv3"
@@ -83,7 +82,7 @@
                     android:layout_marginLeft="6dp"
                     android:gravity="center"
                     android:textColor="#ffffff"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/detail_lottonumber_tv4"
@@ -92,7 +91,7 @@
                     android:layout_marginLeft="6dp"
                     android:gravity="center"
                     android:textColor="#ffffff"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/detail_lottonumber_tv5"
@@ -134,7 +133,7 @@
                 android:layout_toRightOf="@id/detail_lottonumber_img"
                 android:gravity="center"
                 android:textColor="#ffffff"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -215,17 +214,17 @@
                             android:textColor="#000" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankmoney_tv1"
                             android:layout_marginLeft="3dp"
                             android:layout_marginRight="3dp"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankmoney_tv1"
                             android:textColor="@color/colorPrimaryDark" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankperson_tv1"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankperson_tv1"
                             android:textColor="#000" />
                     </TableRow>
 
@@ -238,17 +237,17 @@
                             android:textColor="#000" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankmoney_tv2"
                             android:layout_marginLeft="3dp"
                             android:layout_marginRight="3dp"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankmoney_tv2"
                             android:textColor="@color/colorPrimaryDark" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankperson_tv2"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankperson_tv2"
                             android:textColor="#000" />
                     </TableRow>
 
@@ -261,17 +260,17 @@
                             android:textColor="#000" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankmoney_tv3"
                             android:layout_marginLeft="3dp"
                             android:layout_marginRight="3dp"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankmoney_tv3"
                             android:textColor="@color/colorPrimaryDark" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankperson_tv3"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankperson_tv3"
                             android:textColor="#000" />
                     </TableRow>
 
@@ -284,17 +283,17 @@
                             android:textColor="#000" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankmoney_tv4"
                             android:layout_marginLeft="3dp"
                             android:layout_marginRight="3dp"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankmoney_tv4"
                             android:textColor="@color/colorPrimaryDark" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankperson_tv4"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankperson_tv4"
                             android:textColor="#000" />
                     </TableRow>
 
@@ -307,17 +306,17 @@
                             android:textColor="#000" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankmoney_tv5"
                             android:layout_marginLeft="3dp"
                             android:layout_marginRight="3dp"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankmoney_tv5"
                             android:textColor="@color/colorPrimaryDark" />
 
                         <TextView
+                            android:id="@+id/detail_lottorankperson_tv5"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:id="@+id/detail_lottorankperson_tv5"
                             android:textColor="#000" />
                     </TableRow>
                 </TableLayout>

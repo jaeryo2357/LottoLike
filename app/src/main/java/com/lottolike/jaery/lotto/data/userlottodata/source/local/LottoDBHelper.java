@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.officiallottorankdata.OfficialLottoRankData;
 import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
 
 import org.jetbrains.annotations.NotNull;
@@ -100,13 +101,13 @@ public class LottoDBHelper {
 
 
     //리스트의 모든 번호에 대해서 체크
-    public void calculateUserLottoDataList(List<OfficialLottoMainData> data) {
+    public void calculateUserLottoDataList(OfficialLottoMainData mainData, List<OfficialLottoRankData> rankData) {
         Cursor cursor = myListDB.rawQuery("select * from " + TABLE_NAME, null);
 
         String money = "0원";
 
-        int bonus = data.get(0).getBonusNumber();
-        String[] correctArray = data.get(0).getOfficialLottoNumber().split(",");
+        int bonus = mainData.getBonusNumber();
+        String[] correctArray = mainData.getOfficialLottoNumber().split(",");
 
 
         while (cursor.moveToNext()) {
@@ -142,14 +143,14 @@ public class LottoDBHelper {
             } else if (correctScore == 5) {
                 if (bonusCheck) {
                     level = 2;
-                    money = data.get(1).getVictoryMoney() + "원";
+                    money = rankData.get(1).getVictoryMoney() + "원";
                 } else {
                     level = 3;
-                    money = data.get(2).getVictoryMoney() + "원";
+                    money = rankData.get(2).getVictoryMoney() + "원";
                 }
             } else if (correctScore == 6) {
                 level = 1;
-                money = data.get(0).getVictoryMoney() + "원";
+                money = rankData.get(0).getVictoryMoney() + "원";
             } else {
                 money = "0원";
             }

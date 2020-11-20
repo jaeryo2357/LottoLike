@@ -68,7 +68,7 @@ public class MyListViewHolder extends RecyclerView.ViewHolder {
 
 
         for (int i = 0; i < numbers.length; i++) {
-            Integer number = Integer.parseInt(numbers[i]);
+            Integer number = Integer.parseInt(numbers[i].trim());
             TextView textView = getTextViewByIndex(i);
 
             int position = -1;
