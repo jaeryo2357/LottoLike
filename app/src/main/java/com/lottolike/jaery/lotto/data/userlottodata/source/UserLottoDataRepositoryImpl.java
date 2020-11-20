@@ -1,6 +1,7 @@
 package com.lottolike.jaery.lotto.data.userlottodata.source;
 
 import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.officiallottorankdata.OfficialLottoRankData;
 import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
 import com.lottolike.jaery.lotto.data.userlottodata.source.local.LocalUserLottoDataSource;
 
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
@@ -57,15 +59,17 @@ public class UserLottoDataRepositoryImpl implements UserLottoDataRepository{
     }
 
     @Override
-    public void insertUserLottoData(@NotNull UserLottoData data) {
-        localUserLottoDataSource.insertUserLottoData(data);
+    public Completable insertUserLottoData(@NotNull UserLottoData data) {
+        return localUserLottoDataSource.insertUserLottoData(data);
     }
 
     @Override
-    public void calculateUserLottoData(@NotNull List<OfficialLottoMainData> officialLottoMainData) {
-        localUserLottoDataSource.calculateUserLottoData(officialLottoMainData);
+    public Completable calculateUserLottoData(@NotNull OfficialLottoMainData officialLottoMainData, @NotNull List<OfficialLottoRankData> officialLottoRankData) {
+        return localUserLottoDataSource.calculateUserLottoData(officialLottoMainData, officialLottoRankData);
     }
 
+
+    @Override
     public void refreshUserData() {
         isCachedDirty = true;
     }

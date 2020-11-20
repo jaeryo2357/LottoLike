@@ -25,7 +25,7 @@ public class RemoteOfficialLottoMainDataSource implements OfficialLottoMainDataS
     }
 
     private OfficialLottoMainData getOfficialLottoDataUsingJsoup() throws Exception {
-        Document document = Jsoup.connect(remoteUrl).timeout(1000 * 3).get();
+        Document document = Jsoup.connect(remoteUrl).timeout(1000 * 10).get();
 
         int lottoRound = 0;
         int lottoBonusNumber = 0;

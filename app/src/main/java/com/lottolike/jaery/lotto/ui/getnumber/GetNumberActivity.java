@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lottolike.jaery.lotto.data.userlottodata.source.UserLottoDataRepositoryImpl;
+import com.lottolike.jaery.lotto.data.userlottodata.source.local.LocalUserLottoDataSource;
 import com.lottolike.jaery.lotto.data.util.LottoUtil;
 import com.lottolike.jaery.lotto.data.userlottodata.source.local.LottoDBHelper;
 import com.lottolike.jaery.lotto.R;
@@ -161,6 +163,12 @@ public class GetNumberActivity extends AppCompatActivity implements GetNumberCon
 
     @Override
     public GetNumberContract.Presenter setPresenter() {
-        return new GetNumberPresenter(this, );
+        return new GetNumberPresenter(this, UserLottoDataRepositoryImpl.getInstance(new LocalUserLottoDataSource(this)));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

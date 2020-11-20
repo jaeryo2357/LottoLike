@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainPresenter implements MainContract.Presenter{
@@ -21,17 +22,31 @@ public class MainPresenter implements MainContract.Presenter{
     }
 
     @Override
+    public void start() {
+        getOfficialLottoMainData();
+
+        getRecommendLottoNumber();
+    }
+
+    @Override
     public void getOfficialLottoMainData() {
-        repository.getOfficialLottoData()
+        Disposable disposable = repository.getOfficialLottoData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mainView::showOfficialLottoData);
+                .subscribe(mainView::showOfficialLottoData, Throwable::printStackTrace);
+
+        compositeDisposable.add(disposable);
     }
 
     @Override
     public void getRecommendLottoNumber() {
         ArrayList<Integer> recommendLottoNumber = LottoUtil.INSTANCE.getRecommendLotto();
         mainView.showRecommendNumber(recommendLottoNumber);
+    }
+
+    @Override
+    public void onDestroy() {
+        compositeDisposable.clear();
     }
 
     @Override
@@ -58,12 +73,4 @@ public class MainPresenter implements MainContract.Presenter{
     public void detailButtonClick() {
         mainView.showDetailLottoView();
     }
-
-    @Override
-    public void start() {
-        getOfficialLottoMainData();
-
-        getRecommendLottoNumber();
-    }
-
 }

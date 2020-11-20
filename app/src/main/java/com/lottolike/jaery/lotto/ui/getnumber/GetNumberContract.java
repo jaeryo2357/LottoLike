@@ -30,5 +30,7 @@ public interface GetNumberContract {
         void selfNumberButtonClick(int value);
 
         void clearButtonClick();
+
+        void onDestroy();
     }
 }

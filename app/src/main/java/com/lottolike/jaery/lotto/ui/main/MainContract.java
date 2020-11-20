@@ -42,5 +42,7 @@ public interface MainContract {
         void getOfficialLottoMainData();
 
         void getRecommendLottoNumber();
+
+        void onDestroy();
     }
 }

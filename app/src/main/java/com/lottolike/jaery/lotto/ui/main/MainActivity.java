@@ -189,10 +189,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             lottoTempTextView.setText(number + "");
         }
         //보너스 번호
-        int number = Integer.parseInt(numberList[numberList.length - 1].split("[+]")[1]);
         lottoTempTextView = findViewById(R.id.bonus);
-        lottoTempTextView.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(number));
-        lottoTempTextView.setText(number + "");
+        lottoTempTextView.setBackgroundResource(LottoUtil.INSTANCE.getLottoBackgroundColor(bonus));
+        lottoTempTextView.setText(bonus + "");
     }
 
     private void showLottoRound(int round) {
