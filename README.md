@@ -13,8 +13,9 @@
   - SwiperefreshLayout
 - Java
 - Kotlin
-  - Coroutine
-- RxJava(예정)
+  - Koltin
+  - Coroutines
+- RxJava
 - Jsoup
 
 # 배포 버전 

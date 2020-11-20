@@ -3,238 +3,144 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#ffffff"
     android:layout_height="match_parent"
     tools:context=".ui.SettingActivity">
 
-    <Button
+    <ImageButton
+        android:id="@+id/setting_back"
         android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="13dp"
         android:layout_marginTop="10dp"
-        android:layout_height="30dp"
-        android:background="@drawable/back"
-        android:id="@+id/setting_back">
+        android:background="@drawable/back">
 
-    </Button>
+    </ImageButton>
 
     <TextView
+        android:id="@+id/get_number_t1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/setting_back"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="설정"
         android:textColor="#000000"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_alignBottom="@id/setting_back"
-        android:layout_marginTop="10dp"
         android:textSize="18sp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/get_number_t1">
+        android:textStyle="bold">
 
     </TextView>
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/setting_back"
-        android:layout_marginTop="20dp"
-        android:layout_height="match_parent">
+        android:layout_marginTop="20dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/setting_alert_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:textSize="16sp"
-        android:layout_marginLeft="15dp"
-        android:text="알림설정"
-        android:textColor="#000000">
-    </TextView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/setting_alert_title"
-        android:layout_marginTop="10dp"
-        android:background="#eeeeee"
-        android:id="@+id/setting_v1">
-    </View>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="소리"
-        android:id="@+id/setting_alert_sound"
-        android:layout_below="@id/setting_v1"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:textSize="15sp"
-        ></TextView>
-
-
-
-    <Switch android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/setting_v1"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentRight="true"
-        android:id="@+id/setting_alert_sound_switch"
-        android:layout_marginRight="15dp"
-        android:track="@drawable/switich_track_selector"
-        android:switchMinWidth = "50dp"
-        style="@style/SwitchThumb"
-        >
-    </Switch>
-
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/setting_alert_sound"
-        android:layout_marginTop="10dp"
-        android:background="#eeeeee"
-        android:id="@+id/setting_v2">
-    </View>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="진동"
-        android:id="@+id/setting_alert_vibration"
-        android:layout_below="@id/setting_v2"
-        android:layout_marginLeft="15dp"
-        android:textSize="15sp"
-        android:layout_marginTop="10dp"
-        ></TextView>
-
-
-
-    <Switch android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/setting_v2"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentRight="true"
-        android:id="@+id/setting_alert_vibration_switch"
-        android:layout_marginRight="15dp"
-        android:track="@drawable/switich_track_selector"
-        android:switchMinWidth = "50dp"
-        style="@style/SwitchThumb"
-        >
-    </Switch>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_below="@id/setting_alert_vibration"
-        android:layout_marginTop="10dp"
-        android:background="#eeeeee"
-        android:id="@+id/setting_v3">
-    </View>
-
-
-        <TextView
-            android:id="@+id/setting_personal_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/setting_v3"
-            android:layout_marginTop="20dp"
-            android:textSize="16sp"
-            android:layout_marginLeft="15dp"
-            android:text="기타"
-            android:textColor="#000000">
-        </TextView>
-
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/setting_personal_title"
-            android:layout_marginTop="10dp"
-            android:background="#eeeeee"
-            android:id="@+id/setting_v4">
-        </View>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="오픈소스 라이선스"
-            android:id="@+id/setting_open_source"
-            android:layout_below="@id/setting_v4"
-            android:paddingLeft="15dp"
-            android:background="@drawable/setting_selector"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textSize="15sp"
-            ></TextView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/setting_open_source"
-            android:background="#eeeeee"
-            android:id="@+id/setting_v5">
-        </View>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="개인정보처리방침"
-            android:id="@+id/setting_personal"
-            android:layout_below="@id/setting_v5"
-            android:paddingLeft="15dp"
-            android:background="@drawable/setting_selector"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textSize="15sp"
-            ></TextView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/setting_personal"
-            android:background="#eeeeee"
-            android:id="@+id/setting_v6">
-        </View>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="개발자 연락처"
-            android:id="@+id/setting_personal_email_tv"
-            android:layout_below="@id/setting_v6"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp"
-            ></TextView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="jaeryo2357@gmail.com"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:textColor="#a0a0a0"
-            android:id="@+id/setting_personal_email"
-            android:layout_below="@id/setting_v6"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp"
-            ></TextView>
+            android:layout_height="wrap_content">
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_below="@id/setting_personal_email"
-            android:layout_marginTop="10dp"
-            android:background="#eeeeee"
-            android:id="@+id/setting_v7">
-        </View>
+            <View
+                android:id="@+id/setting_v3"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#eeeeee"></View>
 
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/setting_personal_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_v3"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:text="기타"
+                android:textColor="#000000"
+                android:textSize="16sp"></TextView>
+
+            <View
+                android:id="@+id/setting_v4"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/setting_personal_title"
+                android:layout_marginTop="10dp"
+                android:background="#eeeeee"></View>
+
+            <TextView
+                android:id="@+id/setting_open_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_v4"
+                android:background="@drawable/setting_selector"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="오픈소스 라이선스"
+                android:textSize="15sp"></TextView>
+
+            <View
+                android:id="@+id/setting_v5"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/setting_open_source"
+                android:background="#eeeeee"></View>
+
+            <TextView
+                android:id="@+id/setting_personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_v5"
+                android:background="@drawable/setting_selector"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="개인정보처리방침"
+                android:textSize="15sp"></TextView>
+
+            <View
+                android:id="@+id/setting_v6"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/setting_personal"
+                android:background="#eeeeee"></View>
+
+            <TextView
+                android:id="@+id/setting_personal_email_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_v6"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="개발자 연락처"
+                android:textSize="15sp"></TextView>
+
+            <TextView
+                android:id="@+id/setting_personal_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_v6"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:text="jaeryo2357@gmail.com"
+                android:textColor="#a0a0a0"
+                android:textSize="15sp"></TextView>
+
+
+            <View
+                android:id="@+id/setting_v7"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@id/setting_personal_email"
+                android:layout_marginTop="10dp"
+                android:background="#eeeeee"></View>
+
+
+        </RelativeLayout>
 
     </ScrollView>
 

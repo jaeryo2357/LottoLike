@@ -1,22 +1,32 @@
 package com.lottolike.jaery.lotto.ui.mylist;
 
-import android.content.Context;
+import com.lottolike.jaery.lotto.BasePresenter;
+import com.lottolike.jaery.lotto.BaseView;
+import com.lottolike.jaery.lotto.data.officiallottomaindata.OfficialLottoMainData;
+import com.lottolike.jaery.lotto.data.userlottodata.UserLottoData;
 
-import com.lottolike.jaery.lotto.lotto.model.BasicItem;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public interface MyListContract {
-    interface MyListView {
-        void showMyList(ArrayList<BasicItem> list);
+
+    interface View extends BaseView<Presenter> {
+        void showMyList(List<UserLottoData> userLottoData, OfficialLottoMainData officialLottoMainData);
+
+        void showOfficialDate(OfficialLottoMainData officialLottoMainData);
+
+        void showRefreshIndicator();
+
+        void dismissRefreshIndicator();
 
         void showErrorListEmpty();
     }
 
-    interface MyListPresenter {
+    interface Presenter extends BasePresenter {
 
-        void start(Context context);
+        void calculateMyList();
 
-        void reCalculateMyList();
+        void onSwipeRefresh();
+
+        void onDestroy();
     }
 }
