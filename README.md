@@ -13,8 +13,6 @@
   - SwiperefreshLayout
 - Java
 - Kotlin
-  - Koltin
-  - Coroutines
 - RxJava
 - Jsoup
 
