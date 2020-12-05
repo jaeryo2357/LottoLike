@@ -14,6 +14,7 @@
 - Java
 - RxJava3
 - Jsoup
+- Sqlite
 
 # 배포 버전 
  * **2.1**  -  2020/01/30
