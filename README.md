@@ -12,15 +12,14 @@
   - Constraint Layout
   - SwiperefreshLayout
 - Java
-- Kotlin
-- RxJava
+- RxJava3
 - Jsoup
 
 # 배포 버전 
  * **2.1**  -  2020/01/30
  * **3.4**  -  2020/04/11
  * **4.1**  -  2020/06/01
- 
+
 #### 4.1 start
   > 목표 : 일부 Design 패턴 적용 (MVC)
 
