@@ -20,7 +20,11 @@ public class RemoteOfficialLottoMainDataSource implements OfficialLottoMainDataS
     @Override
     public Single<OfficialLottoMainData> getOfficialLottoData() {
         return Single.create(emitter -> {
-            emitter.onSuccess(getOfficialLottoDataUsingJsoup());
+            try {
+                emitter.onSuccess(getOfficialLottoDataUsingJsoup());
+            } catch (Exception e) {
+                emitter.onError(e);
+            }
         });
     }
 
@@ -34,26 +38,57 @@ public class RemoteOfficialLottoMainDataSource implements OfficialLottoMainDataS
 
         String lottoDateData = document.select("div[class=win_result] p[class=desc]").first().text().substring(1, 14);
 
-        Pattern pattern = Pattern.compile("[0-9]+회");
-        Matcher matcher = pattern.matcher(lottoNumberData);
 
-        if (matcher.find()) {
-            String findData = matcher.group();
-            lottoRound = Integer.parseInt(findData.substring(0, findData.length() - 1));
-        }
+        lottoRound = getLottoRoundParsing(lottoNumberData);
 
-        pattern = Pattern.compile("[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+");
-        matcher = pattern.matcher(lottoNumberData);
-        if (matcher.find()) {
-            lottoNumbers = matcher.group();
-        }
+        lottoNumbers = getLottoNumberParsing(lottoNumberData);
 
-        pattern = Pattern.compile("\\+[0-9]+");
-        matcher = pattern.matcher(lottoNumberData);
-        if (matcher.find()) {
-            lottoBonusNumber = Integer.parseInt(matcher.group());
-        }
+        lottoBonusNumber = getBonusNumberParsing(lottoNumberData);
 
         return new OfficialLottoMainData(lottoRound, lottoBonusNumber, lottoNumbers, lottoDateData);
+    }
+
+    //파싱 메소드를 분리하므로 각각 메소드를 유닛 테스트 할 수 있다.
+
+    public int getLottoRoundParsing(String parsingData) {
+        Pattern pattern = Pattern.compile("[0-9]+회");
+        Matcher matcher = pattern.matcher(parsingData);
+
+        if (matcher.find()) {
+            try {
+                String findData = matcher.group();
+                return Integer.parseInt(findData.substring(0, findData.length() - 1));
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    public String getLottoNumberParsing(String parsingData) {
+        Pattern pattern = Pattern.compile("[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+,[0-9]+");
+        Matcher matcher = pattern.matcher(parsingData);
+
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return "";
+        }
+    }
+
+    public int getBonusNumberParsing(String parsingData) {
+        Pattern pattern = Pattern.compile("\\+[0-9]+");
+        Matcher matcher = pattern.matcher(parsingData);
+
+        if (matcher.find()) {
+            try {
+                return Integer.parseInt(matcher.group());
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
 }
