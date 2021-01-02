@@ -10,8 +10,8 @@ android {
         applicationId "com.lottolike.jaery.Lotto"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 15
-        versionName "5.1"
+        versionCode 16
+        versionName "5.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
